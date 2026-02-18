@@ -25,7 +25,7 @@ Welcome to the official API documentation for iEdison. Use the links below to na
 * **[Notification API Reference](./docs/Notification-API-Reference.html)**
 * **[Document API Reference](./docs/Document-API-Reference.html)**
 
-### 🛠 Developer Resources
+### Developer Resources
 * **[Code Sample](./docs/Code-Sample.html)**
 * **[Lookup Values](./docs/Lookup-Values.html)**
 
