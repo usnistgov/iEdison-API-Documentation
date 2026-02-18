@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html class="nist-footer-bottom">
 <head>
     <title>iEdison API Documentation</title>
