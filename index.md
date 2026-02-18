@@ -1,6 +1,6 @@
 ---
 layout: default
-title: iEdison-API Documentation
+title: iEdison API Documentation
 ---
 
 <head>
