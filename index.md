@@ -1,6 +1,6 @@
 <html class="nist-footer-bottom">
 <head>
-    <title>iEdison API Documentation</title>
+    <title>iEdison-API Documentation</title>
 
 <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
       <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
