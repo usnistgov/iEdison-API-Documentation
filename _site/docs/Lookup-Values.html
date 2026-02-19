@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lookup Values | iEdison API</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer-v-2.0.js" type="text/javascript" defer="defer"></script>
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="/">iEdison API</a>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search documentation...">
+      <button onclick="searchDocs()">Search</button>
+    </div>
+    <nav class="site-nav">
+      <a href="/docs/Introduction">Docs</a>
+      <a href="mailto:support@iedison.gov">Contact</a>
+    </nav>
+  </div>
+</header>
+<script>
+function searchDocs() {
+  const query = document.getElementById('search-input').value.toLowerCase();
+  if (!query) return;
+  
+  const content = document.querySelector('.page-content');
+  const text = content.innerText.toLowerCase();
+  
+  if (text.includes(query)) {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+    
+    selection.removeAllRanges();
+    
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const index = node.textContent.toLowerCase().indexOf(query);
+      if (index !== -1) {
+        range.setStart(node, index);
+        range.setEnd(node, index + query.length);
+        selection.addRange(range);
+        node.parentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        break;
+      }
+    }
+  } else {
+    alert('No results found for: ' + query);
+  }
+}
+
+document.getElementById('search-input').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') searchDocs();
+});
+</script>
+
+  <main class="page-content">
+    <div class="wrapper">
+      <h1 id="lookup-values">Lookup Values</h1>
+
+<p>The tables below contain lookup values used in the API.</p>
+
+<h2 id="agency-mapping-list">Agency Mapping List</h2>
+
+<p>Click here to see list of all iEdison enrolled agencies. Be advised that the API cannot be used for agencies that have the following red notice “THIS AGENCY IS CURRENTLY INACTIVE IN IEDISON”</p>
+
+<h2 id="agreement-types">Agreement Types</h2>
+
+<p>List of available Agreement Types</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cooperative Agreement</td>
+    </tr>
+    <tr>
+      <td>Grant</td>
+    </tr>
+    <tr>
+      <td>Contract</td>
+    </tr>
+    <tr>
+      <td>ACT = DoE Specific</td>
+    </tr>
+    <tr>
+      <td>Other Funding Agreement</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="award-type">Award Type</h2>
+
+<p>List of the Invention funding agreement Award types</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Prime Award</td>
+    </tr>
+    <tr>
+      <td>Sub-Award</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="country-list">Country List</h2>
+
+<p>A list of valid country Names and FIPs Country Codes.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>FIPs Country Codes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AFGHANISTAN</td>
+      <td>AF</td>
+    </tr>
+    <tr>
+      <td>African Manufacturer Intellectual Property Organization</td>
+      <td>OAPI</td>
+    </tr>
+    <tr>
+      <td>African Regional Manufacturer Intellectual Property Organization</td>
+      <td>ARIPO</td>
+    </tr>
+    <tr>
+      <td>ALBANIA</td>
+      <td>AL</td>
+    </tr>
+    <tr>
+      <td>ALGERIA</td>
+      <td>AG</td>
+    </tr>
+    <tr>
+      <td>ANDORRA</td>
+      <td>AN</td>
+    </tr>
+    <tr>
+      <td>ANGOLA</td>
+      <td>AO</td>
+    </tr>
+    <tr>
+      <td>ANGUILLA</td>
+      <td>AV</td>
+    </tr>
+    <tr>
+      <td>ANTIGUA/BARBUD</td>
+      <td>AC</td>
+    </tr>
+    <tr>
+      <td>ARGENTINA</td>
+      <td>AR</td>
+    </tr>
+    <tr>
+      <td>ARMENIA</td>
+      <td>AM</td>
+    </tr>
+    <tr>
+      <td>ARUBA</td>
+      <td>AA</td>
+    </tr>
+    <tr>
+      <td>AUSTRALIA</td>
+      <td>AS</td>
+    </tr>
+    <tr>
+      <td>AUSTRIA</td>
+      <td>AU</td>
+    </tr>
+    <tr>
+      <td>AZERBAIJAN</td>
+      <td>AJ</td>
+    </tr>
+    <tr>
+      <td>BAHAMAS</td>
+      <td>BF</td>
+    </tr>
+    <tr>
+      <td>BAHRAIN</td>
+      <td>BA</td>
+    </tr>
+    <tr>
+      <td>BANGLADESH</td>
+      <td>BG</td>
+    </tr>
+    <tr>
+      <td>BARBADOS</td>
+      <td>BB</td>
+    </tr>
+    <tr>
+      <td>BELARUS</td>
+      <td>BO</td>
+    </tr>
+    <tr>
+      <td>BELGIUM</td>
+      <td>BE</td>
+    </tr>
+    <tr>
+      <td>BELIZE</td>
+      <td>BH</td>
+    </tr>
+    <tr>
+      <td>BENIN</td>
+      <td>BN</td>
+    </tr>
+    <tr>
+      <td>BERMUDA</td>
+      <td>BD</td>
+    </tr>
+    <tr>
+      <td>BHUTAN</td>
+      <td>BT</td>
+    </tr>
+    <tr>
+      <td>BOLIVIA</td>
+      <td>BL</td>
+    </tr>
+    <tr>
+      <td>BOSNIA/HERZEG</td>
+      <td>BK</td>
+    </tr>
+    <tr>
+      <td>BOTSWANA</td>
+      <td>BC</td>
+    </tr>
+    <tr>
+      <td>BRAZIL</td>
+      <td>BR</td>
+    </tr>
+    <tr>
+      <td>BRITISH VI ISS</td>
+      <td>VI</td>
+    </tr>
+    <tr>
+      <td>BRUNEI</td>
+      <td>BX</td>
+    </tr>
+    <tr>
+      <td>BULGARIA</td>
+      <td>BU</td>
+    </tr>
+    <tr>
+      <td>BURKINA</td>
+      <td>UV</td>
+    </tr>
+    <tr>
+      <td>BURUNDI</td>
+      <td>BY</td>
+    </tr>
+    <tr>
+      <td>CABO VERDE</td>
+      <td>CV</td>
+    </tr>
+    <tr>
+      <td>CAMBODIA</td>
+      <td>CB</td>
+    </tr>
+    <tr>
+      <td>CAMEROON</td>
+      <td>CM</td>
+    </tr>
+    <tr>
+      <td>CANADA</td>
+      <td>CA</td>
+    </tr>
+    <tr>
+      <td>CAYMAN ISLANDS</td>
+      <td>CJ</td>
+    </tr>
+    <tr>
+      <td>CENTRAL AFR R</td>
+      <td>CT</td>
+    </tr>
+    <tr>
+      <td>CHAD</td>
+      <td>CD</td>
+    </tr>
+    <tr>
+      <td>CHILE</td>
+      <td>CI</td>
+    </tr>
+    <tr>
+      <td>CHINA</td>
+      <td>CH</td>
+    </tr>
+    <tr>
+      <td>COLOMBIA</td>
+      <td>CO</td>
+    </tr>
+    <tr>
+      <td>COMOROS</td>
+      <td>CN</td>
+    </tr>
+    <tr>
+      <td>CONGO</td>
+      <td>CF</td>
+    </tr>
+    <tr>
+      <td>CONGO DEM REP</td>
+      <td>CG</td>
+    </tr>
+    <tr>
+      <td>COSTA RICA</td>
+      <td>CS</td>
+    </tr>
+    <tr>
+      <td>COTE D’IVOIRE</td>
+      <td>IV</td>
+    </tr>
+    <tr>
+      <td>CROATIA</td>
+      <td>HR</td>
+    </tr>
+    <tr>
+      <td>CUBA</td>
+      <td>CU</td>
+    </tr>
+    <tr>
+      <td>CYPRUS</td>
+      <td>CY</td>
+    </tr>
+    <tr>
+      <td>CZECH REPUBLIC</td>
+      <td>EZ</td>
+    </tr>
+    <tr>
+      <td>DENMARK</td>
+      <td>DA</td>
+    </tr>
+    <tr>
+      <td>DJIBOUTI</td>
+      <td>DJ</td>
+    </tr>
+    <tr>
+      <td>DOMINICA</td>
+      <td>DO</td>
+    </tr>
+    <tr>
+      <td>DOMINICAN REP</td>
+      <td>DR</td>
+    </tr>
+    <tr>
+      <td>ECUADOR</td>
+      <td>EC</td>
+    </tr>
+    <tr>
+      <td>EGYPT</td>
+      <td>EG</td>
+    </tr>
+    <tr>
+      <td>EL SALVADOR</td>
+      <td>ES</td>
+    </tr>
+    <tr>
+      <td>EQUATOR GUINEA</td>
+      <td>EK</td>
+    </tr>
+    <tr>
+      <td>ERITREA</td>
+      <td>ER</td>
+    </tr>
+    <tr>
+      <td>ESTONIA</td>
+      <td>EN</td>
+    </tr>
+    <tr>
+      <td>ESWATINI</td>
+      <td>WZ</td>
+    </tr>
+    <tr>
+      <td>ETHIOPIA</td>
+      <td>ET</td>
+    </tr>
+    <tr>
+      <td>Eurasian Patent Organization</td>
+      <td>EAPO</td>
+    </tr>
+    <tr>
+      <td>European Patent Organization</td>
+      <td>EPO</td>
+    </tr>
+    <tr>
+      <td>FALKLAND ISS</td>
+      <td>FX</td>
+    </tr>
+    <tr>
+      <td>FIJI</td>
+      <td>FJ</td>
+    </tr>
+    <tr>
+      <td>FINLAND</td>
+      <td>FI</td>
+    </tr>
+    <tr>
+      <td>FRANCE</td>
+      <td>FR</td>
+    </tr>
+    <tr>
+      <td>FRENCH POLYNES</td>
+      <td>FP</td>
+    </tr>
+    <tr>
+      <td>GABON</td>
+      <td>GB</td>
+    </tr>
+    <tr>
+      <td>GAMBIA</td>
+      <td>GA</td>
+    </tr>
+    <tr>
+      <td>GAZA STRIP</td>
+      <td>GZ</td>
+    </tr>
+    <tr>
+      <td>GEORGIA</td>
+      <td>GG</td>
+    </tr>
+    <tr>
+      <td>GERMANY</td>
+      <td>GM</td>
+    </tr>
+    <tr>
+      <td>GHANA</td>
+      <td>GH</td>
+    </tr>
+    <tr>
+      <td>GIBRALTAR</td>
+      <td>GI</td>
+    </tr>
+    <tr>
+      <td>GREECE</td>
+      <td>GR</td>
+    </tr>
+    <tr>
+      <td>GREENLAND</td>
+      <td>GL</td>
+    </tr>
+    <tr>
+      <td>GRENADA</td>
+      <td>GJ</td>
+    </tr>
+    <tr>
+      <td>GUATEMALA</td>
+      <td>GT</td>
+    </tr>
+    <tr>
+      <td>GUERNSEY</td>
+      <td>GK</td>
+    </tr>
+    <tr>
+      <td>GUINEA</td>
+      <td>GV</td>
+    </tr>
+    <tr>
+      <td>GUINEA-BISSAU</td>
+      <td>PU</td>
+    </tr>
+    <tr>
+      <td>GUYANA</td>
+      <td>GY</td>
+    </tr>
+    <tr>
+      <td>HAITI</td>
+      <td>HA</td>
+    </tr>
+    <tr>
+      <td>HONDURAS</td>
+      <td>HO</td>
+    </tr>
+    <tr>
+      <td>HONG KONG</td>
+      <td>HK</td>
+    </tr>
+    <tr>
+      <td>HUNGARY</td>
+      <td>HU</td>
+    </tr>
+    <tr>
+      <td>ICELAND</td>
+      <td>IC</td>
+    </tr>
+    <tr>
+      <td>INDIA</td>
+      <td>IN</td>
+    </tr>
+    <tr>
+      <td>INDONESIA</td>
+      <td>ID</td>
+    </tr>
+    <tr>
+      <td>IRAN</td>
+      <td>IR</td>
+    </tr>
+    <tr>
+      <td>IRAQ</td>
+      <td>IZ</td>
+    </tr>
+    <tr>
+      <td>IRELAND</td>
+      <td>EI</td>
+    </tr>
+    <tr>
+      <td>ISRAEL</td>
+      <td>IS</td>
+    </tr>
+    <tr>
+      <td>ITALY</td>
+      <td>IT</td>
+    </tr>
+    <tr>
+      <td>JAMAICA</td>
+      <td>JM</td>
+    </tr>
+    <tr>
+      <td>JAPAN</td>
+      <td>JA</td>
+    </tr>
+    <tr>
+      <td>JERSEY</td>
+      <td>JE</td>
+    </tr>
+    <tr>
+      <td>JORDAN</td>
+      <td>JO</td>
+    </tr>
+    <tr>
+      <td>KAZAKHSTAN</td>
+      <td>KZ</td>
+    </tr>
+    <tr>
+      <td>KENYA</td>
+      <td>KE</td>
+    </tr>
+    <tr>
+      <td>KIRIBATI</td>
+      <td>KR</td>
+    </tr>
+    <tr>
+      <td>KOREA PEO REP</td>
+      <td>KN</td>
+    </tr>
+    <tr>
+      <td>KOREA REP OF</td>
+      <td>KS</td>
+    </tr>
+    <tr>
+      <td>KOSOVO</td>
+      <td>KV</td>
+    </tr>
+    <tr>
+      <td>KUWAIT</td>
+      <td>KU</td>
+    </tr>
+    <tr>
+      <td>KYRGYZSTAN</td>
+      <td>KG</td>
+    </tr>
+    <tr>
+      <td>LAOS</td>
+      <td>LA</td>
+    </tr>
+    <tr>
+      <td>LATVIA</td>
+      <td>LG</td>
+    </tr>
+    <tr>
+      <td>LEBANON</td>
+      <td>LE</td>
+    </tr>
+    <tr>
+      <td>LESOTHO</td>
+      <td>LT</td>
+    </tr>
+    <tr>
+      <td>LIBERIA</td>
+      <td>LI</td>
+    </tr>
+    <tr>
+      <td>LIBYA</td>
+      <td>LY</td>
+    </tr>
+    <tr>
+      <td>LIECHTENSTEIN</td>
+      <td>LS</td>
+    </tr>
+    <tr>
+      <td>LITHUANIA</td>
+      <td>LH</td>
+    </tr>
+    <tr>
+      <td>LUXEMBOURG</td>
+      <td>LU</td>
+    </tr>
+    <tr>
+      <td>MACAU</td>
+      <td>MC</td>
+    </tr>
+    <tr>
+      <td>MADAGASCAR</td>
+      <td>MA</td>
+    </tr>
+    <tr>
+      <td>MALAWI</td>
+      <td>MI</td>
+    </tr>
+    <tr>
+      <td>MALAYSIA</td>
+      <td>MY</td>
+    </tr>
+    <tr>
+      <td>MALDIVES</td>
+      <td>MV</td>
+    </tr>
+    <tr>
+      <td>MALI</td>
+      <td>ML</td>
+    </tr>
+    <tr>
+      <td>MALTA</td>
+      <td>MT</td>
+    </tr>
+    <tr>
+      <td>MAURITANIA</td>
+      <td>MR</td>
+    </tr>
+    <tr>
+      <td>MAURITIUS</td>
+      <td>MP</td>
+    </tr>
+    <tr>
+      <td>MEXICO</td>
+      <td>MX</td>
+    </tr>
+    <tr>
+      <td>MOLDOVA</td>
+      <td>MD</td>
+    </tr>
+    <tr>
+      <td>MONACO</td>
+      <td>MN</td>
+    </tr>
+    <tr>
+      <td>MONGOLIA</td>
+      <td>MG</td>
+    </tr>
+    <tr>
+      <td>MONTENEGRO</td>
+      <td>MW</td>
+    </tr>
+    <tr>
+      <td>MONTSERRAT</td>
+      <td>MH</td>
+    </tr>
+    <tr>
+      <td>MOROCCO</td>
+      <td>MO</td>
+    </tr>
+    <tr>
+      <td>MOZAMBIQUE</td>
+      <td>MZ</td>
+    </tr>
+    <tr>
+      <td>MYANMAR</td>
+      <td>BM</td>
+    </tr>
+    <tr>
+      <td>NAMIBIA</td>
+      <td>WA</td>
+    </tr>
+    <tr>
+      <td>NAURU</td>
+      <td>NR</td>
+    </tr>
+    <tr>
+      <td>NEPAL</td>
+      <td>NP</td>
+    </tr>
+    <tr>
+      <td>NETHERLANDS</td>
+      <td>NL</td>
+    </tr>
+    <tr>
+      <td>NEW ZEALAND</td>
+      <td>NZ</td>
+    </tr>
+    <tr>
+      <td>NICARAGUA</td>
+      <td>NU</td>
+    </tr>
+    <tr>
+      <td>NIGER</td>
+      <td>NG</td>
+    </tr>
+    <tr>
+      <td>NIGERIA</td>
+      <td>NI</td>
+    </tr>
+    <tr>
+      <td>NORTH MACEDONIA</td>
+      <td>MK</td>
+    </tr>
+    <tr>
+      <td>NORWAY</td>
+      <td>NO</td>
+    </tr>
+    <tr>
+      <td>OMAN</td>
+      <td>MU</td>
+    </tr>
+    <tr>
+      <td>PAKISTAN</td>
+      <td>PK</td>
+    </tr>
+    <tr>
+      <td>PANAMA</td>
+      <td>PM</td>
+    </tr>
+    <tr>
+      <td>PAPUA N GUINEA</td>
+      <td>PP</td>
+    </tr>
+    <tr>
+      <td>PARAGUAY</td>
+      <td>PA</td>
+    </tr>
+    <tr>
+      <td>Patent Office of the Cooperation Council for the Arab States of the Gulf</td>
+      <td>GCCPO</td>
+    </tr>
+    <tr>
+      <td>PERU</td>
+      <td>PE</td>
+    </tr>
+    <tr>
+      <td>PHILIPPINES</td>
+      <td>RP</td>
+    </tr>
+    <tr>
+      <td>POLAND</td>
+      <td>PL</td>
+    </tr>
+    <tr>
+      <td>PORTUGAL</td>
+      <td>PO</td>
+    </tr>
+    <tr>
+      <td>QATAR</td>
+      <td>QA</td>
+    </tr>
+    <tr>
+      <td>ROMANIA</td>
+      <td>RO</td>
+    </tr>
+    <tr>
+      <td>RUSSIA</td>
+      <td>RS</td>
+    </tr>
+    <tr>
+      <td>RWANDA</td>
+      <td>RW</td>
+    </tr>
+    <tr>
+      <td>SAMOA</td>
+      <td>WS</td>
+    </tr>
+    <tr>
+      <td>SAN MARINO</td>
+      <td>SM</td>
+    </tr>
+    <tr>
+      <td>SAO TOME/PRINC</td>
+      <td>TP</td>
+    </tr>
+    <tr>
+      <td>SAUDI ARABIA</td>
+      <td>SA</td>
+    </tr>
+    <tr>
+      <td>SENEGAL</td>
+      <td>SG</td>
+    </tr>
+    <tr>
+      <td>SERBIA</td>
+      <td>SR</td>
+    </tr>
+    <tr>
+      <td>SEYCHELLES</td>
+      <td>SE</td>
+    </tr>
+    <tr>
+      <td>SIERRA LEONE</td>
+      <td>SL</td>
+    </tr>
+    <tr>
+      <td>SINGAPORE</td>
+      <td>SN</td>
+    </tr>
+    <tr>
+      <td>SLOVAKIA</td>
+      <td>LO</td>
+    </tr>
+    <tr>
+      <td>SLOVENIA</td>
+      <td>SI</td>
+    </tr>
+    <tr>
+      <td>SOLOMON ISS</td>
+      <td>BP</td>
+    </tr>
+    <tr>
+      <td>SOMALIA</td>
+      <td>SO</td>
+    </tr>
+    <tr>
+      <td>SOUTH AFRICA</td>
+      <td>SF</td>
+    </tr>
+    <tr>
+      <td>SOUTH SUDAN</td>
+      <td>SS</td>
+    </tr>
+    <tr>
+      <td>SPAIN</td>
+      <td>SP</td>
+    </tr>
+    <tr>
+      <td>SRI LANKA</td>
+      <td>CE</td>
+    </tr>
+    <tr>
+      <td>ST HELENA</td>
+      <td>SH</td>
+    </tr>
+    <tr>
+      <td>ST KITTS/NEVIS</td>
+      <td>SC</td>
+    </tr>
+    <tr>
+      <td>ST LUCIA</td>
+      <td>ST</td>
+    </tr>
+    <tr>
+      <td>ST VINCENT/GRN</td>
+      <td>VC</td>
+    </tr>
+    <tr>
+      <td>SUDAN</td>
+      <td>SU</td>
+    </tr>
+    <tr>
+      <td>SURINAME</td>
+      <td>NS</td>
+    </tr>
+    <tr>
+      <td>SWEDEN</td>
+      <td>SW</td>
+    </tr>
+    <tr>
+      <td>SWITZERLAND</td>
+      <td>SZ</td>
+    </tr>
+    <tr>
+      <td>SYRIA</td>
+      <td>SY</td>
+    </tr>
+    <tr>
+      <td>TAIWAN</td>
+      <td>TW</td>
+    </tr>
+    <tr>
+      <td>TAJIKISTAN</td>
+      <td>TI</td>
+    </tr>
+    <tr>
+      <td>TANZANIA U REP</td>
+      <td>TZ</td>
+    </tr>
+    <tr>
+      <td>THAILAND</td>
+      <td>TH</td>
+    </tr>
+    <tr>
+      <td>TIMOR-LESTE</td>
+      <td>TT</td>
+    </tr>
+    <tr>
+      <td>TOGO</td>
+      <td>TO</td>
+    </tr>
+    <tr>
+      <td>TONGA</td>
+      <td>TN</td>
+    </tr>
+    <tr>
+      <td>TRINIDAD/TOBA</td>
+      <td>TD</td>
+    </tr>
+    <tr>
+      <td>TUNISIA</td>
+      <td>TS</td>
+    </tr>
+    <tr>
+      <td>TURKEY</td>
+      <td>TU</td>
+    </tr>
+    <tr>
+      <td>TURKMENISTAN</td>
+      <td>TX</td>
+    </tr>
+    <tr>
+      <td>TURKS/CAICOS I</td>
+      <td>TK</td>
+    </tr>
+    <tr>
+      <td>TUVALU</td>
+      <td>TV</td>
+    </tr>
+    <tr>
+      <td>UGANDA</td>
+      <td>UG</td>
+    </tr>
+    <tr>
+      <td>UKRAINE</td>
+      <td>UP</td>
+    </tr>
+    <tr>
+      <td>Unified Patent Court</td>
+      <td>UPC</td>
+    </tr>
+    <tr>
+      <td>UNITED ARAB EM</td>
+      <td>TC</td>
+    </tr>
+    <tr>
+      <td>UNITED KINGDOM</td>
+      <td>UK</td>
+    </tr>
+    <tr>
+      <td>UNITED STATES</td>
+      <td>US</td>
+    </tr>
+    <tr>
+      <td>URUGUAY</td>
+      <td>UY</td>
+    </tr>
+    <tr>
+      <td>UZBEKISTAN</td>
+      <td>UZ</td>
+    </tr>
+    <tr>
+      <td>VANUATU</td>
+      <td>NH</td>
+    </tr>
+    <tr>
+      <td>VENEZUELA</td>
+      <td>VE</td>
+    </tr>
+    <tr>
+      <td>VIETNAM</td>
+      <td>VM</td>
+    </tr>
+    <tr>
+      <td>WEST BANK</td>
+      <td>WE</td>
+    </tr>
+    <tr>
+      <td>YEMEN</td>
+      <td>YM</td>
+    </tr>
+    <tr>
+      <td>YUGOSLAVIA</td>
+      <td>YO</td>
+    </tr>
+    <tr>
+      <td>ZAMBIA</td>
+      <td>ZA</td>
+    </tr>
+    <tr>
+      <td>ZIMBABWE</td>
+      <td>ZI</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="invention-development-stage">Invention Development Stage</h2>
+
+<p>List of available Invention Development Stages</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Commercialized</td>
+    </tr>
+    <tr>
+      <td>Licensed</td>
+    </tr>
+    <tr>
+      <td>Not Licensed</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="invention-disposition">Invention Disposition</h2>
+
+<p>The decision of the agency as to how to proceed with the technology. This field will be auto populated or set by the Primary Agency. It will be populated automatically to “Barred” if a Patent is not filed within one year of the “Date of the First Publication/Sale/Public Use” or as “Void,” “Transferred/Assigned” after a request is granted. Otherwise, the Disposition Status will be set by the Primary Agency in response to the selection of “Does Not Retain Title.”</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Government Does Not Retain Rights</td>
+      <td>Active status to allow for agency clients to use in the request only. Organization can only view this in response data.</td>
+    </tr>
+    <tr>
+      <td>Government Retains Rights</td>
+      <td>Active status to allow for agency clients to use in the request only. Organization can only view this in response data.</td>
+    </tr>
+    <tr>
+      <td>Not Elect Title – Waive to Government</td>
+      <td>Non-Active status for response data view only. This shall not be used in the request for create or update.</td>
+    </tr>
+    <tr>
+      <td>Not Elect Title – Waive to Third Party</td>
+      <td>Non-Active status for response data view only. This shall not be used in the request for create or update.</td>
+    </tr>
+    <tr>
+      <td>Request for Inventor Waiver</td>
+      <td>Non-Active status for response data view only. This shall not be used in the request for create or update.</td>
+    </tr>
+    <tr>
+      <td>Assignment Approved</td>
+      <td>Non-Active status for response data view only. This shall not be used in the request for create or update.</td>
+    </tr>
+    <tr>
+      <td>Assignment Denied</td>
+      <td>Non-Active status for response data view only. This shall not be used in the request for create or update.</td>
+    </tr>
+    <tr>
+      <td>Barred</td>
+      <td>Active status to allow system to automatically set the Barred status. This status is used in response data only. This value shall not be used in API create or update request.</td>
+    </tr>
+    <tr>
+      <td>Voided</td>
+      <td>Active status value. Primary Agency can update the disposition status to Voided with API update request only. Title Election Status will change to Voided when Disposition Status is updated to Voided.</td>
+    </tr>
+    <tr>
+      <td>Transferred</td>
+      <td>Active status value. But it cannot be used in API create or update request. Response data for Organization. This will be set automatically when the Primary Agency approves the request. Note: Transferred status is for response data only. Updating an Invention to transfer status must go through Web Application Interface.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="invention-does-not-retain-title-reason">Invention Does Not Retain Title Reason</h2>
+
+<p>The Invention Does Not Retain Title Reason values must be provided when the Title Election Status is set to “Does Not Retain Title”.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Low Commercial Potential</td>
+    </tr>
+    <tr>
+      <td>Non-Patentable (Not Novel)</td>
+    </tr>
+    <tr>
+      <td>Non-Patentable (Not Useful)</td>
+    </tr>
+    <tr>
+      <td>Non-Patentable (Obvious)</td>
+    </tr>
+    <tr>
+      <td>Did Not Yield Expected Results</td>
+    </tr>
+    <tr>
+      <td>Budget Limitation</td>
+    </tr>
+    <tr>
+      <td>Immature Market</td>
+    </tr>
+    <tr>
+      <td>Other</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="inventor-us-federal-employee">Inventor US Federal Employee</h2>
+
+<p>Is inventor a federal employee?</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>false</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="patent-filing-status">Patent Filing Status</h2>
+
+<p>List of available Patent filing status</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Active</td>
+    </tr>
+    <tr>
+      <td>Expired</td>
+    </tr>
+    <tr>
+      <td>Abandoned</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="patent-action-document-type">Patent Action Document Type</h2>
+
+<p>The iEdison Patent Action Document Type.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CL</td>
+      <td>Confirmatory License</td>
+    </tr>
+    <tr>
+      <td>SC</td>
+      <td>Government Support Clause</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="patent-action-type">Patent Action Type</h2>
+
+<p>The iEdison Patent Action Type.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>Accept</td>
+    </tr>
+    <tr>
+      <td>R</td>
+      <td>Reject</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="patent-application-types">Patent Application Types</h2>
+
+<p>List of available Patent Application Types</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Patent Application Type</th>
+      <th>Description</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CIP</td>
+      <td>Continuation-In-Part</td>
+      <td>Active Patent application type. This can be used in the Patent create and update API requests.</td>
+    </tr>
+    <tr>
+      <td>CON</td>
+      <td>Continuation</td>
+      <td>Active Patent application type. This can be used in the Patent create and update API requests.</td>
+    </tr>
+    <tr>
+      <td>CPA</td>
+      <td>Continued Prosecution Application</td>
+      <td>Non-Active Patent application type. This can NOT be used in the Patent create and update API requests.</td>
+    </tr>
+    <tr>
+      <td>DIV</td>
+      <td>Divisional</td>
+      <td>Active Patent application type. This can be used in the Patent create and update API requests.</td>
+    </tr>
+    <tr>
+      <td>FWC</td>
+      <td>File Wrapper Continuing</td>
+      <td>Non-Active Patent application type. This can NOT be used in the Patent create and update API requests.</td>
+    </tr>
+    <tr>
+      <td>ORD</td>
+      <td>Ordinary Utility</td>
+      <td>Active Patent application type. This can be used in the Patent create and update API requests.</td>
+    </tr>
+    <tr>
+      <td>PROV</td>
+      <td>Provisional</td>
+      <td>Active Patent application type. This can be used in the Patent create and update API requests.</td>
+    </tr>
+    <tr>
+      <td>PVP</td>
+      <td>Plant Variety Protection</td>
+      <td>Active Patent application type. This can be used in the Patent create and update API requests.</td>
+    </tr>
+    <tr>
+      <td>RCE</td>
+      <td>Request for Continued Examination</td>
+      <td>Non-Active Patent application type. This can NOT be used in the Patent create and update API requests.</td>
+    </tr>
+    <tr>
+      <td>PCT</td>
+      <td>PCT Designating the US</td>
+      <td>Active Patent application type. This can be used in the Patent create and update API requests.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="patent-status">Patent Status</h2>
+
+<p>The iEdison Patent status list of value.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Transferred/Assigned</td>
+      <td>This status value shall not be used in API request. Organization needs to use the UI to submit a Transfer Patent Request.</td>
+    </tr>
+    <tr>
+      <td>Voided</td>
+      <td>This status value shall not be used in API request. Organization needs to use the UI to submit a Void Patent Request.</td>
+    </tr>
+    <tr>
+      <td>Expired</td>
+      <td>This status value shall be used for the Patent Application Types of DIV, ORD, PVP, CIP, and CON</td>
+    </tr>
+    <tr>
+      <td>Abandoned/Intent to Abandon</td>
+      <td>This value can be used for both organization and agency clients in the Patent request</td>
+    </tr>
+    <tr>
+      <td>Institution Retains Rights</td>
+      <td>This value can be used for both organization and agency clients in the Patent request</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="states-list">States List</h2>
+
+<p>The 2-letter code for U.S. states and territories. For use contractorState and Utilization Manufacturing locations. Use the appropriate ‘Code’ for in the request.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ALABAMA</td>
+      <td>AL</td>
+    </tr>
+    <tr>
+      <td>ALASKA</td>
+      <td>AK</td>
+    </tr>
+    <tr>
+      <td>ALBERTA</td>
+      <td>AB</td>
+    </tr>
+    <tr>
+      <td>AMERICAN SAMOA</td>
+      <td>AS</td>
+    </tr>
+    <tr>
+      <td>AP0/FP0 EUROPE</td>
+      <td>AE</td>
+    </tr>
+    <tr>
+      <td>AP0/FP0 OT PAC</td>
+      <td>AP</td>
+    </tr>
+    <tr>
+      <td>AP0/FP0 S AMER</td>
+      <td>AA</td>
+    </tr>
+    <tr>
+      <td>ARIZONA</td>
+      <td>AZ</td>
+    </tr>
+    <tr>
+      <td>ARKANSAS</td>
+      <td>AR</td>
+    </tr>
+    <tr>
+      <td>BAKER ISLAND</td>
+      <td>FQ</td>
+    </tr>
+    <tr>
+      <td>BR. COLUMBIA</td>
+      <td>BC</td>
+    </tr>
+    <tr>
+      <td>CALIFORNIA</td>
+      <td>CA</td>
+    </tr>
+    <tr>
+      <td>COLORADO</td>
+      <td>CO</td>
+    </tr>
+    <tr>
+      <td>CONNECTICUT</td>
+      <td>CT</td>
+    </tr>
+    <tr>
+      <td>DELAWARE</td>
+      <td>DE</td>
+    </tr>
+    <tr>
+      <td>DIST OF COL</td>
+      <td>DC</td>
+    </tr>
+    <tr>
+      <td>FED MICRONESIA</td>
+      <td>FM</td>
+    </tr>
+    <tr>
+      <td>FLORIDA</td>
+      <td>FL</td>
+    </tr>
+    <tr>
+      <td>GEORGIA</td>
+      <td>GA</td>
+    </tr>
+    <tr>
+      <td>GUAM</td>
+      <td>GU</td>
+    </tr>
+    <tr>
+      <td>HAWAII</td>
+      <td>HI</td>
+    </tr>
+    <tr>
+      <td>HOWARD ISLAND</td>
+      <td>HQ</td>
+    </tr>
+    <tr>
+      <td>IDAHO</td>
+      <td>ID</td>
+    </tr>
+    <tr>
+      <td>ILLINOIS</td>
+      <td>IL</td>
+    </tr>
+    <tr>
+      <td>INDIANA</td>
+      <td>IN</td>
+    </tr>
+    <tr>
+      <td>IOWA</td>
+      <td>IA</td>
+    </tr>
+    <tr>
+      <td>JOHNSTON ATOLL</td>
+      <td>JQ</td>
+    </tr>
+    <tr>
+      <td>KANSAS</td>
+      <td>KS</td>
+    </tr>
+    <tr>
+      <td>KENTUCKY</td>
+      <td>KY</td>
+    </tr>
+    <tr>
+      <td>KINGMAN REEF</td>
+      <td>KQ</td>
+    </tr>
+    <tr>
+      <td>LOUISIANA</td>
+      <td>LA</td>
+    </tr>
+    <tr>
+      <td>MAINE</td>
+      <td>ME</td>
+    </tr>
+    <tr>
+      <td>MANITOBA</td>
+      <td>MB</td>
+    </tr>
+    <tr>
+      <td>MARSHALL IS</td>
+      <td>MH</td>
+    </tr>
+    <tr>
+      <td>MARYLAND</td>
+      <td>MD</td>
+    </tr>
+    <tr>
+      <td>MASSACHUSETTS</td>
+      <td>MA</td>
+    </tr>
+    <tr>
+      <td>MICHIGAN</td>
+      <td>MI</td>
+    </tr>
+    <tr>
+      <td>MIDWAY ISLANDS</td>
+      <td>MQ</td>
+    </tr>
+    <tr>
+      <td>MINNESOTA</td>
+      <td>MN</td>
+    </tr>
+    <tr>
+      <td>MISSISSIPPI</td>
+      <td>MS</td>
+    </tr>
+    <tr>
+      <td>MISSOURI</td>
+      <td>MO</td>
+    </tr>
+    <tr>
+      <td>MONTANA</td>
+      <td>MT</td>
+    </tr>
+    <tr>
+      <td>NAVASSA ISLAND</td>
+      <td>BQ</td>
+    </tr>
+    <tr>
+      <td>NEBRASKA</td>
+      <td>NE</td>
+    </tr>
+    <tr>
+      <td>NEVADA</td>
+      <td>NV</td>
+    </tr>
+    <tr>
+      <td>NEW BRUNSWICK</td>
+      <td>NB</td>
+    </tr>
+    <tr>
+      <td>NEW HAMPSHIRE</td>
+      <td>NH</td>
+    </tr>
+    <tr>
+      <td>NEW JERSEY</td>
+      <td>NJ</td>
+    </tr>
+    <tr>
+      <td>NEW MEXICO</td>
+      <td>NM</td>
+    </tr>
+    <tr>
+      <td>NEW YORK</td>
+      <td>NY</td>
+    </tr>
+    <tr>
+      <td>NEWFOUNDLAND</td>
+      <td>NL</td>
+    </tr>
+    <tr>
+      <td>NORTH CAROLINA</td>
+      <td>NC</td>
+    </tr>
+    <tr>
+      <td>NORTH DAKOTA</td>
+      <td>ND</td>
+    </tr>
+    <tr>
+      <td>NORTHN MARIANA</td>
+      <td>MP</td>
+    </tr>
+    <tr>
+      <td>NOVA SCOTIA</td>
+      <td>NS</td>
+    </tr>
+    <tr>
+      <td>NW TERRITORIES</td>
+      <td>NT</td>
+    </tr>
+    <tr>
+      <td>OHIO</td>
+      <td>OH</td>
+    </tr>
+    <tr>
+      <td>OKLAHOMA</td>
+      <td>OK</td>
+    </tr>
+    <tr>
+      <td>ONTARIO</td>
+      <td>ON</td>
+    </tr>
+    <tr>
+      <td>OREGON</td>
+      <td>OR</td>
+    </tr>
+    <tr>
+      <td>PALAU</td>
+      <td>PW</td>
+    </tr>
+    <tr>
+      <td>PALMYRA ATOLL</td>
+      <td>LQ</td>
+    </tr>
+    <tr>
+      <td>PENNSYLVANIA</td>
+      <td>PA</td>
+    </tr>
+    <tr>
+      <td>PR. EDWARD ISL</td>
+      <td>PE</td>
+    </tr>
+    <tr>
+      <td>PUERTO RICO</td>
+      <td>PR</td>
+    </tr>
+    <tr>
+      <td>QUEBEC</td>
+      <td>PQ</td>
+    </tr>
+    <tr>
+      <td>QUEBEC</td>
+      <td>QC</td>
+    </tr>
+    <tr>
+      <td>RHODE ISLAND</td>
+      <td>RI</td>
+    </tr>
+    <tr>
+      <td>SASKATCHEWAN</td>
+      <td>SK</td>
+    </tr>
+    <tr>
+      <td>SOUTH CAROLINA</td>
+      <td>SC</td>
+    </tr>
+    <tr>
+      <td>SOUTH DAKOTA</td>
+      <td>SD</td>
+    </tr>
+    <tr>
+      <td>TENNESSEE</td>
+      <td>TN</td>
+    </tr>
+    <tr>
+      <td>TEXAS</td>
+      <td>TX</td>
+    </tr>
+    <tr>
+      <td>TRUST TER PACF</td>
+      <td>PS</td>
+    </tr>
+    <tr>
+      <td>US MINOR OUTLY</td>
+      <td>UM</td>
+    </tr>
+    <tr>
+      <td>UTAH</td>
+      <td>UT</td>
+    </tr>
+    <tr>
+      <td>VERMONT</td>
+      <td>VT</td>
+    </tr>
+    <tr>
+      <td>VIRGIN ISLANDS</td>
+      <td>VI</td>
+    </tr>
+    <tr>
+      <td>VIRGINIA</td>
+      <td>VA</td>
+    </tr>
+    <tr>
+      <td>WAKE ISLAND</td>
+      <td>WQ</td>
+    </tr>
+    <tr>
+      <td>WASHINGTON</td>
+      <td>WA</td>
+    </tr>
+    <tr>
+      <td>WEST VIRGINIA</td>
+      <td>WV</td>
+    </tr>
+    <tr>
+      <td>WISCONSIN</td>
+      <td>WI</td>
+    </tr>
+    <tr>
+      <td>WYOMING</td>
+      <td>WY</td>
+    </tr>
+    <tr>
+      <td>YUKON</td>
+      <td>YT</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="title-election-status">Title Election Status</h2>
+
+<p>The decision of the institution regarding the election of title for this Invention.</p>
+
+<p>The ‘Draft’ ‘Voided’, and ‘Transferred’ status values shall not be used when submitting Invention Create or Update API requests.</p>
+
+<p>‘Only Elect to Retain Title’ and ‘Does Not Retain Title’ status will be allowed when submitting Invention Create Requests.</p>
+
+<p>‘Designated as Unpatented Biological Material or Research Tool’ status is not available for DOE</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Elect to Retain Title</td>
+      <td>This can be used for both organization and agency clients in the create or update request.</td>
+    </tr>
+    <tr>
+      <td>Does Not Retain Title</td>
+      <td>This can be used for both organization and agency clients in the create or update Invention request. Once the Invention is saved with this status, organization client will no longer allow to modify the Invention metadata.</td>
+    </tr>
+    <tr>
+      <td>Designated as Unpatented Biological Material or Research Tool</td>
+      <td>This can be used for both organization and agency clients in the update request.</td>
+    </tr>
+    <tr>
+      <td>Under Evaluation</td>
+      <td>Allow both organization and agency clients to use in the update request.</td>
+    </tr>
+    <tr>
+      <td>Draft</td>
+      <td>This status is used in response data only. This status value shall not be used in API create or update request.</td>
+    </tr>
+    <tr>
+      <td>Voided</td>
+      <td>This status is used in response data only. This status value shall not be used in API request. The organization is required to use the UI to submit an Invention Void Request.</td>
+    </tr>
+    <tr>
+      <td>Transferred</td>
+      <td>This status is use in response data only. This status value shall not be used in API request. The organization is required to use the UI to submit an Invention Transfer Request.</td>
+    </tr>
+    <tr>
+      <td>Government Takes Title (Award Terms)</td>
+      <td>If an invention is created by a large for-profit private organization that receives funding from the Department of Energy (DOE), and a DOE Waiver ID has not been issued, the iEdison system will automatically set the status to “Not Waived.” Users and administrators from the DOE and the National Nuclear Security Administration (NNSA) can update this status using the Restful API Services. For all other agencies, updates can only be made through the nightly job.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="utilization-commercial-product-type">Utilization Commercial Product Type</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Biologic</td>
+    </tr>
+    <tr>
+      <td>Medical Device</td>
+    </tr>
+    <tr>
+      <td>Drug</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="utilization-commercial-product-government-review-status">Utilization Commercial Product Government Review Status</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Approved</td>
+    </tr>
+    <tr>
+      <td>Rejected</td>
+    </tr>
+    <tr>
+      <td>Pending</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="utilization-public-announced">Utilization Public Announced</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="utilization-manufacturing-location-first-date-type">Utilization Manufacturing Location First Date Type</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Actual</td>
+    </tr>
+    <tr>
+      <td>Expected</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="utilization-commercialization-plan">Utilization Commercialization Plan</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Seeking additional funding to further develop this invention</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Marketing and/or furthering development of this invention to attract commercial partners</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Developing and/or using this invention for internal purposes only</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Developing and/or preparing this invention with intent to commercialize ourselves</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Making available for distribution and/or licensing for research purposes only</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>No current commercialization plan</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="licensed-utilization-question-logic-for-us-manufacturing">Licensed Utilization Question Logic for US Manufacturing</h2>
+
+<p>This section shows the dynamic question flow if the lastestStageDev = “Licensed” for Questions 8 and 9. The answer to Question 8 will determine which variation of Question 9 should be answered.</p>
+
+<p>Question 8 is for the attribute USManufacturingRequired1. Question 9 is for the attribute isUSManufacturingRequired2.</p>
+
+<p>![Figure 121: Licensed Utilization Questions]</p>
+
+<h2 id="commercialized-utilization-question-logic-for-us-manufacturing">Commercialized Utilization Question Logic for US Manufacturing</h2>
+
+<p>This section shows the dynamic question flow if the lastestStageDev = “Commercialized” for Questions 8, 9 and 10. The answer to Question 8 will determine which variation of Question 9 and Question 10 should be answered.</p>
+
+<p>Question 8 is for the attribute USManufacturingRequired1. Question 9 is for the attribute isUSManufacturingRequired2. Question 10 is for the attribute USManufacturingRequired3.</p>
+
+<p>![Figure 122: Commercialized Utilization Questions]</p>
+
+<h2 id="document-type-name">Document Type Name</h2>
+
+<p>This section contains a list of Document Type Name for Invention and Patent. These values are used in the document search to target for specific documentType filter.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Assignment</td>
+    </tr>
+    <tr>
+      <td>Confirmatory License</td>
+    </tr>
+    <tr>
+      <td>Domestic Manufacture Waiver</td>
+    </tr>
+    <tr>
+      <td>Election Extension</td>
+    </tr>
+    <tr>
+      <td>Foreign Filing</td>
+    </tr>
+    <tr>
+      <td>General</td>
+    </tr>
+    <tr>
+      <td>Government Support Clause</td>
+    </tr>
+    <tr>
+      <td>Greater Rights Determination</td>
+    </tr>
+    <tr>
+      <td>Invention Disclosure</td>
+    </tr>
+    <tr>
+      <td>Nonpatented Research Resource</td>
+    </tr>
+    <tr>
+      <td>Other Documents</td>
+    </tr>
+    <tr>
+      <td>Patent Extension</td>
+    </tr>
+    <tr>
+      <td>Provisional Extension</td>
+    </tr>
+    <tr>
+      <td>USPTO Recordation</td>
+    </tr>
+    <tr>
+      <td>Title Extension</td>
+    </tr>
+    <tr>
+      <td>Transfer</td>
+    </tr>
+    <tr>
+      <td>Waiver</td>
+    </tr>
+    <tr>
+      <td>Void</td>
+    </tr>
+    <tr>
+      <td>Domestic Manufacture Waiver Approval Letter</td>
+    </tr>
+    <tr>
+      <td>Publication</td>
+    </tr>
+    <tr>
+      <td>Custom Report</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+  </main>
+</body>
+</html>

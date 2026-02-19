@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document API Reference | iEdison API</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer-v-2.0.js" type="text/javascript" defer="defer"></script>
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="/">iEdison API</a>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search documentation...">
+      <button onclick="searchDocs()">Search</button>
+    </div>
+    <nav class="site-nav">
+      <a href="/docs/Introduction">Docs</a>
+      <a href="mailto:support@iedison.gov">Contact</a>
+    </nav>
+  </div>
+</header>
+<script>
+function searchDocs() {
+  const query = document.getElementById('search-input').value.toLowerCase();
+  if (!query) return;
+  
+  const content = document.querySelector('.page-content');
+  const text = content.innerText.toLowerCase();
+  
+  if (text.includes(query)) {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+    
+    selection.removeAllRanges();
+    
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const index = node.textContent.toLowerCase().indexOf(query);
+      if (index !== -1) {
+        range.setStart(node, index);
+        range.setEnd(node, index + query.length);
+        selection.addRange(range);
+        node.parentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        break;
+      }
+    }
+  } else {
+    alert('No results found for: ' + query);
+  }
+}
+
+document.getElementById('search-input').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') searchDocs();
+});
+</script>
+
+  <main class="page-content">
+    <div class="wrapper">
+      <h1 id="document-api-reference">Document API Reference</h1>
+
+<p>The document APIs provide ways to search for a disclosure document, Confirmatory License, Government Support Clause, and other document types from the inventions and patents; or download a specific document.</p>
+
+<p>The latest version of the Search Document and Download Document API, Version 2 (v2) contains the following changes:</p>
+
+<ul>
+  <li>Renamed attribute ‘patentDocketNum’ to ‘patentDocketNumber’ in document response data object.</li>
+</ul>
+
+<h2 id="search-document">Search Document</h2>
+
+<p>Search condition for documents is the combination of attributes of the searchDocumentCriteria JSON object. The system will only return documents that are granted access permission to the user’s organization. Refer to Appendix D for samples of requests and responses.</p>
+
+<h3 id="endpoint-uri">Endpoint URI</h3>
+
+<p>This is an example of the endpoint for the Search Documents resource.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /iedison/api/v2/documents/search
+</code></pre></div></div>
+
+<h3 id="request-parameters">Request Parameters</h3>
+
+<p>The request has the following elements:</p>
+
+<p><strong>Headers:</strong> These are the request headers such as Accept or Content-Type. The Accept header defines the expected response format when the API returns the response. The Accept header is required for all requests.</p>
+
+<p><strong>Body:</strong> The body contains the data that will be submitted as the POST request. When submitting a form, the format data and file content are sent in the body of the request.</p>
+
+<p>The table below provides the explanation of the Search Document request header and body parameters that are expected by the iEdison API.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Request Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+      <th>Data Type</th>
+      <th>Version</th>
+      <th>In</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>accept</td>
+      <td>Specifies the response format that is expected. Set to “application/json”.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>v1+</td>
+      <td>header</td>
+    </tr>
+    <tr>
+      <td>documentSearchCriteria</td>
+      <td>The JSON object that contains attributes used in the request. Refer to the table below for a description of the attributes.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>v1+</td>
+      <td>form-data</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The table below lists the attributes that will be included in the searchDocumentCriteria parameter when searching for a document. The attributes are included in the JSON object as part of the searchDocumentCriteria form-data text element.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>JSON Attribute Name</th>
+      <th>Description</th>
+      <th>Required</th>
+      <th>Data Type</th>
+      <th>Length</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>inventionReportNumber</td>
+      <td>Automatically generated by iEdison for an Invention Report after data has been submitted, checked for errors, and verified.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>100</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionDocketNumber</td>
+      <td>An internal reference number of the grantee/contractor organization to help track a reported Invention(s).</td>
+      <td>No</td>
+      <td>String</td>
+      <td>30</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>patentDocketNumber</td>
+      <td>The Patent Docket Number is an internal reference number of the grantee/contractor organization to help track a reported Patent(s).</td>
+      <td>No</td>
+      <td>String</td>
+      <td>30</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>primaryAgency</td>
+      <td>The Primary Agency designated for each Invention Report in iEdison. Click here for a list of valid abbreviations.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>30</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>granteeOrganizationName</td>
+      <td>The name of the organization established at registration.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>100</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>titleElectionStatus</td>
+      <td>The status of the title to rights in the reported Invention. Refer to Section 12.15 for a list of valid values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionTitle</td>
+      <td>The title of the Invention as it appears in the grantee/contractors employee’s Invention Report.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>255</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionReportDateFrom</td>
+      <td>The From Date that the inventor disclosed in the subject Invention in writing to the recipient institution. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionReportDateTo</td>
+      <td>The To Date that the inventor disclosed in the subject Invention in writing to the recipient institution. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>patentFilingDateFrom</td>
+      <td>The ‘starting from’ search date against the PCT, Provisional, Non-Provisional Patent application filing date. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>patentFilingDateTo</td>
+      <td>The ‘up to’ search date against the PCT, Provisional, Non-Provisional Patent application filing date. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>patentApplicationType</td>
+      <td>Patent Application Type of a record. Refer to Section 12.10 for a list of valid values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>25</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>patentStatus</td>
+      <td>Indicates the status of the Patent. Refer to Section 12.13 for a list of valid values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>50</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>patentTitle</td>
+      <td>The exact title of the U.S. Patent or Patent application as submitted by the Institution to iEdison or to the USPTO.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>50</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>grantContractNumber</td>
+      <td>The grant or contract number as specified by the agency. The format is defined by the agency.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>50</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventorFirstName</td>
+      <td>The first name of the inventor.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>50</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventorLastName</td>
+      <td>The last name of the inventor.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>50</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>lastUpdatedFrom</td>
+      <td>Search the “From Date” of the document last updated date. This will use the last updated date for the invention, but if that is null, then the created date will be used. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>lastUpdatedTo</td>
+      <td>Search the “To Date” of the document last updated date. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>lastUpdatedDate</td>
+      <td>Document last updated date. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>documentType</td>
+      <td>The document type name for the invention and patent. Refer to Section 12.23 for a list of valid values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>60</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>limit</td>
+      <td>Total number of records to be retrieved per page. This field must be a number. Max Value = 100, Default = 20</td>
+      <td>No</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>offset</td>
+      <td>Indicates the page index. Default = 0</td>
+      <td>No</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response-parameters">Response Parameters</h3>
+
+<p>This section contains response examples for searching for documents.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Response Parameter</th>
+      <th>Description</th>
+      <th>Data Type</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>totalRecords</td>
+      <td>Total number of records for the search.</td>
+      <td>Number</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>limit</td>
+      <td>The limit used in the request</td>
+      <td>Integer</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>offset</td>
+      <td>The offset used in the request</td>
+      <td>Integer</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>documentsList</td>
+      <td>A list of document response Objects. Refer to Section 10.1.4 for a description of the attributes.</td>
+      <td>Array [JSON Object]</td>
+      <td>v1+</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="document-response-data-object">Document Response Data Object</h3>
+
+<p>The JSON attributes are described in the table below.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>JSON Attribute Name</th>
+      <th>Description</th>
+      <th>Data Type</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>inventionReportNumber</td>
+      <td>A system generated sequence number used for ID of the Patent.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>patentDocketNum</td>
+      <td>The Patent Docket Number is an internal reference number of the grantee/contractor organization to help track a reported Patent(s). This is supported in v1 endpoint only. This field is no longer supported in document v2 APIs.</td>
+      <td>String</td>
+      <td>v1</td>
+    </tr>
+    <tr>
+      <td>patentDocketNumber</td>
+      <td>The Patent Docket Number is an internal reference number of the grantee/contractor organization to help track a reported Patent(s).</td>
+      <td>String</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>documentType</td>
+      <td>The unique identifier for document category types.</td>
+      <td>Number</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>documentTypeName</td>
+      <td>The name of document category types.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>documentID</td>
+      <td>The unique identifier.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>fileName</td>
+      <td>The name of the download file.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>documentCreateDate</td>
+      <td>The date the document was created.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>documentUpdateDate</td>
+      <td>The date the document was last update.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="download-document">Download Document</h2>
+
+<p>The Download Document API requires a Document ID. This information is available by performing a document search which returns one or multiple records. Each returned document will have its own document ID. Refer to Appendix D for samples of requests and responses.</p>
+
+<h3 id="endpoint-uri-1">Endpoint URI</h3>
+
+<p>This is an example of the endpoint for the Download Document resource.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /iedison/api/v2/documents/download
+</code></pre></div></div>
+
+<h3 id="request-parameters-1">Request Parameters</h3>
+
+<p>The request has the following elements:</p>
+
+<p><strong>Headers:</strong> These are the request headers such as Accept or Content-Type. The Accept header defines the expected response format when the API returns the response. The Accept header is required for all requests.</p>
+
+<p><strong>Body:</strong> The body contains the data that will be submitted as the POST request. When submitting a form, the format data and file content are sent in the body of the request.</p>
+
+<p>The table below provides the explanation of the Download Document request header and body parameters that are expected by the iEdison API.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Request Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+      <th>Data Type</th>
+      <th>Version</th>
+      <th>In</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>accept</td>
+      <td>Set to <em>/</em></td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>v1+</td>
+      <td>header</td>
+    </tr>
+    <tr>
+      <td>document</td>
+      <td>The document JSON objects containing fields to be used in the search download file. Refer to the table below for a description of the attributes.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>v1+</td>
+      <td>form-data</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The table below lists the attributes that will be included in the document parameter when downloading a document. The attributes are included in the JSON object as part of the document form-data text element.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>JSON Attribute Name</th>
+      <th>Description</th>
+      <th>Required</th>
+      <th>Data Type</th>
+      <th>Length</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>documentID</td>
+      <td>The unique document identifier.</td>
+      <td>Yes</td>
+      <td>Number</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response-parameters-1">Response Parameters</h3>
+
+<p>Based on the request parameters, the Download Document API provides the below response parameters.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Response Parameter</th>
+      <th>Description</th>
+      <th>Data Type</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>file</td>
+      <td>The document file content in stream.</td>
+      <td>application/octet-stream</td>
+      <td>v1+</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+  </main>
+</body>
+</html>

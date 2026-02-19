@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iEdison API Documentation | iEdison API</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer-v-2.0.js" type="text/javascript" defer="defer"></script>
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="/">iEdison API</a>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search documentation...">
+      <button onclick="searchDocs()">Search</button>
+    </div>
+    <nav class="site-nav">
+      <a href="/docs/Introduction">Docs</a>
+      <a href="mailto:support@iedison.gov">Contact</a>
+    </nav>
+  </div>
+</header>
+<script>
+function searchDocs() {
+  const query = document.getElementById('search-input').value.toLowerCase();
+  if (!query) return;
+  
+  const content = document.querySelector('.page-content');
+  const text = content.innerText.toLowerCase();
+  
+  if (text.includes(query)) {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+    
+    selection.removeAllRanges();
+    
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const index = node.textContent.toLowerCase().indexOf(query);
+      if (index !== -1) {
+        range.setStart(node, index);
+        range.setEnd(node, index + query.length);
+        selection.addRange(range);
+        node.parentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        break;
+      }
+    }
+  } else {
+    alert('No results found for: ' + query);
+  }
+}
+
+document.getElementById('search-input').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') searchDocs();
+});
+</script>
+
+  <main class="page-content">
+    <div class="wrapper">
+      <h1 id="iedison-api-documentation">iEdison API Documentation</h1>
+
+<p>Welcome to the official API documentation for iEdison. This guide provides technical specifications and implementation resources for integrating with the iEdison system.</p>
+
+<hr />
+
+<h2 id="general-overview">General Overview</h2>
+
+<ul>
+  <li><strong><a href="/docs/Introduction">Introduction</a></strong> - Get started with iEdison API basics and authentication</li>
+  <li><strong><a href="/docs/Invention">Invention</a></strong> - Manage invention disclosures and submissions</li>
+  <li><strong><a href="/docs/Patent">Patent</a></strong> - Handle patent-related operations and data</li>
+  <li><strong><a href="/docs/Utilization">Utilization</a></strong> - Handle utilization-related operations</li>
+</ul>
+
+<h2 id="api-references">API References</h2>
+
+<ul>
+  <li><strong><a href="/docs/Notification-API-Reference">Notification API Reference</a></strong> - Send and manage notifications</li>
+  <li><strong><a href="/docs/Document-API-Reference">Document API Reference</a></strong> - Upload, retrieve, and manage documents</li>
+</ul>
+
+<h2 id="developer-resources">Developer Resources</h2>
+
+<ul>
+  <li><strong><a href="/docs/Code-Sample">Code Samples</a></strong> - Working examples in multiple languages</li>
+  <li><strong><a href="/docs/Lookup-Values">Lookup Values</a></strong> - Reference data and enumeration values</li>
+</ul>
+
+<hr />
+
+<p>Need help? Contact <a href="mailto:support@iedison.gov">support@iedison.gov</a></p>
+
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="{{ "/" | relative_url }}">iEdison API</a>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search documentation...">
+      <button onclick="searchDocs()">Search</button>
+    </div>
+    <nav class="site-nav">
+      <a href="{{ "/docs/Introduction" | relative_url }}">Docs</a>
+      <a href="mailto:support@iedison.gov">Contact</a>
+    </nav>
+  </div>
+</header>
+<script>
+function searchDocs() {
+  const query = document.getElementById('search-input').value.toLowerCase();
+  if (!query) return;
+  
+  const content = document.querySelector('.page-content');
+  const text = content.innerText.toLowerCase();
+  
+  if (text.includes(query)) {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+    
+    selection.removeAllRanges();
+    
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const index = node.textContent.toLowerCase().indexOf(query);
+      if (index !== -1) {
+        range.setStart(node, index);
+        range.setEnd(node, index + query.length);
+        selection.addRange(range);
+        node.parentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        break;
+      }
+    }
+  } else {
+    alert('No results found for: ' + query);
+  }
+}
+
+document.getElementById('search-input').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') searchDocs();
+});
+</script>

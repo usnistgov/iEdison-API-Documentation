@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utilization API Reference | iEdison API</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer-v-2.0.js" type="text/javascript" defer="defer"></script>
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="/">iEdison API</a>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search documentation...">
+      <button onclick="searchDocs()">Search</button>
+    </div>
+    <nav class="site-nav">
+      <a href="/docs/Introduction">Docs</a>
+      <a href="mailto:support@iedison.gov">Contact</a>
+    </nav>
+  </div>
+</header>
+<script>
+function searchDocs() {
+  const query = document.getElementById('search-input').value.toLowerCase();
+  if (!query) return;
+  
+  const content = document.querySelector('.page-content');
+  const text = content.innerText.toLowerCase();
+  
+  if (text.includes(query)) {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+    
+    selection.removeAllRanges();
+    
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const index = node.textContent.toLowerCase().indexOf(query);
+      if (index !== -1) {
+        range.setStart(node, index);
+        range.setEnd(node, index + query.length);
+        selection.addRange(range);
+        node.parentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        break;
+      }
+    }
+  } else {
+    alert('No results found for: ' + query);
+  }
+}
+
+document.getElementById('search-input').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') searchDocs();
+});
+</script>
+
+  <main class="page-content">
+    <div class="wrapper">
+      <h1 id="utilization-api-reference">Utilization API Reference</h1>
+
+<p>The Utilization API allows an organization/agency to create, update, and search for an existing utilization record. The information required to submit a request will depend on the reporting year and the latest stage of development specified. The graphic below shows what reporting years each version supports.</p>
+
+<p><img src="9-1.png" alt="images/9-1.png" /></p>
+
+<p>![Figure 91: Utilization API Versions]</p>
+
+<p>The latest version of the Create Utilization API, Version 3 (v3) contains the following changes:</p>
+
+<p>There are 2 options for entering licensees’ information:</p>
+
+<p>A new object, “licensees” was created with the following attributes. These parameters are for reporting year is 2023 and beyond.</p>
+
+<ul>
+  <li>‘licenseeName’</li>
+  <li>‘exclusiveCount’</li>
+  <li>‘nonExclusiveCount’</li>
+  <li>‘smallBusiness’</li>
+</ul>
+
+<p>If not using the “licensees” attribute above for reporting year 2023, then use the following attributes for backwards compatibility.</p>
+
+<ul>
+  <li>‘exclusiveLicensesOptions’</li>
+  <li>‘nonExclusiveLicensesOptions’</li>
+  <li>‘exclusiveLicensees’</li>
+  <li>‘nonExclusiveLicensees’</li>
+  <li>“smallBusinessLicensesOptions’</li>
+</ul>
+
+<p>v3 is backwards compatible and will continue to support all the changes that were previously made in v2 for utilizations with Fiscal Year 2023 and prior.</p>
+
+<h2 id="create-utilization-v3">Create Utilization, v3</h2>
+
+<p>The Create Utilization API allows an organization/agency to a create Utilization Report for an invention. Refer to Appendix C for samples of requests and responses.</p>
+
+<h3 id="endpoint-uri">Endpoint URI</h3>
+
+<p>This is an example of the endpoint for the Create Utilization resource.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /iedison/api/{version}/utilizations/create
+</code></pre></div></div>
+
+<p>version: [v2, v3]</p>
+
+<h3 id="request-parameters">Request Parameters</h3>
+
+<p>The request has the following elements:</p>
+
+<p><strong>Headers:</strong> These are the request headers such as Accept or Content-Type. The Accept header defines the expected response format when the API returns the response. The Accept header is required for all requests.</p>
+
+<p><strong>Body:</strong> The body contains the data that will be submitted as the POST request. When submitting a form, the format data and file content are sent in the body of the request.</p>
+
+<p>The table below provides a description of the Create Utilization request header and body parameters that are expected by the iEdison API.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Request Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+      <th>Data Type</th>
+      <th>Version</th>
+      <th>In</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>accept</td>
+      <td>Specifies the response format that is expected. Set to “application/json”.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>v2+</td>
+      <td>header</td>
+    </tr>
+    <tr>
+      <td>utilizationRequest</td>
+      <td>The JSON object that contains attributes used in the request. Refer to the table below for a description of the attributes.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>v2+</td>
+      <td>raw</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The table below lists the attributes that will be included in the utilizationRequest parameter when creating a utilization report. The attributes are included in the JSON object as part of the utilizationRequest form-data text element.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>JSON Attribute Name</th>
+      <th>Description</th>
+      <th>Required</th>
+      <th>Data Type</th>
+      <th>Length</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>inventionReportNumber</td>
+      <td>The Invention Report number the Utilization Report is associated with.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>25</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>reportingYear</td>
+      <td>The year for which the Utilization Report is being submitted. Accepted values: Enter up to 5 years back from the Date Invention Reported to Organization up to current Calendar year. For example, if inventionReportDate = 03/01/2016 and calendar year is 2024, the valid values are 2011 through 2024 (inclusive).</td>
+      <td>Yes</td>
+      <td>Integer</td>
+      <td>4</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>latestStageDev</td>
+      <td>The latest stage of development of any product arising from this Invention. Refer to Section 12.1 for a list of latest valid values.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>30</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>firstCommercialSaleYear</td>
+      <td>The year the product embodying the Invention was first sold (date of first commercial sale). Required if latestStageDev = “Commercialized”. Accepted values: Enter up to 5 years back from the Date Invention Reported to Organization up to current Calendar year. For example, if inventionReportDate = 03/01/2016 and calendar year is 2022, the valid values are 2011 through 2022 (inclusive).</td>
+      <td>Yes (Conditionally)</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>totalIncome</td>
+      <td>Total income from royalty or option agreements for the Invention. Required if latestStageDev = “Commercialized” or “Licensed”.</td>
+      <td>Yes (Conditionally)</td>
+      <td>Number (float)</td>
+      <td> </td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>manufacturingWaiver</td>
+      <td>This is for “6. Did the grantee organization/contractor or any of the exclusive licensees request a waiver of the U.S. manufacturing requirements in the designated reporting period?”. The value 1 should be used for “Yes” and 0 should be used for “No”. This field is only used for utilization that has reporting fiscal year of 2022 and prior. If value is provided for utilization with reporting fiscal year of 2023 and after, the system will ignore this field.</td>
+      <td>No</td>
+      <td>Number</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>manufacturingWaiverTotal</td>
+      <td>This is for “7. If yes, how many such waivers were obtained?”. This field is only used for utilization that has reporting fiscal year of 2022 and prior. If value is provided for utilization with reporting fiscal year of 2023 and after, the system will ignore this field.</td>
+      <td>No</td>
+      <td>Number</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td><strong>licensees</strong></td>
+      <td><strong>The licensees associated with the invention. This object is only used if reportingYear is greater than or equal to 2024.</strong></td>
+      <td><strong>Yes (Conditionally)</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td> </td>
+      <td><strong>v3</strong></td>
+    </tr>
+    <tr>
+      <td>licenseeName</td>
+      <td>The name of the licensee. The name must be unique.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>255</td>
+      <td>v3</td>
+    </tr>
+    <tr>
+      <td>exclusiveCount</td>
+      <td>The number of exclusive licenses/option agreements that were active for the Invention in the designated reporting period.</td>
+      <td> </td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v3</td>
+    </tr>
+    <tr>
+      <td>nonExclusiveCount</td>
+      <td>The number of non-exclusive licenses/option agreements that were active for the Invention in the designated reporting period.</td>
+      <td> </td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v3</td>
+    </tr>
+    <tr>
+      <td>smallBusiness</td>
+      <td>The flag to indicate if the licensee is designated as small business.</td>
+      <td> </td>
+      <td>Boolean</td>
+      <td> </td>
+      <td>v3</td>
+    </tr>
+    <tr>
+      <td>exclusiveLicensesOptions</td>
+      <td>In the designated reporting period, how many exclusive licenses and/or options are active? The number of exclusive licenses/option agreements for the Invention. Required if latestStageDev = “Commercialized” or “Licensed”. This is only valid if reportingYear = “2023”.</td>
+      <td>Yes (Conditionally)</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v2 only</td>
+    </tr>
+    <tr>
+      <td>exclusiveLicensees</td>
+      <td>The exclusive licensee names for the invention. Required if exclusiveLicensesOptions is greater than 0. This is only valid if reportingYear = “2023”.</td>
+      <td>Yes (Conditionally)</td>
+      <td>Array [String]</td>
+      <td> </td>
+      <td>v2 only</td>
+    </tr>
+    <tr>
+      <td>nonExclusiveLicensesOptions</td>
+      <td>In the designated reporting period, how many non-exclusive licenses and/or options are active? The number of non-exclusive licenses/option agreements for the Invention. Required if latestStageDev = “Commercialized” or “Licensed”. This is only valid if reportingYear = “2023”.</td>
+      <td>Yes (Conditionally)</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v2 only</td>
+    </tr>
+    <tr>
+      <td>nonExclusiveLicensees</td>
+      <td>The non-exclusive licensee names for the invention. Required if nonExclusiveLicensesOptions is greater than 0. This is only valid if reportingYear = “2023”.</td>
+      <td>Yes (Conditionally)</td>
+      <td>Array [String]</td>
+      <td> </td>
+      <td>v2 only</td>
+    </tr>
+    <tr>
+      <td>smallBusinessLicensesOptions</td>
+      <td>How many licenses and/or options of any type to small businesses (&lt;500 employees) are active in the designated reporting period? The number of small business licenses/option agreements for the Invention. Required if latestStageDev = “Commercialized” or “Licensed”. This is only valid if reportingYear = “2023”.</td>
+      <td>Yes (Conditionally)</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v2 only</td>
+    </tr>
+    <tr>
+      <td>isUSManufacturingRequired1</td>
+      <td>If latestStageDev = “Commercialized” or “Licensed”. Other than U.S. Preference (35 U.S.C. 204), is the invention subject to any U.S. manufacturing requirements (e.g., U.S. Competitiveness provision, a U.S. Manufacturing DEC, etc.)? Accepted values are: N = No, Y = Yes. This is only used if reportingYear is greater than or equal to 2023.</td>
+      <td>Yes (Conditionally)</td>
+      <td>String</td>
+      <td>1</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>isUSManufacturingRequired2</td>
+      <td>If latestStageDev = “Commercialized” or “Licensed” If isUSManufacturingRequired1 = Y Then, answer the following: In the designated reporting period, do all licenses include a requirement that any products embodying the subject invention or produced using the subject invention will be manufactured substantially in the United States (including manufacturing requirements other than 35 U.S.C. 204)? Accepted values are: N = No, Y = Yes If isUSManufacturingRequired1 = N Then, answer the following: In the designated reporting period do all grants to any person of the exclusive right to use or sell the subject invention in the United States require that any products embodying the subject invention or produced using the subject invention will be manufactured substantially in the United States as required by 35 U.S.C. 204? Accepted values are: N = No, Y = Yes, N/A = Not Applicable. Refer to Sections 12.21 and 12.22 for the question logic. This is only used if reportingYear is greater than or equal to 2023.</td>
+      <td>Yes (Conditionally)</td>
+      <td>String</td>
+      <td>3</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>isUSManufacturingRequired3</td>
+      <td>If latestStageDev is “Commercialized” If isUSManufacturingRequired1 = Y Then, answer the following: In the designated reporting period, are all products embodying the subject invention or produced using the subject invention manufactured substantially in the United States (including manufacturing requirements other than 35 U.S.C. 204)? Accepted values are: N = No, Y = Yes If isUSManufacturingRequired1 = N Then, answer the following: In the designated reporting period are all products embodying the subject invention or produced using the subject invention manufactured substantially in the United States for all grants to any person of the exclusive right to use or sell the subject invention in the United States as required by 35 U.S.C. 204? Accepted values are: N = No, Y = Yes, N/A = Not Applicable. Refer to Sections 12.21 and 12.22 for the question logic. This is only used if reportingYear is greater than or equal to 2023.</td>
+      <td>Yes (Conditionally)</td>
+      <td>String</td>
+      <td>3</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>notes</td>
+      <td>General notes. Required if commercializationPlanId = “3” or “6”.</td>
+      <td>Yes (Conditionally)</td>
+      <td>String</td>
+      <td>1000</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>commercializationPlanId</td>
+      <td>What are your current commercialization plans for this invention? The commercialization plan for the invention. Required if latestStageDev = “Not Licensed or Commercialized”. Refer to Section 12.20 for a list of valid values.</td>
+      <td>Yes (Conditionally)</td>
+      <td>Number</td>
+      <td> </td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>newUsJobs</td>
+      <td>The approximate number of new U.S.-based jobs created because of commercialization efforts during the reporting period. For DOE Invention only.</td>
+      <td>No</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>newUsCompanies</td>
+      <td>The number of new U.S.-based companies created from the commercialization efforts during the reporting period. For DOE Invention only.</td>
+      <td>No</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td><strong>manufacturingCommProds</strong></td>
+      <td><strong>The manufacturing commercial products made using or Embodying the Subject Invention(s).</strong></td>
+      <td><strong>No</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td> </td>
+      <td><strong>v2+</strong></td>
+    </tr>
+    <tr>
+      <td>productName</td>
+      <td>The unique commercial product name.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>100</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>naicsCode</td>
+      <td>The North American Industry Classification System (NAICS) code is used by Federal agencies in classifying business establishments. For DOE invention only.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>6</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>licensees</td>
+      <td>The licensees associated with the product.</td>
+      <td>No</td>
+      <td>Array [JSON Object]</td>
+      <td> </td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>licenseeName</td>
+      <td>The name of the licensee. The name must come from the exclusiveLicensees list, the nonExclusiveLicensees list, or the institution name can be used if the institution itself is the licensee.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>255</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>manufacturers</td>
+      <td>The manufacturers for the manufacturing commercial product.</td>
+      <td>Yes</td>
+      <td>Array [JSON Object]</td>
+      <td> </td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>manufacturerName</td>
+      <td>The name of the manufacturer.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>255</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>productLocation</td>
+      <td>The manufacturing production location(s).</td>
+      <td>Yes</td>
+      <td>Array [JSON Object]</td>
+      <td> </td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>country</td>
+      <td>The manufacturing country for the location. Refer to Section 12.4 for a list of valid values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>30</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>state</td>
+      <td>The manufacturing state for the location for applicable country. Refer to Section 12.14 for a list of valid values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>14</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>firstDate</td>
+      <td>The first date of manufacturing. Required if DOE is one of the funding agencies for the Invention Report this utilization is associated with. Format: MM/DD/YYYY</td>
+      <td>Yes (Conditionally)</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>firstDateType</td>
+      <td>The type for the first date of manufacturing. Refer to 12.19 for a list of acceptable type values. Required if DOE is one of the funding agencies for the Invention Report this utilization is associated with.</td>
+      <td>Yes (Conditionally)</td>
+      <td>String</td>
+      <td>8</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>productQuantity</td>
+      <td>The total number of products at the manufacturing location. Required if DOE is one of the funding agencies for the Invention Report this utilization is associated with.</td>
+      <td>Yes (Conditionally)</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td><strong>commercialProds</strong></td>
+      <td><strong>The FDA Approved Commercial products.</strong></td>
+      <td><strong>No</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td> </td>
+      <td><strong>v2+</strong></td>
+    </tr>
+    <tr>
+      <td>commercialName</td>
+      <td>The name of the FDA approved commercial product.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>fdaApprovalNumber</td>
+      <td>The number of the FDA approved commercial product.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>20</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>fdaApprovalType</td>
+      <td>The type of the FDA approved commercial product. Please refer to Section 12.16 for a list of acceptable utilization Commercial Product Type values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>15</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>govtReviewStatus</td>
+      <td>The status of the FDA approved commercial product. Please refer to Section 12.17 for a list of acceptable utilization Government Review Status values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>publicInd</td>
+      <td>The public announced indicator flag if the FDA approved commercial product. Please refer to Section 12.18 for a list of acceptable utilization commercial product Public Announced values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>3</td>
+      <td>v2+</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response-parameters">Response Parameters</h3>
+
+<p>When the request is processed and the utilization report is successfully created, the Create Utilization API endpoint returns an utilizationResponse data object. The attributes of this object are described in Section 9.4.</p>
+
+<h2 id="update-utilization-v3">Update Utilization, v3</h2>
+
+<p>The Update Utilization API allows organization/agency to update an existing Utilization Report to an invention for utilization reporting year for both legacy questions prior 2023 and new questions for 2023 and beyond. Refer to Appendix C for samples of requests and responses.</p>
+
+<h3 id="endpoint-uri-1">Endpoint URI</h3>
+
+<p>This is an example of the endpoint for the Update Utilization resource.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /iedison/api/{version}/utilizations/update
+</code></pre></div></div>
+
+<p>version: [v2, v3]</p>
+
+<h3 id="request-parameters-1">Request Parameters</h3>
+
+<p>The request has the following elements:</p>
+
+<p><strong>Headers:</strong> These are the request headers such as Accept or Content-Type. The Accept header defines the expected response format when the API returns the response. The Accept header is required for all requests.</p>
+
+<p><strong>Body:</strong> The body contains the data that will be submitted as the POST request. When submitting a form, the format data and file content are sent in the body of the request.</p>
+
+<p>The table below provides a description of the Update Utilization request header and body parameters that are expected by the iEdison API.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Request Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+      <th>Data Type</th>
+      <th>Version</th>
+      <th>In</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>accept</td>
+      <td>Specifies the response format that is expected. Set to “application/json”.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>v1+</td>
+      <td>header</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The table below shows the parameters that will be included in the JSON body when updating a Utilization Report. The parameters are included as JSON object in JSON body. The JSON object represents the metadata of the Patent that needs to be updated.</p>
+
+<p>The table below lists the attributes that will be included in the utilizationRequest parameter when creating an invention request. The attributes are included in the JSON object as part of the utilizationRequest form-data text element.</p>
+
+<p>[The update table contains the same attributes as the create table with identical structure and requirements]</p>
+
+<h3 id="response-parameters-1">Response Parameters</h3>
+
+<p>When the request is processed and the utilization report is successfully updated, the Update Utilization API endpoint returns an utilizationResponse data object. The attributes of this object are described in Section 9.4.</p>
+
+<h2 id="search-utilization-v3">Search Utilization, v3</h2>
+
+<p>The Search Utilization API allows users to specify any combination of the attributes to search for existing Utilization Reports. The search criteria are applied using an “AND” operation across the various attributes specified in the JSON request. For example, if the utilization search request includes both the Invention Report Number and the Invention Report Year, the search results will include all entries that match both the Invention Report Number and the Invention Report Year. Refer to Appendix C for samples of requests and responses.</p>
+
+<h3 id="endpoint-uri-2">Endpoint URI</h3>
+
+<p>This is an example of the v2 endpoint for the Search Utilization resource.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /iedison/api/{version}/utilizations/search
+</code></pre></div></div>
+
+<p>version: [v2, v3]</p>
+
+<h3 id="request-parameters-2">Request Parameters</h3>
+
+<p>The request has the following elements:</p>
+
+<p><strong>Headers:</strong> These are the request headers such as Accept or Content-Type. The Accept header defines the expected response format when the API returns the response. The Accept header is required for all requests.</p>
+
+<p><strong>Body:</strong> The body contains the data that will be submitted as the POST request. When submitting a form, the format data and file content are sent in the body of the request.</p>
+
+<p>The table below provides the explanation of the Search Utilization request header and body parameters that are expected by the iEdison API.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Request Parameter</th>
+      <th>Description</th>
+      <th>Data Type</th>
+      <th>Version</th>
+      <th>In</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>accept</td>
+      <td>Specifies the response format that is expected. Set to “application/json”.</td>
+      <td>String</td>
+      <td>v2+</td>
+      <td>header</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The table below shows the parameters that will be included in the JSON body only one time during the processing of Search Utilization Request.</p>
+
+<p>The table below lists the attributes that will be included in the utilizationSearchCriteria parameter when searching for a Utilization Report. The attributes are included in the JSON object as part of the utilizationSearchCriteria form-data text element.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>JSON Attribute Name</th>
+      <th>Description</th>
+      <th>Data Type</th>
+      <th>Length</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>limit</td>
+      <td>The total number of records to be retrieved per page. This field must be a number. Max Value = 100, Default = 20</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>offset</td>
+      <td>Indicates the page index. Default = 0</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>inventionReportNumber</td>
+      <td>The Invention Report Number filter to search for utilization.</td>
+      <td>String</td>
+      <td>25</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>inventionDocketNumber</td>
+      <td>An internal reference number of the grantee/contractor organization to help track a reported Invention(s).</td>
+      <td>String</td>
+      <td>30</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>grantContractNumber</td>
+      <td>The grant or contract number as specified by the agency. The format is defined by the agency.</td>
+      <td>String</td>
+      <td>50</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>latestStageDev</td>
+      <td>The latest stage of development of any product arising from this Invention. Refer to Section 12.1 for a list of latest valid values.</td>
+      <td>String</td>
+      <td>30</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>primaryAgency</td>
+      <td>The Primary Agency designated for each Invention Report in iEdison. Click here for a list of valid abbreviations.</td>
+      <td>String</td>
+      <td>50</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>granteeOrganizationName</td>
+      <td>The name of the organization established at registration.</td>
+      <td>String</td>
+      <td>100</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>titleElectionStatus</td>
+      <td>The Title Election Status the institution’s decision regarding the election of title for this Invention. Refer to Section 12.15 for a list of valid values.</td>
+      <td>Array [String]</td>
+      <td>50</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>inventionTitle</td>
+      <td>The title of the Invention as it appears in the grantee/contractors employee’s Invention Report.</td>
+      <td>String</td>
+      <td>255</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>inventionReportDateFrom</td>
+      <td>The From Date that the inventor disclosed the subject Invention in writing to the recipient institution. Format: MM/DD/YYYY</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>inventionReportDateTo</td>
+      <td>The To Date that the inventor disclosed the subject Invention in writing to the recipient institution. Format: MM/DD/YYYY</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>fiscalYear</td>
+      <td>The year for which the Utilization Report is being submitted.</td>
+      <td>Int</td>
+      <td>50</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>commercialProductName</td>
+      <td>The name of the product that was developed.</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>fdaApprovalNumber</td>
+      <td>FDA Approval Number</td>
+      <td>String</td>
+      <td>20</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>fdaReportType</td>
+      <td>FDA Report Type</td>
+      <td> </td>
+      <td> </td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>lastUpdatedFrom</td>
+      <td>The ‘start from’ search date against the utilization last updated date. Will use the last updated date for the invention, but if that is null, then the created date will be used. Format: MM/DD/YYYY</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>lastUpdatedTo</td>
+      <td>The ‘up to’ search date against the utilization last updated date. Format: MM/DD/YYYY</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v2</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response-parameters-2">Response Parameters</h3>
+
+<p>When the request is processed, the Search Utilization API endpoint returns a utilization report that matches the search criteria in the utilizationResponse data object. The attributes of this object are described in Section 9.4.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Response Parameter</th>
+      <th>Description</th>
+      <th>Data Type</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>totalRecords</td>
+      <td>The total number of records for the search.</td>
+      <td>Number</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>limit</td>
+      <td>The limit entered by the user while making the request, i.e., the total number of records the user wished to retrieve per page</td>
+      <td>Integer</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>offset</td>
+      <td>The page index specified by the user. Default = 0 if user does not provide any offset in the request.</td>
+      <td>Integer</td>
+      <td>v2</td>
+    </tr>
+    <tr>
+      <td>utilizations</td>
+      <td>A list of utilizations which contains the utilizationResponse data object.9.4</td>
+      <td>Array [JSON Object]</td>
+      <td>v2</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="utilizationresponse-data-object">utilizationResponse Data Object</h2>
+
+<p>The create, update, and search Utilization API shares the same utilizationResponse data object. The JSON attributes are described in the table below.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>JSON Attribute Name</th>
+      <th>Description</th>
+      <th>Data Type</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>inventionReportNumber</td>
+      <td>Automatically generated by iEdison for an Invention Report after data has been submitted, checked for errors, and verified.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>granteeOrganizationName</td>
+      <td>The name of the organization established at registration.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>inventionTitle</td>
+      <td>The title of the Invention as it appears in the grantee/contractors employee’s Invention Report.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>primaryAgency</td>
+      <td>The Primary Agency designated for each Invention Report in iEdison. Click here for a list of valid abbreviations.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>inventionReportDate</td>
+      <td>The date the inventor discloses the subject Invention in writing to the recipient institution.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>titleElectDate</td>
+      <td>The Invention Elect Title Date.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>reportingYear</td>
+      <td>The year for which the Utilization Report is being submitted.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>latestStageDev</td>
+      <td>The latest stage of development of any product arising from this Invention. Refer to Section 12.1 for a list of latest valid values.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>firstCommercialSaleYear</td>
+      <td>The year the product embodying the Invention was first sold (date of first commercial sale).</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>totalIncome</td>
+      <td>The total income from royalty or option agreements for the Invention.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>manufacturingWaiver</td>
+      <td>This is for “6. Did the grantee organization/contractor or any of the exclusive licensees request a waiver of the U.S. manufacturing requirements in the designated reporting period?”. The value 1 should be used for “Yes” and 0 should be used for “No”. This field is only used for utilization that has reporting fiscal year of 2022 and prior. If value is provided for utilization with reporting fiscal year of 2023 and after, the system will ignore this field.</td>
+      <td>Number</td>
+      <td>V1+</td>
+    </tr>
+    <tr>
+      <td>manufacturingWaiverTotal</td>
+      <td>This is for “7. If yes, how many such waivers were obtained?”. This field is only used for utilization that has reporting fiscal year of 2022 and prior. If value is provided for utilization with reporting fiscal year of 2023 and after, the system will ignore this field.</td>
+      <td>Number</td>
+      <td>V1+</td>
+    </tr>
+    <tr>
+      <td>exclusiveLicensesOptions</td>
+      <td>The number of exclusive licenses/option agreements for the Invention.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>nonExclusiveLicensesOptions</td>
+      <td>The number of non-exclusive licenses/option agreements for the Invention.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>smallBusinessLicensesOptions</td>
+      <td>The number of small business licenses/option agreements for the Invention. Note: If a value was entered in the request, it will not be updated regardless of how the licensee information is entered.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>isUSManufacturingRequired1</td>
+      <td>Other than U.S. Preference (35 U.S.C. 204), is the invention subject to any U.S. manufacturing requirements (e.g., U.S. Competitiveness provision, a U.S. Manufacturing DEC, etc.)? N = No, Y = Yes. Refer to Sections 12.21 and 12.22 for a diagram of the question logic.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>isUSManufacturingRequired2</td>
+      <td>If latestStageDev = “Licensed” and isUSManufacturingRequired1 = Y, Then, In the designated reporting period, do all licenses include a requirement that any products embodying the subject invention or produced using the subject invention will be manufactured substantially in the United States (including manufacturing requirements other than 35 U.S.C. 204)? Accepted values are: N = No, Y = Yes If latestStageDev = “Licensed” and isUSManufacturingRequired1 = N, Then, In the designated reporting period do all grants to any person of the exclusive right to use or sell the subject invention in the United States require that any products embodying the subject invention or produced using the subject invention will be manufactured substantially in the United States as required by 35 U.S.C. 204? Accepted values are: N = No, Y = Yes, N/A = Not Applicable. Refer Sections 12.21 and 12.22 for a diagram of the question logic.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>isUSManufacturingRequired3</td>
+      <td>If latestStageDev = “Commercialized” and isUSManufacturingRequired1 = Y, Then, In the designated reporting period, are all products embodying the subject invention or produced using the subject invention manufactured substantially in the United States (including manufacturing requirements other than 35 U.S.C. 204)? Accepted values are: N = No, Y = Yes If latestStageDev = “Commercialized” and isUSManufacturingRequired1 = N, Then, In the designated reporting period are all products embodying the subject invention or produced using the subject invention manufactured substantially in the United States for all grants to any person of the exclusive right to use or sell the subject invention in the United States as required by 35 U.S.C. 204? Accepted values are: N = No, Y = Yes, N/A = Not Applicable. Refer to Sections 12.21 and 12.22 for a diagram of the question logic.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>notes</td>
+      <td>General notes</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>commercializationPlanId</td>
+      <td>What are your current commercialization plans for this invention? The commercialization plan for the invention. Refer to Section 12.20 for a list of valid commercialization plans.</td>
+      <td>Number</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>exclusiveLicensees</td>
+      <td>The exclusive licensee names for the invention.</td>
+      <td>Array [String]</td>
+      <td>v2 only</td>
+    </tr>
+    <tr>
+      <td>nonExclusiveLicensees</td>
+      <td>The non-exclusive licensee names for the invention.</td>
+      <td>Array [String]</td>
+      <td>v2 only</td>
+    </tr>
+    <tr>
+      <td>newUsJobs</td>
+      <td>For DOE Inventions only. The approximate number of new U.S.-based jobs created because of commercialization efforts during the reporting period.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>newUsCompanies</td>
+      <td>For DOE Inventions only. The number of new U.S.-based companies created from the commercialization efforts during the reporting period.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td><strong>manufacturingCommProds</strong></td>
+      <td><strong>The manufacturing commercial products made using or Embodying the Subject Invention(s). Object attributes below.</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td><strong>v2+</strong></td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>The unique identifier for the manufacturing commercial product record</td>
+      <td>Integer</td>
+      <td>v3+</td>
+    </tr>
+    <tr>
+      <td>productName</td>
+      <td>The unique commercial product name.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>naicsCode</td>
+      <td>For DOE inventions only. The North American Industry Classification System (NAICS) code is used by Federal agencies in classifying business establishments.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>licensees</td>
+      <td>The licensees associated with the product.</td>
+      <td>Array [JSON Object]</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>licenseeName</td>
+      <td>The name of the licensee. The name must come from the exclusiveLicensees list, the nonExclusiveLicensees list, or the institution name can be used if the institution itself is the licensee.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>manufacturers</td>
+      <td>The manufacturers for the manufacturing commercial product.</td>
+      <td>Array [JSON Object]</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>The unique identifier for the manufacturer</td>
+      <td>Integer</td>
+      <td>v3+</td>
+    </tr>
+    <tr>
+      <td>manufacturerName</td>
+      <td>The name of the manufacturer</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>productLocation</td>
+      <td>The manufacturing production location(s). Object attributes below.</td>
+      <td>Array [JSON Object]</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>The unique identifier for the manufacturing production location record.</td>
+      <td>Integer</td>
+      <td>v3+</td>
+    </tr>
+    <tr>
+      <td>country</td>
+      <td>The manufacturing country for the location. Refer to Section 12.4 for a list of valid values.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>state</td>
+      <td>The manufacturing state for the location for applicable country. Refer to Section 12.14 for a list of valid values.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>firstDate</td>
+      <td>The first date of manufacturing.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>firstDateType</td>
+      <td>The type for the first date of manufacturing. Please refer to Section 12.19 for a list of valid values.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>productQuantity</td>
+      <td>The total number of products at the manufacturing location.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td><strong>commercialProds</strong></td>
+      <td><strong>The FDA Approved Commercial products. Object Attributes are below.</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td><strong>v2+</strong></td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>The unique identifier for the FDA Approved Commercial Product record.</td>
+      <td>Integer</td>
+      <td>v3+</td>
+    </tr>
+    <tr>
+      <td>commercialName</td>
+      <td>The name of the FDA approved commercial product.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>fdaApprovalNumber</td>
+      <td>The number of the FDA approved commercial product.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>fdaApprovalType</td>
+      <td>The type of the FDA approved commercial product. Please refer to Section 12.16 for a list of utilization Commercial Product Type values.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>govtReviewStatus</td>
+      <td>The status of the FDA approved commercial product. Please refer to Section 12.17 for a list of utilization Government Review Status values.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>publicInd</td>
+      <td>The public announced indicator flag of the FDA approved commercial product. Please refer to Section 12.18 for a list of utilization commercial product Public Announced values.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td><strong>licensees</strong></td>
+      <td><strong>The licensees associated with the invention.</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td><strong>v3</strong></td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>The ID number associated with the licensee.</td>
+      <td>String</td>
+      <td>v3</td>
+    </tr>
+    <tr>
+      <td>licenseeName</td>
+      <td>The name of the licensee.</td>
+      <td>String</td>
+      <td>v3</td>
+    </tr>
+    <tr>
+      <td>exclusiveCount</td>
+      <td>The number of exclusive licenses/option agreements that were active for the Invention in the designated reporting period.</td>
+      <td>String</td>
+      <td>v3</td>
+    </tr>
+    <tr>
+      <td>nonExclusiveCount</td>
+      <td>The number of non-exclusive licenses/option agreements that were active for the Invention in the designated reporting period.</td>
+      <td>String</td>
+      <td>v3</td>
+    </tr>
+    <tr>
+      <td>smallBusiness</td>
+      <td>Indicates if a licensee is designated as small business. Values are: true = Is a small business, false = Is not a small business</td>
+      <td>Boolean</td>
+      <td>v3</td>
+    </tr>
+    <tr>
+      <td>createdDate</td>
+      <td>The date the utilization record was created.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>updatedDate</td>
+      <td>The date the utilization record was last updated.</td>
+      <td>String</td>
+      <td>v2+</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+  </main>
+</body>
+</html>

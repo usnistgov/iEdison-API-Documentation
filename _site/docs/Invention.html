@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invention API Reference | iEdison API</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript" defer="defer"></script>
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer-v-2.0.js" type="text/javascript" defer="defer"></script>
+</head>
+<body>
+  <header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="/">iEdison API</a>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search documentation...">
+      <button onclick="searchDocs()">Search</button>
+    </div>
+    <nav class="site-nav">
+      <a href="/docs/Introduction">Docs</a>
+      <a href="mailto:support@iedison.gov">Contact</a>
+    </nav>
+  </div>
+</header>
+<script>
+function searchDocs() {
+  const query = document.getElementById('search-input').value.toLowerCase();
+  if (!query) return;
+  
+  const content = document.querySelector('.page-content');
+  const text = content.innerText.toLowerCase();
+  
+  if (text.includes(query)) {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT);
+    
+    selection.removeAllRanges();
+    
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const index = node.textContent.toLowerCase().indexOf(query);
+      if (index !== -1) {
+        range.setStart(node, index);
+        range.setEnd(node, index + query.length);
+        selection.addRange(range);
+        node.parentElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        break;
+      }
+    }
+  } else {
+    alert('No results found for: ' + query);
+  }
+}
+
+document.getElementById('search-input').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') searchDocs();
+});
+</script>
+
+  <main class="page-content">
+    <div class="wrapper">
+      <h1 id="invention-api-reference">Invention API Reference</h1>
+
+<p>The Invention API allows an organization users create, update and search for an invention record owned by the user’s affiliated organization and with any agency as the Primary Agency. Agency users can create, update, and search an invention record owned by any institution and with the user’s affiliated agency as Primary Agency.</p>
+
+<p>The following changes were made to Version 2 (v2):</p>
+
+<ul>
+  <li>Renamed the attribute ‘isInventionUnderFundingAgreement’ to ‘isExceptionCircumstanceDetermination’ in invention request and invention response data object</li>
+  <li>Added ‘id’ attribute to the invention response for ‘invention’, ‘inventor’, ‘fundingAgreement’, ‘subContractInfo’, ‘explanatoryNote’, and ‘governmentNote’ JSON objects.</li>
+</ul>
+
+<p><strong>Note:</strong> Create Invention, Version 1 (v1) will no longer be supported after July 18th, 2025.</p>
+
+<h2 id="create-invention-v2">Create Invention, v2</h2>
+
+<p>The Create Invention API allows an organization/agency to create an Invention Report. Refer to Appendix A for samples of requests and responses.</p>
+
+<h3 id="endpoint-uri">Endpoint URI</h3>
+
+<p>This is an example of the endpoint for the Create Invention resource.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /iedison/api/v2/inventions/create
+</code></pre></div></div>
+
+<h3 id="request-parameters">Request Parameters</h3>
+
+<p>The request has the following elements:</p>
+
+<p><strong>Headers:</strong> These are the request headers such as Accept and Content-Type. The Accept header defines the expected response format when the API returns the response. The Accept header is required for all requests.</p>
+
+<p><strong>Body:</strong> The body contains the data that will be submitted as the POST request. When submitting a form, the format data and file content are sent in the body of the request.</p>
+
+<p>The table below provides a description of the Create Invention request header and body parameters that are expected by the iEdison API.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Request Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+      <th>Data Type</th>
+      <th>Version</th>
+      <th>In</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>accept</td>
+      <td>Specifies the response format that is expected. Set to “application/json”.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>v1+</td>
+      <td>header</td>
+    </tr>
+    <tr>
+      <td>inventionRequest</td>
+      <td>The JSON object that contains attributes used in the request. Refer to the table below for a description of the attributes.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>v1+</td>
+      <td>form-data</td>
+    </tr>
+    <tr>
+      <td>inventionDisclosure</td>
+      <td>Invention Disclosure document contains the written description of the Invention, a signed copy of the government Confirmatory License, and the Government Support Clause which is in a Patent or Patent application. The following file types are allowed for the Invention Disclosure document: CSV, GIF, JPEG, JPG, PNG, PDF, DOCX, DOC, TIFF, TIF, TXT, XLS, XLSX, PPT, PPTX, ODT, and RTF. The maximum file size is 50MB.</td>
+      <td>Yes</td>
+      <td>Binary Attachment</td>
+      <td>v1+</td>
+      <td>form-data</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The table below lists the attributes that will be included in the inventionRequest parameter when creating an Invention Report. The attributes are included in the JSON object as part of the inventionRequest form-data text element.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>JSON Attribute Name</th>
+      <th>Description</th>
+      <th>Required</th>
+      <th>Data Type</th>
+      <th>Length</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>granteeOrganizationName</td>
+      <td>The name of the organization established at registration. This field is no longer used in the request. The system is using the institutionCode instead. If value is provided, the system will ignore it.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>100</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>institutionCode</td>
+      <td>The unique code assigned to the reporting organizations.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>dunsNumber</td>
+      <td>The Data Universal Numbering System (DUNS) number provided by Dun &amp; Bradstreet that identifies the grantee/contractor. This field is no longer used in the request. If value is provided for this field, the system will ignore it.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>9</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionTitle</td>
+      <td>The title of the Invention as it appears in the grantee/contractors employee’s Invention Report.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>255</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionDocketNumber</td>
+      <td>An internal reference number of the grantee/contractor organization to help track a reported Invention(s). If no value is provided for this field, the system will generate one for the invention.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>30</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>doesNumber</td>
+      <td>The DOE S-number is assigned to each DOE Invention. The number is mainly used in DOE’s Invention tracking system. This field is used by agency system users in invention create request only. If organization client submit a create invention request with this value, the system will ignore the value.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>15</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>parentInventionNumber</td>
+      <td>Invention Report number used when an Invention is combined into another Invention as a parent Invention.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>25</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionReportDate</td>
+      <td>The date the inventor disclosed the subject Invention in writing to the recipient institution. Format: MM/DD/YYYY</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>firstPublicationDate</td>
+      <td>The date of first publication, on sale, or public use initiating the one-year statutory period wherein valid Patent protection can still be obtained in the United States. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>keywords</td>
+      <td>Any keywords used to identify or categorize your invention.</td>
+      <td>No</td>
+      <td>Array [String]</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>doeWaiver</td>
+      <td>Refers to the government’s waiver of rights under 10 CFR 784 in an invention arising from DOE-funded research so that private entities may expedite commercialization, quickly bringing their technologies from lab to market. There are three types of waivers: Advance, Identified, and Class patent waivers.</td>
+      <td>No</td>
+      <td>String</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>institutionCodeForOtherInstitutions</td>
+      <td>The Institution Code for other organizations to view Inventions and other related parents. A maximum of three additional iEdison registered organizations may be granted view-only access to an Invention Report.</td>
+      <td>No</td>
+      <td>Array [String]</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>isExceptionCircumstanceDetermination</td>
+      <td>Is this invention made under a funding agreement subject to a determination of exceptional circumstances? If value is not provided, the system will set it to ‘false’.</td>
+      <td>No</td>
+      <td>Boolean</td>
+      <td> </td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td><strong>Inventors</strong></td>
+      <td><strong>List of Inventors</strong></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Persons considered “inventors” of this invention in the Invention Report.</td>
+      <td> </td>
+      <td>Array [JSON Object]</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>firstName</td>
+      <td>The first name of the inventor.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>lastName</td>
+      <td>The last name of the inventor.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>middleInitial</td>
+      <td>The middle name or first initial of the inventor.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>30</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>fedEmployee</td>
+      <td>Is the inventor a federal employee? true = federal employee, false = not a federal employee (default)</td>
+      <td>No</td>
+      <td>Boolean</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>fedAgency</td>
+      <td>If the inventor is a federal employee, the agency the inventor works for. Click here for a list of valid abbreviations.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>primaryAgency</td>
+      <td>The Primary Agency designated for each Invention Report in iEdison. Click here for a list of valid abbreviations.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>50</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>bayhDoleActVersion</td>
+      <td>The Bayh Dole Act Version for the Invention. This allows 1980 or 2018. Default = 2018</td>
+      <td>No</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td><strong>fundingAgreements</strong></td>
+      <td><strong>The funding agreement is identified and reported in two parts, the Agency Designation (the acronym for the Federal Agency name) and the grant or contract award number corresponding to the agency that contributed to the Invention.</strong></td>
+      <td><strong>Yes</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td> </td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>agency</td>
+      <td>The federal government agency that made the award that was used to support the conception of the Invention or its first actual reduction to practice. Click here for a list of valid abbreviations.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>grantNumber</td>
+      <td>The corresponding grant or contract number. The format of the grant or contract number is specified by the associated agency.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>40</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>awardType</td>
+      <td>Indicates the type of award as a primary award or a sub-award. Refer to Section 12.3 for a list of valid values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>5</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>agreementType</td>
+      <td>Indicates the type of agreement. Refer to Section 12.1 for a list of valid values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td><strong>subContractInfos</strong></td>
+      <td><strong>Subcontractor Information</strong></td>
+      <td><strong>No</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td> </td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>subContractNumber</td>
+      <td>An additional grant or contract number for an Invention or Patent.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>150</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorName</td>
+      <td>The name of the subcontractor that provided the grant or contract.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>120</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorDUNS</td>
+      <td>The DUNS number of the subcontractor that provided the grant or contract. This field had be replaced by contractorUei.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>9</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorUei</td>
+      <td>The UEI number of the subcontractor that provided the grant or contract.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>12</td>
+      <td>v3+</td>
+    </tr>
+    <tr>
+      <td>contractorCity</td>
+      <td>The city of the subcontractor that provided the grant or contract.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>35</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorState</td>
+      <td>The state of the subcontractor that provided the grant or contract. Refer to Section 12.14 for a list of valid values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>2</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorCountry</td>
+      <td>The country name of the subcontractor that provided the grant or contract. Refer to Section 12.4 for a list of valid values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>15</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td><strong>inventionStatus</strong></td>
+      <td><strong>Title Election and Disposition Status group</strong></td>
+      <td><strong>Yes</strong></td>
+      <td><strong>JSON Object</strong></td>
+      <td> </td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>titleElectionStatus</td>
+      <td>Organization’s decision regarding the election of title for this invention. Only “Under Evaluation” or “Elect to Retain Title” is allowed in the creation invention API request.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>titleElectionDate</td>
+      <td>The legally binding date that the grantee/contractor elected to retain title to an Invention. This field will be ignored by the system for Organization client since it is automatically generated when organization client submits an Invention API request with “Elect to Retain Title” Status. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>notElectTitleReason</td>
+      <td>This field is for the grantee/contractor to select the reason for titleElectionStatus is ‘Does Not Retain Title’ in an Invention Report. Refer to Section 12.15 for a list of valid values. This field will be ignored in the create Invention API request since system only allow organization to submit a create invention API request with titleElectionStatus as “Under Evaluation” or “Elect to Retain Title”.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>255</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>notElectTitleOtherReason</td>
+      <td>If the titleElectionStatus is ‘Does Not Retain Title’ and notElectTitleReason is ‘Other’, this field is used to provide the description of the custom reason for not electing title. This field will be ignored in the create Invention API request since system only allow organization to submit a create invention API request with titleElectionStatus as “Under Evaluation” or “Elect to Retain Title”.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>255</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>doesNotRetainTitleDate</td>
+      <td>The date the grantee/contractor chose to Not Elect Title or retain Title in an Invention Report. This field will be ignored in the create Invention API request since system only allow organization to submit a create invention API request with titleElectionStatus as “Under Evaluation” or “Elect to Retain Title”. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>dispositionStatus</td>
+      <td>The government’s decision on the disposition of rights. This field is for agency users to update the disposition of rights. This field will be ignored in the create Invention API request.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>dispositionRightsDate</td>
+      <td>The date the government decided on the disposition of rights. This field is for agency users to update the disposition of rights. This field will be ignored in the create Invention API request. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td><strong>explanatoryNotes</strong></td>
+      <td><strong>Explanatory notes are used to note information about an Invention Report or Patent Report.</strong></td>
+      <td><strong>No</strong></td>
+      <td><strong>JSON Object</strong></td>
+      <td> </td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>note</td>
+      <td>Explanatory notes are used to note information about an Invention Report or Patent Report. Explanatory notes should not be used for data that is provided by other iEdison data fields.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>500</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td><strong>governmentNotes</strong></td>
+      <td><strong>Government Notes</strong></td>
+      <td><strong>No</strong></td>
+      <td><strong>JSON Object</strong></td>
+      <td> </td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>This is for agency users only. If this is provided by organization client, the system will ignore it.</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>note</td>
+      <td>Government Notes are used to note information about an Invention Report or Patent Report by federal users who have access to view the record.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>500</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>budgetIdentifiers</td>
+      <td>This contains a list of Budget Identifiers for the Invention Report.</td>
+      <td>No</td>
+      <td>Array [String]</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>agencyCustom1</td>
+      <td>The agency custom note field. Only available for agency users. If organization client provides a value for this field, the system will ignore it.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>2000</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>agencyCustom2</td>
+      <td>The agency custom note field. Only available for agency users. If organization client provides a value for this field, the system will ignore it.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>2000</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>agencyCustom3</td>
+      <td>The agency custom note field. Only available for agency users. If organization client provides a value for this field, the system will ignore it.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>2000</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>governmentStaff</td>
+      <td>Used to identify government staff. This field will be ignored in the create Invention API request.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>200</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>governmentCounsel</td>
+      <td>Used to identify the Government Counsel (law firm) for an Invention Report. This field will be ignored in the create Invention API request.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>200</td>
+      <td>v1+</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response-parameters">Response Parameters</h3>
+
+<p>When the request is processed and the Invention Report is successfully created, the Create Invention API endpoint returns an inventionResponse data object. The attributes of this object are described in Section 7.4.</p>
+
+<h2 id="update-invention-v2">Update Invention, v2</h2>
+
+<p>The Update Invention API allows organization users to update an existing Invention Reports owned by the user’s affiliated organization. Agency users can update Invention Reports with one or more funding agreements provided by the user’s affiliated agency. Refer to Appendix A for samples of requests and responses.</p>
+
+<h3 id="endpoint-uri-1">Endpoint URI</h3>
+
+<p>This is an example of the endpoint for the Update Invention resource.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /iedison/api/v2/inventions/update
+</code></pre></div></div>
+
+<h3 id="request-parameters-1">Request Parameters</h3>
+
+<p>The API POST request has the following elements:</p>
+
+<p><strong>Headers:</strong> These are the request headers such as Accept or Content-Type. The Accept header defines the expected response format when the API returns the response. The Accept header is required for all requests.</p>
+
+<p><strong>Body:</strong> The body contains the data that will be submitted as the POST request. When submitting a form, the format data and file content are sent in the body of the request.</p>
+
+<p>The table below provides a description of the Update Invention POST request header and body parameters that are expected by the iEdison API.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Request Parameter</th>
+      <th>Description</th>
+      <th>Required</th>
+      <th>Data Type</th>
+      <th>Version</th>
+      <th>In</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>accept</td>
+      <td>Specifies the response format that is expected. Set to “application/json”.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>v1+</td>
+      <td>header</td>
+    </tr>
+    <tr>
+      <td>inventionRequest</td>
+      <td>The JSON object that contains attributes used in the request. Refer to the table below for a description of the attributes.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>v1+</td>
+      <td>form-data</td>
+    </tr>
+    <tr>
+      <td>inventionDisclosure</td>
+      <td>The Invention Disclosure document for updating the document in iEdison. The following file types are allowed for the Invention Disclosure document: CSV, GIF, JPEG, JPG, PNG, PDF, DOCX, DOC, TIFF, TIF, TXT, XLS, XLSX, PPT, PPTX, ODT, and RTF. The maximum file size is 50MB.</td>
+      <td>No</td>
+      <td>Binary Attachment</td>
+      <td>v1+</td>
+      <td>form-data</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The table below lists the attributes that will be included in the inventionRequest parameter when updating an invention report. The attributes are included in the JSON object as part of the inventionRequest form-data text element.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>JSON Attribute Name</th>
+      <th>Description</th>
+      <th>Required</th>
+      <th>Data Type</th>
+      <th>Length</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>inventionReportNumber</td>
+      <td>Automatically generated by iEdison for an Invention Report after data has been submitted, checked for errors, and verified.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>25</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>granteeOrganizationName</td>
+      <td>The name of the organization established at registration. This field is no longer used in the request. The system is using the institutionCode instead. If value is provided, the system will ignore it.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>100</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>institutionCode</td>
+      <td>The unique code is assigned to the reporting organizations.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>dunsNumber</td>
+      <td>The Data Universal Numbering System (DUNS) number provided by Dun &amp; Bradstreet that identifies the grantee/contractor. This field is no longer used in the request. If value is provided for this field, the system will ignore it.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>9</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionTitle</td>
+      <td>The title of the Invention as it appears in the grantee/contractor’s employee’s Invention Report.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>255</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionDocketNumber</td>
+      <td>An internal reference number of the grantee/contractor organization to help track a reported Invention(s). If the field is not provide or with value of empty or null, the system will keep the current value in database.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>30</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>doesNumber</td>
+      <td>The DOE S-number is assigned to each DOE Invention. The number is mainly used in DOE’s Invention tracking system. This field is used by Agency client request only. Organization client submit a request with this value will be ignored.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>15</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>parentInventionNumber</td>
+      <td>Invention Report number used when an Invention is combined into another Invention as a parent Invention.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>25</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionReportDate</td>
+      <td>The date that the inventor discloses the subject Invention in writing to the recipient institution. Format: MM/DD/YYYY</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>firstPublicationDate</td>
+      <td>The date of first publication, on sale, or public use initiating the one-year statutory period wherein valid Patent protection can still be obtained in the United States. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionSubmitDate</td>
+      <td>The date when Invention is submitted to agency. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>keywords</td>
+      <td>Any keywords used to identify or categorize your invention.</td>
+      <td>No</td>
+      <td>Array [String]</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>doeWaiver</td>
+      <td>Refers to the government’s waiver of rights under 10 CFR 784 in an invention arising from DOE-funded research so that private entities may expedite commercialization, quickly bringing their technologies from lab to market. There are three types of waivers: Advance, Identified, and Class patent waivers.</td>
+      <td>No</td>
+      <td>String</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>institutionCodeForOtherInstitutions</td>
+      <td>Institution code for other organizations to view Inventions and other related parents. A maximum of three additional iEdison registered organizations may be granted view-only access to an Invention Report.</td>
+      <td>No</td>
+      <td>Array [String]</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>isExceptionCircumstanceDetermination</td>
+      <td>Is this invention made under a funding agreement subject to a determination of exceptional circumstances?</td>
+      <td>No</td>
+      <td>Boolean</td>
+      <td> </td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td><strong>inventors</strong></td>
+      <td><strong>List of Inventors</strong></td>
+      <td><strong>Yes</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td> </td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>firstName</td>
+      <td>First name of the inventor.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>lastName</td>
+      <td>Last name of the inventor.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>middleInitial</td>
+      <td>Middle name or first initial of the inventor.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>30</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>fedEmployee</td>
+      <td>Is the inventor a federal employee? true = federal employee, false = not a federal employee (default)</td>
+      <td>No</td>
+      <td>Boolean</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>fedAgency</td>
+      <td>If the inventor is a federal employee, the agency the inventor works for. Click here for a list of valid abbreviations.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>primaryAgency</td>
+      <td>The Primary Agency designated for each Invention Report in iEdison. Click here for a list of valid abbreviations. If organization client provides a new value for this field in the update invention request, the system will ignore it. If current primary agency user provides a new value for this field, the system will update the primary agency.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>50</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td><strong>fundingAgreements</strong></td>
+      <td><strong>The funding agreement is identified and reported in two parts, the Agency Designation (the acronym for the Federal Agency name) and the grant or contract award number corresponding to the agency that contributed to the Invention.</strong></td>
+      <td><strong>Yes</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td> </td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>agency</td>
+      <td>The federal government agency that made an award that was used to support the conception of the Invention or its first actual reduction to practice. Click here for a list of valid abbreviations.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>grantNumber</td>
+      <td>The corresponding grant or contract number. The format of the grant or contract number is specified by the associated agency.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>40</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>awardType</td>
+      <td>Indicates the type of award as a primary award or a sub-award. Refer to Section 12.3 for a list of valid values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>5</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>agreementType</td>
+      <td>Indicates the type of agreement. Refer to Section 12.1 for a list of valid values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td><strong>subContractInfos</strong></td>
+      <td><strong>Subcontractor Information</strong></td>
+      <td> </td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td> </td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>subContractNumber</td>
+      <td>An additional grant or contract number for an Invention or Patent</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>150</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorName</td>
+      <td>The name of the subcontractor that provided the grant or contract.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>120</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorDUNS</td>
+      <td>The DUNS number of the subcontractor that provided the grant or contract.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>9</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorCity</td>
+      <td>The city of the subcontractor that provided the grant or contract.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>35</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorState</td>
+      <td>The state of the subcontractor that provided the grant or contract. Refer to Section 12.14 for a list of valid Code values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>2</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorCountry</td>
+      <td>The country of the subcontractor that provided the grant or contract. Refer to Section 12.4 for a list of valid country Name values.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>15</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td><strong>inventionStatus</strong></td>
+      <td><strong>Title Election Status</strong></td>
+      <td><strong>No</strong></td>
+      <td><strong>JSON Object</strong></td>
+      <td> </td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>titleElectionStatus</td>
+      <td>The status of the title to rights in the reported Invention. Refer to Section 12.15 for a list of valid values.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>titleElectionDate</td>
+      <td>The legally binding date that the grantee/contractor elected to retain title to an Invention. This field will be ignored by the system for Organization clients since it is automatically generated when organization clients submit an Invention API request with “Elect to Retain Title Status”. If agency users submit a new date value with an update invention request, the system will update the database with the new value. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>notElectTitleReason</td>
+      <td>This field is for the grantee/contractor to select the reason for choosing to Not Elect Title where titleElectionStatus is ‘Does Not Retain Title’ in an Invention Report. Refer to Section 12.7 for a list of valid values. This field will be ignored by the system when titleElectionStatus is not equal to “Does Not Retain Title”.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>255</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>notElectTitleOtherReason</td>
+      <td>If the titleElectionStatus is ‘Does Not Elect Title’ and the notElectTitleReason is ‘Other’, this field is used to provide description of the custom reason for not electing title. This field will be ignored by the system when titleElectionStatus is not equal to “Does Not Retain Title” and notElectTitleReason is not equal to ‘Other’.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>255</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>doesNotRetainTitleDate</td>
+      <td>The date the grantee/contractor chose to Not Elect Title or retain Title in an Invention Report. If organization clients provide a value for this field, the system will ignore the value. If agency user provides a value for this field and the titleElectionStatus is “Does Not Retain Title”, the system will update the database with the new value. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>dispositionRightsDate</td>
+      <td>The date the government decided on the disposition of rights. If value is not given when dispositionStatus is selected, the system will use the system date as the value. The API provides this field is for ONLY agency users to update the disposition of rights date. If organization clients provide a value for this field in the update invention request, the system will ignore the value. Format: MM/DD/YYYY</td>
+      <td>No</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>dispositionStatus</td>
+      <td>The Invention Disposition status which is the decision of the primary agency as to how to proceed with the technology. Refer to Section 12.6 for a list of valid values. The API provides this field for ONLY the agency clients to update the disposition of rights. If organization clients provide a value for this field in the update invention request, the system will ignore the value.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>255</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td><strong>explanatoryNotes</strong></td>
+      <td><strong>Explanatory notes are used to note information about the report.</strong></td>
+      <td><strong>No</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td> </td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>note</td>
+      <td>Explanatory notes are used to note information about an Invention Report or Patent Report. Explanatory notes should not be used for data that is provided by other iEdison data fields.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>500</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td><strong>governmentNotes</strong></td>
+      <td><strong>Notes written by the agency regarding the report.</strong></td>
+      <td><strong>No</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td> </td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>note</td>
+      <td>Government Notes are used to note information about an Invention Report or Patent Report by federal users who have access to view the record.</td>
+      <td>Yes</td>
+      <td>String</td>
+      <td>500</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>budgetIdentifiers</td>
+      <td>This contains a list of Budget Identifiers for the Invention Report.</td>
+      <td>No</td>
+      <td>Array [String]</td>
+      <td> </td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>agencyCustom1</td>
+      <td>The agency custom note field. Only available for agency users. If organization client provides a value for this field, the system will ignore it.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>2000</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>agencyCustom2</td>
+      <td>The agency custom note field. Only available for agency users. If organization client provides a value for this field, the system will ignore it.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>2000</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>agencyCustom3</td>
+      <td>The agency custom note field. Only available for agency users. If organization client provides a value for this field, the system will ignore it.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>2000</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>governmentStaff</td>
+      <td>Used to identify government staff. Only available for agency users. If organization client provides a value for this field, the system will ignore it.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>200</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>governmentCounsel</td>
+      <td>Used to identify the Government Counsel (law firm) for an Invention Report. Only available for agency clients. If organization client provides a value for this field, the system will ignore it.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>200</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>voidDispositionReason</td>
+      <td>The reason from the primary agency for voiding the Invention report. The reason will be added to the system as an Explanatory Notes in the Invention report. If organization client provides a value for this field, the system will ignore it.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>500</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>govtRetainsRightsReason</td>
+      <td>The reason from the primary agency for changing Disposition Status to “Government Retains Rights” for the invention when the Title Election Status is “Under Evaluation”, “Elect to Retain Title”, “Government Takes Title (Award Terms)”, or “Designated as Unpatented Biological Material or Research Tool”. The reason will be added to the system as an Explanatory Notes in the Invention report. If organization user provides a value for this field, the system will ignore the value.</td>
+      <td>No</td>
+      <td>String</td>
+      <td>500</td>
+      <td>v2+</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response-parameters-1">Response Parameters</h3>
+
+<p>When the request is processed and the invention report is successfully updated, the Update Invention API endpoint returns an inventionResponse data object. The attributes of this object are described in Section 7.4.</p>
+
+<h2 id="search-invention-v2">Search Invention, v2</h2>
+
+<p>The Search Invention API allows users to specify any combination of the attributes to search for existing Invention Reports. The search will encompass all the Invention Reports from user’s organization and from other organizations that have granted the user permission to view their Invention Reports. Once the user finds the Invention Report, they will be able to modify the Invention, add a Patent Report, or add a Utilization Report. Refer to Appendix A for samples of requests and responses.</p>
+
+<h3 id="endpoint-uri-2">Endpoint URI</h3>
+
+<p>This is an example of the endpoint for the Search Invention resource.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /iedison/api/v2/inventions/search
+</code></pre></div></div>
+
+<h3 id="request-parameters-2">Request Parameters</h3>
+
+<p>The request has the following elements:</p>
+
+<p><strong>Headers:</strong> These are the request headers such as Accept or Content-Type. The Accept header defines the expected response format when the API returns the response. The Accept header is required for all requests.</p>
+
+<p><strong>Body:</strong> The body contains the data that will be submitted as the POST request. When submitting a form, the format data and file content are sent in the body of the request.</p>
+
+<p>The table below provides a description of the Search Invention request header and body parameters that are expected by the iEdison API.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Request Parameter</th>
+      <th>Description</th>
+      <th>Data Type</th>
+      <th>Version</th>
+      <th>In</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>accept</td>
+      <td>Specifies the response format that is expected. Set to “application/json”.</td>
+      <td>String</td>
+      <td>v1+</td>
+      <td>header</td>
+    </tr>
+    <tr>
+      <td>inventionSearchCriteria</td>
+      <td>The JSON object that contains attributes used in the request. Refer to the table below for a description of the attributes.</td>
+      <td>String</td>
+      <td>v1+</td>
+      <td>form-data</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The table below lists the attributes that will be included in the inventionSearchCriteria parameter when searching for an Invention Report. The attributes are included in the JSON object as part of the inventionSearchCriteria form-data text element.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Request Parameter</th>
+      <th>Description</th>
+      <th>Data Type</th>
+      <th>Length</th>
+      <th>Version</th>
+      <th>In</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>limit</td>
+      <td>Total number of records to be retrieved per page. This field must be a number. Max Value = 100, Default = 20</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>offset</td>
+      <td>Page index specified by the user. Default = 0 if user does not provide any offset in the request</td>
+      <td>Integer</td>
+      <td> </td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>inventionReportNumber</td>
+      <td>Automatically generated by iEdison for an Invention Report after data has been submitted, checked for errors, and verified.</td>
+      <td>String</td>
+      <td>100</td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>inventionDocketNumber</td>
+      <td>An internal reference number of the grantee/contractor organization to help track a reported Invention(s)</td>
+      <td>String</td>
+      <td>30</td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>grantContractNumber</td>
+      <td>The grant or contract number as specified by the agency. The format is defined by the agency.</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>inventorFirstName</td>
+      <td>The first name of the inventor.</td>
+      <td>String</td>
+      <td>50</td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>inventorLastName</td>
+      <td>The last name of the inventor.</td>
+      <td>String</td>
+      <td>50</td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>primaryAgency</td>
+      <td>The Primary Agency designated for each Invention Report in iEdison. Click here for a list of valid abbreviations.</td>
+      <td>String</td>
+      <td>50</td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>granteeOrganizationName</td>
+      <td>The name of the organization established at registration.</td>
+      <td>String</td>
+      <td>100</td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>titleElectionStatus</td>
+      <td>The status of the title to rights in the reported Invention. Refer to Section 12.15 for a list of valid values.</td>
+      <td>JSON Object</td>
+      <td>10</td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>inventionTitle</td>
+      <td>The title of the Invention as it appears in the grantee/contractors employee’s Invention Report.</td>
+      <td>String</td>
+      <td>255</td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>inventionReportDateFrom</td>
+      <td>The From Date that the inventor disclosed in the subject Invention in writing to the recipient institution. Format: MM/DD/YYYY</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>inventionReportDateTo</td>
+      <td>The To Date that the inventor disclosed in the subject Invention in writing to the recipient institution. Format: MM/DD/YYYY</td>
+      <td>String</td>
+      <td>10</td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>inventionKeyword</td>
+      <td>This field enables the grantee/contractor organization to designate key terms for searching for Invention Reports.</td>
+      <td>String</td>
+      <td>80</td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>doeWaiver</td>
+      <td>DOE Waiver</td>
+      <td>String</td>
+      <td> </td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>governmentCounsel</td>
+      <td>Used to identify the Government Counsel (law firm) for an Invention Report.</td>
+      <td>String</td>
+      <td> </td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>governmentStaff</td>
+      <td>Used to identify government staff.</td>
+      <td>String</td>
+      <td> </td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>lastUpdatedFrom</td>
+      <td>The ‘start from’ search date against the invention last updated date. Will use the last updated date for the invention, but if that is null, then the created date will be used. Format: MM/DD/YYYY</td>
+      <td>String</td>
+      <td> </td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+    <tr>
+      <td>lastUpdatedTo</td>
+      <td>The ‘up to’ search date against the Patent last updated date. Format: MM/DD/YYYY</td>
+      <td>String</td>
+      <td> </td>
+      <td>v1+</td>
+      <td>body</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response-parameters-2">Response Parameters</h3>
+
+<p>When the request is processed, the Search Invention API endpoint returns a list of inventions that match the search criteria in the inventionResponse data object. The attributes of this object are described in Section 7.4.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>JSON Attribute Name</th>
+      <th>Description</th>
+      <th>Data Type</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>totalRecords</td>
+      <td>The total number of records for the search.</td>
+      <td>Number</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>limit</td>
+      <td>The limit entered by the user while making the request i.e., total number of records the user wished to retrieve per page.</td>
+      <td>Number</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>offset</td>
+      <td>The page index specified by the user.</td>
+      <td>Number</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventions</td>
+      <td>A list of invention records which contains the inventionResponse data object.</td>
+      <td>Array [JSON Object]</td>
+      <td>v1+</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="inventionresponse-data-object">InventionResponse Data Object</h2>
+
+<p>The invention create, update, and search API endpoints share a common InventionResponse data object. The JSON attributes are described in the table below.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>JSON Attribute Name</th>
+      <th>Description</th>
+      <th>Data Type</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>inventionReportNumber</td>
+      <td>Automatically generated by iEdison for an Invention Report after data has been submitted, checked for errors, and verified.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>granteeOrganizationName</td>
+      <td>The name of the organization established at registration.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>institutionCode</td>
+      <td>The unique code assigned to the reporting organizations.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>dunsNumber</td>
+      <td>The Data Universal Numbering System (DUNS) number provided by Dun &amp; Bradstreet that identifies the grantee/contractor.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionTitle</td>
+      <td>The title of the Invention as it appears in the grantee/contractor’s employee’s Invention Report.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionDocketNumber</td>
+      <td>An internal reference number of the grantee/contractor organization to help track a reported Invention(s).</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>doesNumber</td>
+      <td>The DOE S-number is assigned to each DOE Invention. The number is mainly used in DOE’s Invention tracking system.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>parentInventionNumber</td>
+      <td>The Invention Report number used when an Invention is combined into another Invention as a parent Invention.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionReportDate</td>
+      <td>The date that the inventor discloses the subject Invention in writing to the recipient institution.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>inventionSubmitDate</td>
+      <td>The date when Invention is submitted to the agency.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>reportingOverdue</td>
+      <td>Indicates if an Invention is submitted outside limit of 60 days or 6 months.</td>
+      <td>Boolean</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>firstPublicationDate</td>
+      <td>The date of first publication, on sale, or public use initiating the on- year statutory period wherein valid Patent protection can still be obtained in the United States.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>domesticManufactureWaiver</td>
+      <td>Indicates whether a Domestic Manufacture Waiver was requested by the organization.</td>
+      <td>Boolean</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>doeWaiver</td>
+      <td>DOE Waiver.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>institutionCodeForOtherInstitutions</td>
+      <td>The Institution code for other organizations to view the Invention. A maximum of three additional iEdison registered organizations may be granted view-only access to an Invention Report.</td>
+      <td>Array [String]</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>keywords</td>
+      <td>Indicates any key terms for searching for Invention Reports.</td>
+      <td>Array [String]</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>isExceptionCircumstanceDetermination</td>
+      <td>Is this invention made under a funding agreement subject to a determination of exceptional circumstances?</td>
+      <td>Boolean</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td><strong>inventors</strong></td>
+      <td><strong>List of Inventors</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>firstName</td>
+      <td>First name of the inventor.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>lastName</td>
+      <td>Last name of the inventor.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>middleInitial</td>
+      <td>Middle name or first initial of the inventor.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>fedEmployee</td>
+      <td>Is the inventor a federal employee?</td>
+      <td>Boolean</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>fedAgency</td>
+      <td>If the inventor is a federal employee, the agency the inventor works for. Click here for a list of valid abbreviations.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>The unique identifier assigned to the inventor.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>primaryAgency</td>
+      <td>The Primary Agency designated for each Invention Report in iEdison. Click here for a list of valid abbreviations.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td><strong>fundingAgreements</strong></td>
+      <td><strong>The funding agreement is identified and reported in two parts, the Agency Designation (the acronym for the Federal Agency name) and the grant or contract award number corresponding to the agency that contributed to the Invention.</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>agency</td>
+      <td>The federal government agency that made an award that was used to support the conception of the Invention or its first actual reduction to practice. Click here for a list of valid abbreviations.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>grantNumber</td>
+      <td>The corresponding grant or contract number. The format of the grant or contract number is specified by the associated agency.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>awardType</td>
+      <td>Indicates the type of award as a primary award or sub-award. Refer to Section 12.3 for a list of valid values.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>agreementType</td>
+      <td>Indicates the type of agreement. Refer to Section 12.1 for a list of valid values.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>The funding agreement primary unique identifier in the iEdison system.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td><strong>subContractInfos</strong></td>
+      <td><strong>Subcontractor Information</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>subContractNumber</td>
+      <td>An additional grant or contract number for an Invention or Patent.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorName</td>
+      <td>The name of the subcontractor that provided the grant or contract.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorDUNS</td>
+      <td>The DUNS number of the subcontractor that provided the grant or contract.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorCity</td>
+      <td>The city of the subcontractor that provided the grant or contract.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorState</td>
+      <td>The state of the subcontractor that provided the grant or contract. Refer to Section 12.14 for a list of valid values.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>contractorCountry</td>
+      <td>The country of the subcontractor that provided the grant or contract. Refer to Section 12.4 for a list of valid values.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>The subcontractor primary unique identifier in the iEdison system.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td><strong>inventionStatus</strong></td>
+      <td><strong>Title Election Status and Disposition Status</strong></td>
+      <td><strong>JSON Object</strong></td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>titleElectionStatus</td>
+      <td>The status of the title to rights in the reported Invention. Refer to Section 12.15 for a list of valid values.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>titleElectionDate</td>
+      <td>The legally binding date that the grantee/contractor elected to retain title to an Invention.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>notElectTitleReason</td>
+      <td>This field is for the grantee/contractor to select the reason for choosing Does Not Retain Title in an Invention Report. Refer to Section 12.7 for a list of valid values.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>notElectTitleOtherReason</td>
+      <td>If the titleElectionStatus is ‘Does Not Retain Title’ and notElectTitleReason is ‘Other’, this field is used to provide the description of the custom reason for not electing title.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>dispositionStatus</td>
+      <td>The government’s decision/outcome of the disposition of rights. Refer to Section 12.6 for a list of valid values.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>dispositionRightsDate</td>
+      <td>The date the government decided on the disposition of rights.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>doesNotRetainTitleDate</td>
+      <td>The date the grantee/contractor chose to Not Elect Title or retain Title in an Invention Report.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td><strong>explanatoryNotes</strong></td>
+      <td><strong>Explanatory Notes</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>note</td>
+      <td>Explanatory notes or additional information about an Invention Report or Patent Report. Explanatory notes should not be used for data that is provided by other iEdison data fields.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>creatorName</td>
+      <td>The full name of the user who entered the explanatory note.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>createdDate</td>
+      <td>The date when the user entered the explanatory note.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>The unique identifier assigned to the explanatory note.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td><strong>governmentNotes</strong></td>
+      <td><strong>Government Notes which only return for agency system users. This field and value will display to agency users only.</strong></td>
+      <td><strong>Array [JSON Object]</strong></td>
+      <td><strong>v1+</strong></td>
+    </tr>
+    <tr>
+      <td>note</td>
+      <td>Government Notes are information about an Invention Report or Patent Report by federal agency users who have access to view the record.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>creatorName</td>
+      <td>The full name of the user who entered the government note.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>createdDate</td>
+      <td>The date when the user entered the government note.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>The unique identifier assigned to the government note.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+    <tr>
+      <td>budgetIdentifiers</td>
+      <td>This contains a list of Budget Identifiers for the Invention report.</td>
+      <td>Array [String]</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>agencyCustom1</td>
+      <td>The agency custom note field. Only available for agency users. This field will not show in the responses to the organization system susers.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>agencyCustom2</td>
+      <td>The agency custom note field. Only available for agency users. This field will not show in the responses to the organization system susers.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>agencyCustom3</td>
+      <td>The agency custom note field. Only available for agency users. This field will not show in the responses to the organization system susers.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>governmentStaff</td>
+      <td>Used to identify government staff. This field and value will display to agency users only. This field will not show in the responses to the organization system susers.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>governmentCounsel</td>
+      <td>Used to identify the Government Counsel (law firm) for an Invention Report. This field and value will display to agency users only. This field will not show in the responses to the organization system susers.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>disclosureDocumentAcceptDate</td>
+      <td>The date the Disclosure document was accepted.</td>
+      <td>Date</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>disclosureDocumentRejectDate</td>
+      <td>The date the Disclosure document was rejected.</td>
+      <td>Date</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>disclosureDocumentRejectReasons</td>
+      <td>The reason the Disclosure document was rejected.</td>
+      <td>Array [String]</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>createdDate</td>
+      <td>The date the Invention Report was created in the iEdison system.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>lastUpdatedDate</td>
+      <td>The date the invention Report was last updated in the iEdison system.</td>
+      <td>String</td>
+      <td>v1+</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td>The unique identifier assigned to the Invention Report in the iEdison system.</td>
+      <td>Integer</td>
+      <td>v2+</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+  </main>
+</body>
+</html>
