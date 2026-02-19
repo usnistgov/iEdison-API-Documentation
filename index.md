@@ -13,8 +13,9 @@ Welcome to the official API documentation for iEdison. This guide provides techn
 
 - **[Introduction]({{ "/docs/Introduction" | relative_url }})** - Get started with iEdison API basics and authentication
 - **[Invention]({{ "/docs/Invention" | relative_url }})** - Manage invention disclosures and submissions
-- **[Patent]({{ "./docs/Patent" | relative_url }})** - Handle patent-related operations and data
+- **[Patent]({{ "./docs/Patent.md" | relative_url }})** - Handle patent-related operations and data
 - **[Utilization]({{ "/docs/Utilization" | relative_url }})** - Handle utilization-related operations 
+
 
 ## API References
 
