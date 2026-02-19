@@ -16,7 +16,7 @@ Welcome to the official API documentation for iEdison. This guide provides techn
 - **[Patent]({{ "./docs/Patent.md" | relative_url }})** - Handle patent-related operations and data
 - **[Utilization]({{ "/docs/Utilization" | relative_url }})** - Handle utilization-related operations 
 
-[Test](./Notification-API-Reference.md)
+[Test](/Notification-API-Reference.md)
 ## API References
 
 - **[Notification API Reference]({{ "/docs/Notification-API-Reference" | relative_url }})** - Send and manage notifications
