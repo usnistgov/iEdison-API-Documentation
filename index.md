@@ -28,4 +28,4 @@ Welcome to the official API documentation for iEdison. This guide provides techn
 
 ---
 
-Need help? Contact [support@iedison.gov](mailto:support@iedison.gov)
+Need help? Contact [support@iedison.gov](mailto:support@iedison.gov) 
