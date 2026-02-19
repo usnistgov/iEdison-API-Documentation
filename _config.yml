@@ -1,6 +1,6 @@
 title: iEdison API Documentation
 description: Official API documentation for iEdison system
-baseurl: "Edison-API-Documentation"
+baseurl: ""
 url: ""
 
 markdown: kramdown
