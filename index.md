@@ -5,7 +5,7 @@ title: iEdison API Documentation
 
 # iEdison API Documentation
 
-Welcome to the official API documentation for iEdison. This guide provides technical specifications and implementation resources for integrating with the iEdison system.
+Welcome to the official API documentation for iEdison. This guide provides technical specifications and implementation resources for integrating with the iEdison system. 
 
 ---
 
