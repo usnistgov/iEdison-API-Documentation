@@ -1,7 +1,7 @@
 title: iEdison API Documentation
 description: Official API documentation for iEdison system
 baseurl: "/iEdison-API-Documentation"
-url: ""
+url: "https://pages.nist.gov"
 
 markdown: kramdown
 theme: null
