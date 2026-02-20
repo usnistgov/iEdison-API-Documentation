@@ -7,9 +7,7 @@ title: Utilization API Reference
 
 The Utilization API allows an organization/agency to create, update, and search for an existing utilization record. The information required to submit a request will depend on the reporting year and the latest stage of development specified. The graphic below shows what reporting years each version supports.
 
-![images/9-1.png](9-1.png)
-
-![Figure 91: Utilization API Versions]
+![Figure 9-1: Utilization API Versions](./images/9-1.png)
 
 The latest version of the Create Utilization API, Version 3 (v3) contains the following changes:
 
