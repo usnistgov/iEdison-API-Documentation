@@ -2,44 +2,18 @@
 
 ## Scope
 
-This document describes the prerequisites, request, and response schemas for the Invention, Patent, and Utilization (IPU) REST API implementation.
+This document details the prerequisites, request, and response schemas for implementing the Invention, Patent, and Utilization (IPU) REST API.
 
 ## Prerequisites
 
-A system account and a valid PKI certificate issued by an authorized certificate issuer are required to consume the REST API services. Please contact the agency or organization administrator for a system account setup and a PKI certificate.
+A system account and a valid PKI certificate issued by NIST are required to access the REST API services.
 
 ### New System Account Requirements for Agency or Organization:
 
 **ISA Document:** Download a template from iEdison, sign and upload during the system account request process.
 
-**PKI Certificate:** Acquire a certificate before requesting a system account and upload during the system account request process.
+**PKI Certificate:** The client generates a Certificate Signing Request (CSR) that includes its public key and identifying information, then submits it to the National Institute of Standards and Technology (NIST). NIST reviews and verifies the submitted details, and once validated, signs the certificate to complete the issuance process.
 
-**Note:** iEdison will only accept certificate validity no longer than two years.
-
-The following are authorized certificate issuers.
-
-| Certificate Issuer                                   | Expiration Date |
-| ---------------------------------------------------- | --------------- |
-| DigiCert EV RSA CA G2                                | 07/02/2030      |
-| DIGICERT SHA2 ASSURED ID CA                          | 11/08/2028      |
-| DIGICERT SHA2 ASSURED ID CA                          | 11/05/2028      |
-| DIGICERT SHA2 EXTENDED VALIDATION SERVER CA          | 10/27/2028      |
-| DIGICERT SHA2 HIGH ASSURANCE SERVER CA               | 10/22/2028      |
-| DIGICERT SHA2 HIGH ASSURANCE SERVER CA               | 10/22/2028      |
-| DIGICERT TLS RSA SHA256 2020 CA1                     | 04/13/2031      |
-| ENTRUST CERTIFICATION AUTHORITY – L1K               | 12/05/2030      |
-| Entrust DV TLS Issuing RSA CA 1                      | 08/22/2027      |
-| Entrust EV TLS Issuing RSA CA 1                      | 08/22/2027      |
-| Entrust OV TLS Issuing RSA CA 1                      | 08/22/2027      |
-| Entrust DV TLS Issuing RSA CA 2                      | 12/10/2027      |
-| Entrust EV TLS Issuing RSA CA 2                      | 12/10/2027      |
-| Entrust OV TLS Issuing RSA CA 2                      | 12/10/2027      |
-| GO DADDY SECURE CERTIFICATE AUTHORITY – G2          | 05/03/2031      |
-| GO DADDY SECURE CERTIFICATION AUTHORITY              | 11/15/2026      |
-| HydrantID Server CA O1                               | 12/12/2029      |
-| INCOMMON RSA SERVER CA                               | 09/09/2024      |
-| INCOMMON RSA SERVER CA 2                             | 11/15/2032      |
-| SECTIGO RSA ORGANIZATION VALIDATION SECURE SERVER CA | 12/31/2030      |
 
 ## Abbreviations
 
