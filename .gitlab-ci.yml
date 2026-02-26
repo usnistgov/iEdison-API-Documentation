@@ -5,18 +5,20 @@ push_to_github:
   stage: push
   image: alpine:latest
   script:
-    - apk add --no-cache git
+    # 1. Install Git (and LFS just in case)
+    - apk add --no-cache git git-lfs
     
-    - git config --global user.email "ci@gitlab.com"
-    - git config --global user.name "GitLab CI"
+    # 2. Add the GitHub remote using your variables
+    # Note: We use the existing checkout instead of cloning again
+    - git remote add github "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPO}.git"
     
-    # Clone the repository with full history using CI_JOB_TOKEN
-    - git clone --mirror "https://oauth2:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" mirror.git
+    # 3. Ensure we have all tags and branches locally to mirror them
+    - git fetch --all
     
-    # Push to GitHub using Personal Access Token
-    - cd mirror.git
-    - git push --mirror "https://usnistgov:${GITHUB_TOKEN}@github.com/usnistgov/iEdison-API-Documentation.git"
-  
-  when: manual
-  only:
-    - main
+    # 4. Push everything to GitHub
+    # The --prune flag ensures deleted branches in GitLab are also deleted in GitHub
+    - git push github --mirror
+    
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
