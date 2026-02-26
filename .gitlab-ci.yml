@@ -10,11 +10,13 @@ push_to_github:
     - git config --global user.email "ci@gitlab.com"
     - git config --global user.name "GitLab CI"
     
-    - git clone --mirror https://oauth2:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git mirror.git
+    # Clone the repository with full history using CI_JOB_TOKEN
+    - git clone --mirror "https://oauth2:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" mirror.git
     
+    # Push to GitHub using Personal Access Token
     - cd mirror.git
-    - git push --mirror https://hichamnist:${GITHUB_TOKEN}@github.com/usnistgov/iEdison-API-Documentation.git
+    - git push --mirror "https://usnistgov:${GITHUB_TOKEN}@github.com/usnistgov/iEdison-API-Documentation.git"
   
   when: manual
   only:
-    - branches
+    - main
