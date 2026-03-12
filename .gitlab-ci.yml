@@ -6,7 +6,7 @@ push_to_github:
   image: alpine:latest
   before_script:
     # Fix: changed --no-repository to --no-cache
-    - apk add --no-cache git
+    - apk add --no-cache git git-subtree
     - git config --global user.email "hicham.laoudi@nist.gov"
     - git config --global user.name "hichamnist"
   script:
