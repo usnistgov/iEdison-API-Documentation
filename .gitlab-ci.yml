@@ -1,24 +1,20 @@
 stages:
-  - push
+  - deploy
 
 push_to_github:
-  stage: push
+  stage: deploy
   image: alpine:latest
+  before_script:
+    - apk add --no-repository git
+    - git config --global user.email "you@example.com"
+    - git config --global user.name "GitLab CI"
   script:
-    # 1. Install Git (and LFS just in case)
-    - apk add --no-cache git git-lfs
+    # 1. Add the GitHub remote using a variable for the token
+    - git remote add github https://x-access-token:${GITHUB_TOKEN}@github.com/usnistgov/iEdison-API-Documentation.git
     
-    # 2. Add the GitHub remote using your variables
-    # Note: We use the existing checkout instead of cloning again
-    - git remote add github "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_REPO}.git"
-    
-    # 3. Ensure we have all tags and branches locally to mirror them
-    - git fetch --all
-    
-    # 4. Push everything to GitHub
-    # The --prune flag ensures deleted branches in GitLab are also deleted in GitHub
-    - git push github --mirror
-    
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-      when: manual
+    # 2. Use subtree to push ONLY the docs folder to the nistpages branch
+    # This keeps the GitHub repo clean of your other GitLab files
+    - git subtree push --prefix docs github nistpages
+  when: manual
+  only:
+    - main  # Only show the button when on the main branch
