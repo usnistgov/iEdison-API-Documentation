@@ -1,22 +1,15 @@
-stages:
-  - deploy
-
 push_to_github:
   stage: deploy
   image: alpine:latest
+  tags:
+    - docker  # or the specific tag of your Docker runner
   before_script:
-    # Fix: changed --no-repository to --no-cache
     - apk add --no-cache git git-subtree
     - git config --global user.email "hicham.laoudi@nist.gov"
     - git config --global user.name "hichamnist"
   script:
-    # Ensure we have the full history for the subtree command to work
     - git fetch --unshallow || true
-    
-    # 1. Add the GitHub remote using your GITHUB_TOKEN variable
     - git remote add github https://x-access-token:${GITHUB_TOKEN}@github.com/usnistgov/iEdison-API-Documentation.git
-    
-    # 2. Push ONLY the docs folder to the nistpages branch
     - git subtree push --prefix docs github nistpages
   when: manual
   only:
