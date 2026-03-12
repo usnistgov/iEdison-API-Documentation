@@ -1,0 +1,38 @@
+name: Sync Docs to NIST Pages
+
+on:
+  push:
+    branches:
+      - iEdisonPages
+    paths:
+      - 'docs/**' # Only runs if files inside the docs folder change
+
+jobs:
+  sync-folder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches all branches
+
+      - name: Copy docs folder to nist-pages
+        run: |
+          # Configure Git
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Switch to destination branch
+          git checkout nist-pages
+          
+          # Pull the docs folder from source branch
+          git checkout iEdisonPages -- docs/
+          
+          # Add, commit, and push if there are changes
+          git add docs/
+          if git diff --staged --quiet; then
+            echo "No changes to sync."
+          else
+            git commit -m "Auto-sync docs from iEdisonPages"
+            git push origin nist-pages
+          fi
