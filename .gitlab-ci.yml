@@ -11,7 +11,7 @@ push_to_github:
     - git fetch --unshallow || true
     - git remote add github https://x-access-token:${GITHUB_TOKEN}@github.com/usnistgov/iEdison-API-Documentation.git
     - git fetch github nist-pages || true
-    - git subtree push --prefix docs github nist-pages --force
+    - git push github `git subtree split --prefix docs main`:nist-pages --force
   when: manual
   only:
     - main
