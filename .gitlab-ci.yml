@@ -2,7 +2,7 @@ push_to_github:
   stage: deploy
   image: alpine:latest
   tags:
-    - docker
+    - docker  # or the specific tag of your Docker runner
   before_script:
     - apk add --no-cache git git-subtree
     - git config --global user.email "hicham.laoudi@nist.gov"
@@ -10,8 +10,7 @@ push_to_github:
   script:
     - git fetch --unshallow || true
     - git remote add github https://x-access-token:${GITHUB_TOKEN}@github.com/usnistgov/iEdison-API-Documentation.git
-    - git fetch github nist-pages || true
-    - git push github `git subtree split --prefix docs main`:nist-pages --force
+    - git subtree push --prefix docs github iEdisonPages
   when: manual
   only:
     - main
