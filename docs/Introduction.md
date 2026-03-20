@@ -12,8 +12,63 @@ A system account and a valid PKI certificate issued by NIST are required to acce
 
 **ISA Document:** Download a template from iEdison, sign and upload during the system account request process.
 
-**PKI Certificate:** The client generates a Certificate Signing Request (CSR) that includes its public key and identifying information, then submits it to the National Institute of Standards and Technology (NIST). NIST reviews and verifies the submitted details, and once validated, signs the certificate to complete the issuance process.
+**PKI Certificate:** The client generates a Certificate Signing Request (CSR) that includes its public key and identifying information, then submits it to the National Institute of Standards and Technology (NIST). NIST reviews and verifies the submitted details, and once validated, signs the certificate to complete the issuance process.  Follow the steps below to create these your local private key and the CSR files using OpenSSL.
 
+#### Step 1: Generate Private Key and CSR
+Run the following command in your terminal. This command creates a 2048-bit RSA private key and a CSR containing your identifying information in a single step.
+
+Command:
+
+```bash
+openssl req -new -newkey rsa:2048 -nodes \
+  -keyout user_private.key \
+  -out user_request.csr \
+  -subj "/C=US/ST=State/O=Organization/CN=YourName/emailAddress=your-email@example.com"
+```
+
+Parameter Definitions:
+| Attribute | Description | Example |
+| :--- | :--- | :--- |
+| C | Country: Your 2-letter ISO country code. | US |
+| ST | State: Your state or province name. | Maryland |
+| L | Location: Optional city name. | Gaithersburg |
+| O | Organization: Your company or department name. | National Institute of Standards and Technology |
+| OU | Organization Unit: Optional orgnaization unit. | OISM |
+| CN | Common Name: Your unique API identifier.  Use iedison_<COMPANY/AGENCY DOMAIN> | iedison_oism.nist.gov |
+| emailAddress | Contact: The email associated with this access token. | john.doe@nist.gov |
+
+Example command:
+
+```bash
+openssl req -new -newkey rsa:2048 -nodes \
+  -keyout iedison_oism.nist.gov_private.key \
+  -out iedison_oism.nist.gov_request.csr \
+  -subj "/C=US/ST=Maryland/L=Gaithersburg/O=National Institute of Standards and Technology/CN=iedison_oism.nist.gov/emailAddress=john.doe@nist.gov"
+```
+
+#### Step 2: Verify the CSR Attributes
+Before submitting the user_request.csr file to the API, verify that the attributes are correctly formatted.
+
+Command:
+
+```bash
+openssl req -in user_request.csr -noout -subject
+```
+
+Expected Output:
+```
+The terminal should return a string similar to the one below. Ensure your email and Common Name (CN) are correct:
+subject=C = US, ST = State, O = Organization, CN = YourName, emailAddress = your-email@example.com
+```
+
+#### Security Best Practices
+Keep your .key file private: Never share the user_private.key file with anyone, including our support team. We only require the .csr file to grant you access.
+
+Permissions: On Linux or macOS, restrict the permissions of your private key immediately after generation:
+
+```bash
+chmod 600 user_private.key
+```
 
 ## Abbreviations
 
