@@ -26,16 +26,18 @@ openssl req -new -newkey rsa:2048 -nodes \
   -subj "/C=US/ST=State/O=Organization/CN=YourName/emailAddress=your-email@example.com"
 ```
 
-Parameter Definitions:
-| Attribute | Description | Example |
-| :--- | :--- | :--- |
-| C | Country: Your 2-letter ISO country code. | US |
-| ST | State: Your state or province name. | Maryland |
-| L | Location: Optional city name. | Gaithersburg |
-| O | Organization: Your company or department name. | National Institute of Standards and Technology |
-| OU | Organization Unit: Optional orgnaization unit. | OISM |
-| CN | Common Name: Your unique API identifier.  Use iedison_<COMPANY/AGENCY DOMAIN> | iedison_oism.nist.gov |
-| emailAddress | Contact: The email associated with this access token. | john.doe@nist.gov |
+Parameter Definitions
+
+| Attribute        | Description                                                               | Example                                        |
+| ---------------- | ------------------------------------------------------------------------- | ---------------------------------------------- |
+| **C**            | Country: 2-letter ISO country code                                        | US                                             |
+| **ST**           | State: State or province name                                             | Maryland                                       |
+| **L**            | Location: Optional city name                                              | Gaithersburg                                   |
+| **O**            | Organization: Company or department name                                  | National Institute of Standards and Technology |
+| **OU**           | Organizational Unit: Optional organizational unit                         | OISM                                           |
+| **CN**           | Common Name: Unique API identifier. Use `iedison_<COMPANY/AGENCY DOMAIN>` | iedison_oism.nist.gov                          |
+| **emailAddress** | Contact: Email associated with this access token  
+
 
 Example command:
 
