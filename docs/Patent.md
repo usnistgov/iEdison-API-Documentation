@@ -86,6 +86,9 @@ The table below lists the attributes that will be included in the patentRequest 
 | note | Explanatory notes are be used to note information about an Invention Report or Patent Report. Explanatory notes should not be used for data that is provided by other iEdison data fields. | Yes | String | 500 | v1+ |
 | **governmentNotes** | **Notes written by the agency regarding the report. If organization client provides value(s) for this list field, the system will ignore them.** | **No** | **JSON Object** | | **v1+** |
 | note | Government Notes are used to note information about an Invention Report or Patent Report by federal users who have access to view the record. | Yes | String | 500 | v1+ |
+| conPatentReason | When submitting a continuation of a patent application, if the parent patent is absent, clarify why the parent application is not considered a subject invention. | No | String | 4000 | v1+ |
+
+
 
 ### Response Parameters
 
