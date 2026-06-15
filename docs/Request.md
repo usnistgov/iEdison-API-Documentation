@@ -61,14 +61,22 @@ Creates an assignment request for an invention.
 1. `thirdParty` or `inventor`
 2. If assignmentType is `inventor`, must be name of inventor on invention
 3. Comments can be no more than 512 characters
+4. `InventorDTO`
+```json
+  {
+    "firstName": "string",
+    "lastName": "string",
+    "middleInitial": "string"
+  }
+```
 
 #### Responses
 
-| Code  | Description                                                  |
-|-------|--------------------------------------------------------------|
-| `200` | Request created successfully. Returns a `RequestDTO` object. |
-| `400` | Invalid request data. Returns error details.                 |
-| `500` | Server error during processing.                              |
+| Code  | Description                                                                     |
+|-------|---------------------------------------------------------------------------------|
+| `200` | Request created successfully. Returns a `RequestDTO` object. _(See Appendix A)_ |
+| `400` | Invalid request data. Returns error details.                                    |
+| `500` | Server error during processing.                                                 |
 
 ---
 
@@ -99,11 +107,11 @@ Creates a transfer request for an invention.
 
 #### Responses
 
-| Code  | Description                                                           |
-|-------|-----------------------------------------------------------------------|
-| `200` | Transfer request created successfully. Returns a `RequestDTO` object. |
-| `400` | Invalid request data.                                                 |
-| `500` | Server error.                                                         |
+| Code  | Description                                                                              |
+|-------|------------------------------------------------------------------------------------------|
+| `200` | Transfer request created successfully. Returns a `RequestDTO` object. _(See Appendix A)_ |
+| `400` | Invalid request data.                                                                    |
+| `500` | Server error.                                                                            |
 
 ---
 
@@ -135,11 +143,11 @@ Creates an election extension request for an invention.
 
 #### Responses
 
-| Code  | Description                                                                     |
-|-------|---------------------------------------------------------------------------------|
-| `200` | Election extension request created successfully. Returns a `RequestDTO` object. |
-| `400` | Invalid request data.                                                           |
-| `500` | Server error.                                                                   |
+| Code  | Description                                                                                        |
+|-------|----------------------------------------------------------------------------------------------------|
+| `200` | Election extension request created successfully. Returns a `RequestDTO` object. _(See Appendix A)_ |
+| `400` | Invalid request data.                                                                              |
+| `500` | Server error.                                                                                      |
 
 ---
 
@@ -171,11 +179,11 @@ Creates a non-provisional patent extension request for an invention.
 
 #### Responses
 
-| Code  | Description                                                                                   |
-|-------|-----------------------------------------------------------------------------------------------|
-| `200` | Non-provisional patent extension request created successfully. Returns a `RequestDTO` object. |
-| `400` | Invalid request data.                                                                         |
-| `500` | Server error.                                                                                 |
+| Code  | Description                                                                                                      |
+|-------|------------------------------------------------------------------------------------------------------------------|
+| `200` | Non-provisional patent extension request created successfully. Returns a `RequestDTO` object. _(See Appendix A)_ |
+| `400` | Invalid request data.                                                                                            |
+| `500` | Server error.                                                                                                    |
 
 ---
 
@@ -207,11 +215,11 @@ Creates an initial patent extension request for an invention.
 
 #### Responses
 
-| Code  | Description                                                                           |
-|-------|---------------------------------------------------------------------------------------|
-| `200` | Initial patent extension request created successfully. Returns a `RequestDTO` object. |
-| `400` | Invalid request data.                                                                 |
-| `500` | Server error.                                                                         |
+| Code  | Description                                                                                              |
+|-------|----------------------------------------------------------------------------------------------------------|
+| `200` | Initial patent extension request created successfully. Returns a `RequestDTO` object. _(See Appendix A)_ |
+| `400` | Invalid request data.                                                                                    |
+| `500` | Server error.                                                                                            |
 
 ---
 
@@ -241,11 +249,11 @@ Creates a void request for an invention.
 
 #### Responses
 
-| Code  | Description                                                       |
-|-------|-------------------------------------------------------------------|
-| `200` | Void request created successfully. Returns a `RequestDTO` object. |
-| `400` | Invalid request data.                                             |
-| `500` | Server error.                                                     |
+| Code  | Description                                                                          |
+|-------|--------------------------------------------------------------------------------------|
+| `200` | Void request created successfully. Returns a `RequestDTO` object. _(See Appendix A)_ |
+| `400` | Invalid request data.                                                                |
+| `500` | Server error.                                                                        |
 
 ---
 
@@ -278,14 +286,22 @@ Creates an assignment request for a patent.
 1. `thirdParty` or `inventor`
 2. If assignmentType is `inventor`, must be name of inventor on invention
 3. Comments can be no more than 512 characters
+4. `InventorDTO`
+```json
+  {
+    "firstName": "string",
+    "lastName": "string",
+    "middleInitial": "string"
+  }
+```
 
 #### Responses
 
-| Code  | Description                                                                    |
-|-------|--------------------------------------------------------------------------------|
-| `200` | Patent assignment request created successfully. Returns a `RequestDTO` object. |
-| `400` | Invalid request data.                                                          |
-| `500` | Server error.                                                                  |
+| Code  | Description                                                                                       |
+|-------|---------------------------------------------------------------------------------------------------|
+| `200` | Patent assignment request created successfully. Returns a `RequestDTO` object. _(See Appendix A)_ |
+| `400` | Invalid request data.                                                                             |
+| `500` | Server error.                                                                                     |
 
 ---
 
@@ -318,11 +334,11 @@ Creates a transfer request for a patent.
 
 #### Responses
 
-| Code  | Description                                                                  |
-|-------|------------------------------------------------------------------------------|
-| `200` | Patent transfer request created successfully. Returns a `RequestDTO` object. |
-| `400` | Invalid request data.                                                        |
-| `500` | Server error.                                                                |
+| Code  | Description                                                                                     |
+|-------|-------------------------------------------------------------------------------------------------|
+| `200` | Patent transfer request created successfully. Returns a `RequestDTO` object. _(See Appendix A)_ |
+| `400` | Invalid request data.                                                                           |
+| `500` | Server error.                                                                                   |
 
 ---
 
@@ -353,11 +369,11 @@ Creates a void request for a patent.
 
 #### Responses
 
-| Code  | Description                                                              |
-|-------|--------------------------------------------------------------------------|
-| `200` | Patent void request created successfully. Returns a `RequestDTO` object. |
-| `400` | Invalid request data.                                                    |
-| `500` | Server error.                                                            |
+| Code  | Description                                                                                 |
+|-------|---------------------------------------------------------------------------------------------|
+| `200` | Patent void request created successfully. Returns a `RequestDTO` object. _(See Appendix A)_ |
+| `400` | Invalid request data.                                                                       |
+| `500` | Server error.                                                                               |
 
 ---
 
@@ -396,11 +412,11 @@ Updates an existing invention or patent request. Can modify comments, add new at
 
 #### Responses
 
-| Code  | Description                                                            |
-|-------|------------------------------------------------------------------------|
-| `200` | Request updated successfully. Returns the updated `RequestDTO` object. |
-| `400` | Invalid request data or save failure.                                  |
-| `500` | Server error.                                                          |
+| Code  | Description                                                                               |
+|-------|-------------------------------------------------------------------------------------------|
+| `200` | Request updated successfully. Returns the updated `RequestDTO` object. _(See Appendix A)_ |
+| `400` | Invalid request data or save failure.                                                     |
+| `500` | Server error.                                                                             |
 
 ---
 
@@ -420,11 +436,11 @@ Withdraws an existing request. A request cannot be withdrawn if it has already b
 
 #### Responses
 
-| Code  | Description                                                             |
-|-------|-------------------------------------------------------------------------|
-| `200` | Request withdrawn successfully. Returns the updated `RequestDTO`.       |
-| `400` | Request not found, user not authorized, or request is in a final state. |
-| `500` | Server error.                                                           |
+| Code  | Description                                                                          |
+|-------|--------------------------------------------------------------------------------------|
+| `200` | Request withdrawn successfully. Returns the updated `RequestDTO`. _(See Appendix A)_ |
+| `400` | Request not found, user not authorized, or request is in a final state.              |
+| `500` | Server error.                                                                        |
 
 #### Error Scenarios
 
@@ -445,9 +461,9 @@ Searches requests for the authenticated user's organization based on a set of fi
 
 #### Form Parameters
 
-| Parameter | Type          | Required | Description                   |
-|-----------|---------------|----------|-------------------------------|
-| `payload` | String (JSON) | No       | Search filters in JSON format |
+| Parameter | Type          | Required | Description                                       |
+|-----------|---------------|----------|---------------------------------------------------|
+| `payload` | String (JSON) | No       | Search filters in JSON format. _(See Appendix C)_ |
 
 #### Payload Fields
 
@@ -458,8 +474,8 @@ Searches requests for the authenticated user's organization based on a set of fi
 | `inventionReportNumber`  | String   | No                 | Filter by invention report number                               |
 | `inventionDocketNumber`  | String   | No                 | Filter by invention docket number                               |
 | `patentDocketNumber`     | String   | No                 | Filter by patent docket number                                  |
-| `requestDateFrom`        | Date     | No <sub>3</sub>    | Filter requests created on or after this date                   |
-| `requestDateTo`          | Date     | No <sub>3</sub>    | Filter requests created on or before this date                  |
+| `requestSubmitDateFrom`  | Date     | No <sub>3</sub>    | Filter requests created on or after this date                   |
+| `requestSubmitDateTo`    | Date     | No <sub>3</sub>    | Filter requests created on or before this date                  |
 | `inventionRequestTypes`  | String[] | No <sub>4</sub>    | Filter by invention request type names (see valid values below) |
 | `patentRequestTypes`     | String[] | No <sub>5</sub>    | Filter by patent request type names (see valid values below)    |
 | `requestStatusTypes`     | String[] | No <sub>6</sub>    | Filter by request status                                        |
@@ -515,92 +531,436 @@ Searches requests for the authenticated user's organization based on a set of fi
 
 #### Responses
 
-| Code  | Description                                                         |
-|-------|---------------------------------------------------------------------|
-| `200` | Search completed. Returns a paginated list of `RequestDTO` objects. |
-| `400` | Invalid search parameters.                                          |
-| `500` | Server error.                                                       |
+| Code  | Description                                                                            |
+|-------|----------------------------------------------------------------------------------------|
+| `200` | Search completed. Returns a paginated list of `RequestDTO` objects. _(See Appendix A)_ |
+| `400` | Invalid search parameters.                                                             |
+| `500` | Server error.                                                                          |
 
 ---
 
-## Response Object: `RequestDTO`
+### Appendix A: Response Object
 
-All successful single-request responses return a `RequestDTO` with the following structure:
+`RequestDTO` - A single response object containing all the information about a single request.
+
+```json
+ {
+   "id": "long",
+   "type": "string",
+   "submitDate": "date",
+   "months": "int",
+   "inventor": {
+      "name": "string",
+      "email": "string"
+   },
+   "targetGrantee": {
+      "id": "long",
+      "name": "string",
+      "duns": "string",
+      "uei": "string",
+      "address": "string"
+   },
+   "dispositionEntity": "string",
+   "comments": "string",
+   "status": "string",
+   "rejectedDate": "date",
+   "acceptedDate": "date",
+   "invention": {
+      "id": "long",
+      "reportNumber": "string",
+      "docketNumber": "string",
+      "titleElectionStatus": "string",
+      "primaryAgency": {
+         "id": "long",
+         "name": "string",
+         "code": "string"
+      },
+      "institution": {
+         "id": "long",
+         "name": "string",
+         "code": "string"
+      }
+   },
+   "patent": {
+      "id": "long",
+      "docketNumber": "string"
+   },
+   "documents": [
+      {
+         "id": "long",
+         "originalFileName": "string",
+         "systemInternalFileName": "string",
+         "type": "string",
+         "fileSize": "long"
+      }
+   ],
+   "taggedAgencyUserEmail": [
+      {
+         "email": "string"
+      }
+   ]
+}
+```
+
+`RequestsDTO` - A paginated list of `RequestDTO` objects.
+
+```json
+  {
+    "requests": [
+      {
+        "id": "long",
+        "type": "string",
+        "submitDate": "date",
+        "months": "int",
+        "inventor": {
+          "name": "string",
+          "email": "string"
+        },
+        "targetGrantee": {
+          "id": "long",
+          "name": "string",
+          "duns": "string",
+          "uei": "string",
+          "address": "string"
+        },
+        "dispositionEntity": "string",
+        "comments": "string",
+        "status": "string",
+        "rejectedDate": "date",
+        "acceptedDate": "date",
+        "invention": {
+          "id": "long",
+          "reportNumber": "string",
+          "docketNumber": "string",
+          "titleElectionStatus": "string",
+          "primaryAgency": {
+            "id": "long",
+            "name": "string",
+            "code": "string"
+          },
+          "institution": {
+            "id": "long",
+            "name": "string",
+            "code": "string"
+          }
+        },
+        "patent": {
+          "id": "long",
+          "docketNumber": "string"
+        },
+        "documents": [
+          {
+            "id": "long",
+            "originalFileName": "string",
+            "systemInternalFileName": "string",
+            "type": "string",
+            "fileSize": "long"
+          }
+        ],
+        "taggedAgencyUserEmail": [
+          {
+            "email": "string"
+          }
+        ]
+      }
+    ],
+    "start": "int",
+    "limit": "int",
+    "maxResults": "long"
+  }
+```
+
+---
+
+### Appendix B: Response Object Example
+
+All successful single-request responses return a `RequestsDTO` with the following structure:
 
 ```json
 {
-  "id": 123,
-  "requestType": "Invention (Assignment)",
-  "createdDate": "01/15/2024",
-  "extensionMonths": null,
-  "inventor": {
-    "name": "...",
-    "email": "..."
-  },
-  "targetGrantee": {
-    "id": 456,
-    "granteeName": "...",
-    "duns": "...",
-    "uei": "...",
-    "address": "..."
-  },
-  "dispositionEntity": "...",
-  "comments": "...",
-  "status": "Pending",
-  "rejectedDate": null,
-  "acceptedDate": null,
-  "invention": {
-    "id": 789,
-    "number": "...",
-    "docketNumber": "...",
-    "titleElectionStatus": "Elect Title",
-    "primaryAgency": {
-      "id": 1,
-      "name": "...",
-      "code": "..."
-    },
-    "institution": {
-      "id": 2,
-      "name": "...",
-      "code": "..."
-    }
-  },
-  "patent": {
-    "id": 321,
-    "patentDocketNum": "..."
-  },
-  "documents": [
-    {
-      "id": 11,
-      "displayFileName": "my_document.pdf",
-      "fileName": "my_document_11.pdf",
-      "fileType": "application/pdf",
-      "size": 204800
-    }
-  ],
-  "taggedEmails": [
-    { "email": "..." }
-  ]
+   "requests": [
+      {
+         "id": 15140576,
+         "type": "Invention (Transfer)",
+         "submitDate": "06/15/2026",
+         "targetGrantee": {
+            "id": 7654321,
+            "name": "DAN'S INSTITUTION",
+            "duns": "123456789",
+            "address": "Your Institution's Contact Information PO Box 987602-1234 Another address line, Bethesda, MARYLAND, 20892"
+         },
+         "comments": "Test",
+         "status": "SUBMITTED",
+         "invention": {
+            "id": 424966,
+            "reportNumber": "0820102-21-0112",
+            "docketNumber": "21-0112",
+            "titleElectionStatus": "Under Evaluation",
+            "primaryAgency": {
+               "id": 1149,
+               "name": "National Institute of Standards and Technology",
+               "code": "NIST"
+            },
+            "institution": {
+               "id": 820102,
+               "name": "UNIV OF MARYLAND, COLLEGE PARK",
+               "code": "820102"
+            }
+         },
+         "documents": [
+            {
+               "id": 739313375,
+               "originalFileName": "SAMPLE ATTACHMENT5.pdf",
+               "systemInternalFileName": "SAMPLE ATTACHMENT50820102-21-0112.pdf",
+               "type": "application/pdf"
+            }
+         ]
+      },
+      {
+         "id": 15140575,
+         "type": "Invention (Assignment)",
+         "submitDate": "06/15/2026",
+         "inventor": {
+            "name": "John Q Stewart"
+         },
+         "targetGrantee": {
+            "id": 7654321,
+            "name": "DAN'S INSTITUTION",
+            "duns": "123456789",
+            "address": "Your Institution's Contact Information PO Box 987602-1234 Another address line, Bethesda, MARYLAND, 20892"
+         },
+         "dispositionEntity": "INVENTOR(S)",
+         "comments": "Test",
+         "status": "WITHDRAWN",
+         "invention": {
+            "id": 424966,
+            "reportNumber": "0820102-21-0112",
+            "docketNumber": "21-0112",
+            "titleElectionStatus": "Under Evaluation",
+            "primaryAgency": {
+               "id": 1149,
+               "name": "National Institute of Standards and Technology",
+               "code": "NIST"
+            },
+            "institution": {
+               "id": 820102,
+               "name": "UNIV OF MARYLAND, COLLEGE PARK",
+               "code": "820102"
+            }
+         },
+         "documents": [
+            {
+               "id": 739313374,
+               "originalFileName": "SAMPLE ATTACHMENT6.pdf",
+               "systemInternalFileName": "SAMPLE ATTACHMENT60820102-21-0112.pdf",
+               "type": "application/pdf"
+            }
+         ]
+      },
+      {
+         "id": 15140574,
+         "type": "Invention (Assignment)",
+         "submitDate": "06/15/2026",
+         "targetGrantee": {
+            "id": 7654321,
+            "name": "DAN'S INSTITUTION",
+            "duns": "123456789",
+            "address": "Your Institution's Contact Information PO Box 987602-1234 Another address line, Bethesda, MARYLAND, 20892"
+         },
+         "dispositionEntity": "THIRD PARTY",
+         "comments": "Assigning to third party",
+         "status": "WITHDRAWN",
+         "invention": {
+            "id": 424966,
+            "reportNumber": "0820102-21-0112",
+            "docketNumber": "21-0112",
+            "titleElectionStatus": "Under Evaluation",
+            "primaryAgency": {
+               "id": 1149,
+               "name": "National Institute of Standards and Technology",
+               "code": "NIST"
+            },
+            "institution": {
+               "id": 820102,
+               "name": "UNIV OF MARYLAND, COLLEGE PARK",
+               "code": "820102"
+            }
+         },
+         "documents": [
+            {
+               "id": 739313373,
+               "originalFileName": "SAMPLE ATTACHMENT.pdf",
+               "systemInternalFileName": "SAMPLE ATTACHMENT0820102-21-0112.pdf",
+               "type": "application/pdf"
+            }
+         ]
+      },
+      {
+         "id": 15140569,
+         "type": "Invention (Assignment)",
+         "submitDate": "06/15/2026",
+         "inventor": {
+            "name": "John Doe 2"
+         },
+         "targetGrantee": {
+            "id": 685806,
+            "name": "IBM THOMAS J. WATSON RESEARCH CENTER",
+            "duns": "084006741",
+            "address": "1101 Kitchawan Rd Route 134, YORKTOWN HEIGHTS, NEW YORK, 10598"
+         },
+         "dispositionEntity": "INVENTOR(S)",
+         "comments": "This is a comment",
+         "status": "SUBMITTED",
+         "invention": {
+            "id": 423199,
+            "reportNumber": "0820102-26-0039",
+            "docketNumber": "26-0039",
+            "titleElectionStatus": "Under Evaluation",
+            "primaryAgency": {
+               "id": 1082,
+               "name": "U.S. Department of Energy",
+               "code": "DOE"
+            },
+            "institution": {
+               "id": 820102,
+               "name": "UNIV OF MARYLAND, COLLEGE PARK",
+               "code": "820102"
+            }
+         },
+         "documents": [
+            {
+               "id": 739313292,
+               "originalFileName": "dummy4.pdf",
+               "systemInternalFileName": "dummy40820102-26-0039.pdf",
+               "type": "application/pdf"
+            }
+         ]
+      },
+      {
+         "id": 15140568,
+         "type": "Invention (Assignment)",
+         "submitDate": "06/15/2026",
+         "inventor": {
+            "name": "John Doe"
+         },
+         "targetGrantee": {
+            "id": 685806,
+            "name": "IBM THOMAS J. WATSON RESEARCH CENTER",
+            "duns": "084006741",
+            "address": "1101 Kitchawan Rd Route 134, YORKTOWN HEIGHTS, NEW YORK, 10598"
+         },
+         "dispositionEntity": "INVENTOR(S)",
+         "comments": "This is a comment",
+         "status": "WITHDRAWN",
+         "invention": {
+            "id": 423199,
+            "reportNumber": "0820102-26-0039",
+            "docketNumber": "26-0039",
+            "titleElectionStatus": "Under Evaluation",
+            "primaryAgency": {
+               "id": 1082,
+               "name": "U.S. Department of Energy",
+               "code": "DOE"
+            },
+            "institution": {
+               "id": 820102,
+               "name": "UNIV OF MARYLAND, COLLEGE PARK",
+               "code": "820102"
+            }
+         },
+         "documents": [
+            {
+               "id": 739313291,
+               "originalFileName": "dummy2.pdf",
+               "systemInternalFileName": "dummy20820102-26-0039.pdf",
+               "type": "application/pdf"
+            }
+         ]
+      },
+      {
+         "id": 15140567,
+         "type": "Invention (Election Extension)",
+         "submitDate": "06/14/2026",
+         "months": 2,
+         "comments": "Election Extension",
+         "status": "WITHDRAWN",
+         "invention": {
+            "id": 395778,
+            "reportNumber": "0820102-23-0011",
+            "docketNumber": "23-0011",
+            "titleElectionStatus": "Under Evaluation",
+            "primaryAgency": {
+               "id": 1149,
+               "name": "National Institute of Standards and Technology",
+               "code": "NIST"
+            },
+            "institution": {
+               "id": 820102,
+               "name": "UNIV OF MARYLAND, COLLEGE PARK",
+               "code": "820102"
+            }
+         }
+      },
+      {
+         "id": 15140566,
+         "type": "Invention (Void)",
+         "submitDate": "06/14/2026",
+         "comments": "Void",
+         "status": "APPROVED",
+         "acceptedDate": "06/14/2026",
+         "invention": {
+            "id": 418532,
+            "reportNumber": "0820102-26-0007",
+            "docketNumber": "26-0007",
+            "titleElectionStatus": "Under Evaluation",
+            "primaryAgency": {
+               "id": 1082,
+               "name": "U.S. Department of Energy",
+               "code": "DOE"
+            },
+            "institution": {
+               "id": 820102,
+               "name": "UNIV OF MARYLAND, COLLEGE PARK",
+               "code": "820102"
+            }
+         }
+      }
+   ],
+   "start": 0,
+   "limit": 100,
+   "maxResults": 7
 }
 ```
 
 ---
 
-## Error Response Format
+### Appendix C: Search Request definition and example.
 
-All error responses use a `400 Bad Request` status with the following structure:
+`SearchRequestDTO` - A request object containing all the information needed to search for requests.
 
 ```json
-{
-  "errors": [
-    {
-      "fieldName": "inventionReportNumber",
-      "description": "Invention report number is required"
-    }
-  ],
-  "message": "Request is invalid. Please verify and submit again 'inventionReportNumber'",
-  "title": "Invalid Request"
-}
+  {
+    "inventionReportNumber": "string",
+    "inventionDocketNumber": "string",
+    "requestSubmitDateFrom": "date",
+    "requestSubmitDateTo": "date",
+    "inventionRequestTypes": ["string"],
+    "patentRequestTypes": ["string"],
+    "requestStatusTypes": ["string"],
+    "primaryAgencyCode": "string",
+    "institutionCode": "string",
+    "titleElectionStatuses": ["string"],
+    "patentDocketNumber": "string",
+    "taggedAgencyUserEmails": "string",
+    "start": "int",
+    "limit": "int"
+  }
 ```
 
----
+`SearchRequestDTO` - An example of a search request.
+
+```json
+  {
+    "requestSubmitDateFrom": "06/15/2026"
+  }
+```
