@@ -15,7 +15,7 @@ Welcome to the official API documentation for iEdison. This guide provides techn
 - **[Invention](docs/Invention.md)** - Manage invention disclosures and submissions
 - **[Patent](docs/Patent.md)** - Handle patent-related operations and data
 - **[Utilization](docs/Utilization.md)** - Handle utilization-related operations
-- **[Request](docs/Request)** - Handle requests-related operations 
+- **[Request](docs/Request.md)** - Handle requests-related operations 
 
 ## API References
 
