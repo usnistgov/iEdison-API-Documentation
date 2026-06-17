@@ -128,8 +128,8 @@ To view the full details of this API in the specification file (the file generat
 
 ### User Acceptance Testing (UAT)
 
-**URI:** https://api-iedisonuat.nist.gov/iedison/swagger.json
+**URI:** https://iedisonuat.nist.gov/iedison/swagger.json
 
 ### Production
 
-**URI:** https://api-iedison.nist.gov/iedison/swagger.json
+**URI:** https://iedison.nist.gov/iedison/swagger.json
