@@ -104,6 +104,9 @@ When the request is processed and the Invention Report is successfully created, 
 
 The Update Invention API allows organization users to update an existing Invention Reports owned by the user's affiliated organization. Agency users can update Invention Reports with one or more funding agreements provided by the user's affiliated agency. Refer to Appendix A for samples of requests and responses.
 
+**NOTES: The Update Invention API does NOT support updates to Draft inventions currently.  The system will return an error status of 400 with error message "API does not support Draft Invention update currently.  Pelase use Web Interface to update the invention report.".**
+
+
 ### Endpoint URI
 
 This is an example of the endpoint for the Update Invention resource.
