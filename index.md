@@ -22,6 +22,9 @@ Welcome to the official API documentation for iEdison. This guide provides techn
 - **[Notification API Reference](docs/Notification-API-Reference.md)** - Send and manage notifications
 - **[Document API Reference](docs/Document-API-Reference.md)** - Upload, retrieve, and manage documents
 
+## Bulk Upload
+- **[Bulk Upload](docs/Bulk-Upload.md)** - Handle Bulk Uploads operations 
+
 ## Developer Resources
 
 - **[Code Samples](docs/Code-Sample.md)** - Working examples in multiple languages
