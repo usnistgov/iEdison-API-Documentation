@@ -1,3 +1,7 @@
+---
+title: IPU Bulk Upload Specifications
+---
+
 # Invention, Patent and Utilization (IPU) — Bulk Upload Specifications
 
 **Version 2.9 · Report Year 2023 and Beyond** iEdison Invention, Patent, and Utilization (IPU) — Bulk Upload v2.9 Specifications and Examples National Institute of Standards and Technology (NIST) · 7/14/26
@@ -31,12 +35,7 @@
    - [6.13 FDA Approval Type](#613-fda-approval-type)
    - [6.14 Commercialization Plans](#614-commercialization-plans)
 
-<details>
-<summary>
-
-**Revision History**
-
-</summary>
+### Revision History
 
 | Version | Date | Description of Change |
 |---------|------|-----------------------|
@@ -45,8 +44,6 @@
 | 2.2 | 09/24/2024 | Updated for Utilization, Version 3 |
 | 2.3 | 11/07/2024 | Added note that users must use the UI to update Foreign Filings from the same country on the same date. |
 | 2.4 | 04/14/2026 | Removed references for creating inventions |
-
-</details>
 
 ---
 
@@ -222,12 +219,7 @@ _Table 44: Utilization Data Elements_
 
 The utilization report has conditional fields required based on the development stage (Utilize_New.LatestStageDev) and the funding agencies for the invention. Fields not listed for a given combination will not be imported.
 
-<details>
-<summary>
-
-**Development Stage = "Not Licensed or Commercialized"** (all variants)
-
-</summary>
+### Development Stage = "Not Licensed or Commercialized" (all variants)
 
 **Base (all agencies except NIH/DOE):**
 
@@ -251,14 +243,7 @@ The utilization report has conditional fields required based on the development 
 
 **+ NIH and DOE funding** adds both sets above.
 
-</details>
-
-<details>
-<summary>
-
-**Development Stage = "Licensed"** (all variants)
-
-</summary>
+### Development Stage = "Licensed" (all variants)
 
 **Base (all agencies except NIH/DOE):**
 
@@ -282,14 +267,7 @@ The utilization report has conditional fields required based on the development 
 
 **+ NIH and DOE funding** adds both sets above.
 
-</details>
-
-<details>
-<summary>
-
-**Development Stage = "Commercialized"** (all variants)
-
-</summary>
+### Development Stage = "Commercialized" (all variants)
 
 **Base (all agencies except NIH/DOE):**
 
@@ -320,20 +298,14 @@ The utilization report has conditional fields required based on the development 
 
 **+ NIH and DOE funding** adds both sets above.
 
-</details>
-
 # 5. Sample Bulk Upload Files
 
 This section contains sample bulk upload files containing data element name-value pairs.
 
 > **5.1 Create Invention** — Inventions can be created only in the iEdison Web Application and API Services.
 
-<details>
-<summary>
+### 5.2 Create Patent and Utilization
 
-**5.2 Create Patent and Utilization**
-
-</summary>
 The system verifies if the EIR.DocketNum value already exists. If it does, it validates the remaining required fields and creates both the Patent Report and the Utilization Report. If the EIR.DocketNum is not found, the system returns an error.
 
 ```
@@ -376,14 +348,7 @@ Utilize_New.NewUsCompanies=^^125^^
 Utilize_New. Notes=^^This is a utilization note.^^
 ```
 
-</details>
-
-<details>
-<summary>
-
-**5.3 Create Multiple Patent Reports**
-
-</summary>
+### 5.3 Create Multiple Patent Reports
 
 ```
 PRODUCTION
@@ -412,14 +377,7 @@ Pat_Inventor.LastName =^^Sood^^
 Pat_Inventor.FirstName =^^Aaron^^
 ```
 
-</details>
-
-<details>
-<summary>
-
-**5.4 Create Utilization Report for 2023**
-
-</summary>
+### 5.4 Create Utilization Report for 2023
 
 ```
 PRODUCTION
@@ -456,14 +414,8 @@ Utilize_New.NewUsCompanies=^^125^^
 Utilize_New.Notes=^^A note for utilization.^^
 ```
 
-</details>
+### 5.5 Utilization 2023 · "Not Licensed or Commercialized" · NIH Funding
 
-<details>
-<summary>
-
-**5.5 Utilization 2023 · "Not Licensed or Commercialized" · NIH Funding**
-
-</summary>
 Additional data element fields collect the FDA-approved commercial products that first reached the market during the reporting period.
 
 ```
@@ -489,14 +441,7 @@ Utilize_New.FdaApprovalType=^^Biologic^^
 Utilize_New.Notes=^^ A note for utilization. ^^
 ```
 
-</details>
-
-<details>
-<summary>
-
-**5.6 Utilization 2023 · "Licensed" · NIH Funding**
-
-</summary>
+### 5.6 Utilization 2023 · "Licensed" · NIH Funding
 
 ```
 PRODUCTION
@@ -533,14 +478,7 @@ Utilize_New.FdaApprovalType=^^Medical Device^^
 Utilize_New.Notes=^^ A note for utilization. ^^
 ```
 
-</details>
-
-<details>
-<summary>
-
-**5.7 Utilization 2024 · "Licensed"**
-
-</summary>
+### 5.7 Utilization 2024 · "Licensed"
 
 ```
 PRODUCTION
@@ -564,14 +502,7 @@ Utilize_New.IsUSManufacturingRequired1=^^N^^
 Utilize_New.IsUSManufacturingRequired2=^^N/A^^
 ```
 
-</details>
-
-<details>
-<summary>
-
-**5.8 Utilization 2024 · "Commercialized"**
-
-</summary>
+### 5.8 Utilization 2024 · "Commercialized"
 
 ```
 PRODUCTION
@@ -647,14 +578,7 @@ Utilize_New.FdaApprovalType=^^Drug^^
 Utilize_New.FdaApprovalNumber=^^NIHAP6789^^
 ```
 
-</details>
-
-<details>
-<summary>
-
-**5.9 Utilization 2023 · "Commercialized" · NIH Funding**
-
-</summary>
+### 5.9 Utilization 2023 · "Commercialized" · NIH Funding
 
 ```
 PRODUCTION
@@ -708,14 +632,8 @@ Utilize_New.FdaApprovalType=^^Drug^^
 Utilize_New.Notes=^^ A note for utilization. ^^
 ```
 
-</details>
+### 5.10 Utilization 2023 · "Commercialized" · DOE Funding
 
-<details>
-<summary>
-
-**5.10 Utilization 2023 · "Commercialized" · DOE Funding**
-
-</summary>
 This example includes the DOE data elements and how they are grouped.
 
 ```
@@ -768,14 +686,7 @@ Utilize_New.ProductName=^^NIH Product 1 Licensed^^
 Utilize_New.Notes=^^ A note for utilization. ^^
 ```
 
-</details>
-
-<details>
-<summary>
-
-**5.11 Utilization 2023 · "Commercialized" · DOE and NIH Funding**
-
-</summary>
+### 5.11 Utilization 2023 · "Commercialized" · DOE and NIH Funding
 
 ```
 PRODUCTION
@@ -832,14 +743,8 @@ Utilize_New.FdaApprovalNumber=^^NIHAP6789^^
 Utilize_New.GovtReviewStatus=^^Rejected^^
 ```
 
-</details>
+### 5.12 Update Invention Report
 
-<details>
-<summary>
-
-**5.12 Update Invention Report**
-
-</summary>
 Updates the invention disclosure date and adds two new inventors.
 
 ```
@@ -852,14 +757,8 @@ EIR_Inventor.FirstName=^^Jane^^
 EIR.DisclosurDate=^^9/03/2023^^
 ```
 
-</details>
+### 5.13 Update Patent Report
 
-<details>
-<summary>
-
-**5.13 Update Patent Report**
-
-</summary>
 Updates Non-Provisional Application Date, Issued Patent Number, Issued Patent Date, and Expiration Date.
 
 ```
@@ -873,14 +772,8 @@ Patent.PatentDate=^^09/01/2023^^
 Patent.ExpireDate=^^01/01/2027^^
 ```
 
-</details>
+### 5.14 Update Utilization
 
-<details>
-<summary>
-
-**5.14 Update Utilization**
-
-</summary>
 The EIR.DocketNum and Utilize_New.FiscalYear fields uniquely identify which Utilization Report is being updated. Only the following data elements are currently supported for updates; the rest will be supported in a future release:
 
 - Utilize_New.CommercializationPlanId
@@ -902,8 +795,6 @@ Utilize_New.TotalIncome=^^1900.99^^
 Utilize_New.SmallBusLicensesOptions=^^10^^
 Utilize_New.Notes=^^ A note for utilization. ^^
 ```
-
-</details>
 
 # 6. Lookup Tables
 
@@ -980,12 +871,8 @@ The decision of the institution regarding the election of title for this Inventi
 | Transferred | Response data only. Shall not be used in Bulk Upload. Use the UI to submit an Invention Transfer Request. |
 | Government Takes Title (Award Terms) | For large for-profit private organizations funded by DOE without a DOE Waiver ID, the system automatically sets the status to "Not Waived." DOE and NNSA users/admins can update this via Bulk Upload. For all other agencies, updates are made through the nightly job. |
 
-<details>
-<summary>
+### 6.4.1 Election Reason (required when "Does Not Retain Title")
 
-**6.4.1 Election Reason** (required when "Does Not Retain Title")
-
-</summary>
 If 'Title Election Status' is 'Does Not Retain Title', select an Election Reason:
 
 | Value |
@@ -999,7 +886,7 @@ If 'Title Election Status' is 'Does Not Retain Title', select an Election Reason
 | Immature Market |
 | Other |
 
-Note: If 'Other' is selected, provide a description for the reason.Example — Title Election Status is "Does not Retain Title" and Election Reason is "Other":
+Note: If 'Other' is selected, provide a description for the reason. Example — Title Election Status is "Does not Retain Title" and Election Reason is "Other":
 
 ```
 EIR.DocketNum=^^24-0025^^
@@ -1016,25 +903,90 @@ EIR.NotElectReason=^^Other^^
 EIR.NotElectOtherReason=^^This is other reason^^
 ```
 
-</details>
+## 6.5 State List (US states and territories)
 
-<details>
-<summary>
+| Value | Value | Value | Value |
+|-------|-------|-------|-------|
+| ALABAMA | MASSACHUSETTS | TENNESSEE | NEW BRUNSWICK |
+| ALASKA | MICHIGAN | TEXAS | NW TERRITORIES |
+| ARIZONA | MINNESOTA | UTAH | NOVA SCOTIA |
+| ARKANSAS | MISSISSIPPI | VERMONT | ONTARIO |
+| CALIFORNIA | MISSOURI | VIRGINIA | PR. EDWARD ISL |
+| COLORADO | MONTANA | WASHINGTON | QUEBEC |
+| CONNECTICUT | NEBRASKA | WEST VIRGINIA | SASKATCHEWAN |
+| DELAWARE | NEVADA | WISCONSIN | YUKON |
+| DIST OF COL | NEW HAMPSHIRE | WYOMING | AP0/FP0 S AMER |
+| FLORIDA | NEW JERSEY | AMERICAN SAMOA | AP0/FP0 EUROPE |
+| GEORGIA | NEW MEXICO | FED MICRONESIA | AP0/FP0 OT PAC |
+| HAWAII | NEW YORK | GUAM | NAVASSA ISLAND |
+| IDAHO | NORTH CAROLINA | MARSHALL IS | BAKER ISLAND |
+| ILLINOIS | NORTH DAKOTA | NORTHN MARIANA | HOWARD ISLAND |
+| INDIANA | OHIO | PALAU | JOHNSTON ATOLL |
+| IOWA | OKLAHOMA | PUERTO RICO | KINGMAN REEF |
+| KANSAS | OREGON | US MINOR OUTLY | PALMYRA ATOLL |
+| KENTUCKY | PENNSYLVANIA | VIRGIN ISLANDS | MIDWAY ISLANDS |
+| LOUISIANA | RHODE ISLAND | ALBERTA | TRUST TER PACF |
+| MAINE | SOUTH CAROLINA | BR. COLUMBIA | WAKE ISLAND |
+| MARYLAND | SOUTH DAKOTA | MANITOBA | NEWFOUNDLAND |
 
-**6.5 State List** (US states and territories)
+## 6.6 Country List (valid country/patent-office names)
 
-</summary>
-ALABAMA, ALASKA, ARIZONA, ARKANSAS, CALIFORNIA, COLORADO, CONNECTICUT, DELAWARE, DIST OF COL, FLORIDA, GEORGIA, HAWAII, IDAHO, ILLINOIS, INDIANA, IOWA, KANSAS, KENTUCKY, LOUISIANA, MAINE, MARYLAND, MASSACHUSETTS, MICHIGAN, MINNESOTA, MISSISSIPPI, MISSOURI, MONTANA, NEBRASKA, NEVADA, NEW HAMPSHIRE, NEW JERSEY, NEW MEXICO, NEW YORK, NORTH CAROLINA, NORTH DAKOTA, OHIO, OKLAHOMA, OREGON, PENNSYLVANIA, RHODE ISLAND, SOUTH CAROLINA, SOUTH DAKOTA, TENNESSEE, TEXAS, UTAH, VERMONT, VIRGINIA, WASHINGTON, WEST VIRGINIA, WISCONSIN, WYOMING, AMERICAN SAMOA, FED MICRONESIA, GUAM, MARSHALL IS, NORTHN MARIANA, PALAU, PUERTO RICO, US MINOR OUTLY, VIRGIN ISLANDS, ALBERTA, BR. COLUMBIA, MANITOBA, NEW BRUNSWICK, NW TERRITORIES, NOVA SCOTIA, ONTARIO, PR. EDWARD ISL, QUEBEC, SASKATCHEWAN, YUKON, AP0/FP0 S AMER, AP0/FP0 EUROPE, AP0/FP0 OT PAC, NAVASSA ISLAND, BAKER ISLAND, HOWARD ISLAND, JOHNSTON ATOLL, KINGMAN REEF, PALMYRA ATOLL, MIDWAY ISLANDS, TRUST TER PACF, WAKE ISLAND, NEWFOUNDLAND
-</details>
-
-<details>
-<summary>
-
-**6.6 Country List** (valid country/patent-office names)
-
-</summary>
-AFGHANISTAN, African Intellectual Property Organization, African Regional Intellectual Property Organization, ALBANIA, ALGERIA, ANDORRA, ANGOLA, ANGUILLA, ANTIGUA/BARBUD, ARGENTINA, ARMENIA, ARUBA, AUSTRALIA, AUSTRIA, AZERBAIJAN, BAHAMAS, BAHRAIN, BANGLADESH, BARBADOS, BELARUS, BELGIUM, BELIZE, BENIN, BERMUDA, BHUTAN, BOLIVIA, BOSNIA/HERZEG, BOTSWANA, BRAZIL, BRITISH VI ISS, BRUNEI, BULGARIA, BURKINA, BURUNDI, CABO VERDE, CAMBODIA, CAMEROON, CANADA, CAYMAN ISLANDS, CENTRAL AFR R, CHAD, CHILE, CHINA, COLOMBIA, COMOROS, CONGO, CONGO DEM REP, COSTA RICA, COTE D'IVOIRE, CROATIA, CUBA, CYPRUS, CZECH REPUBLIC, DENMARK, DJIBOUTI, DOMINICA, DOMINICAN REP, ECUADOR, EGYPT, EL SALVADOR, EQUATOR GUINEA, ERITREA, ESTONIA, ESWATINI, ETHIOPIA, Eurasian Patent Organization, FALKLAND ISS, FIJI, FINLAND, FRANCE, FRENCH POLYNES, GABON, GAMBIA, GAZA STRIP, GEORGIA, GERMANY, GHANA, GIBRALTAR, GREECE, GREENLAND, GRENADA, GUATEMALA, GUERNSEY, GUINEA, GUINEA-BISSAU, GUYANA, HAITI, HONDURAS, HONG KONG, HUNGARY, ICELAND, INDIA, INDONESIA, IRAN, IRAQ, IRELAND, ISRAEL, ITALY, JAMAICA, JAPAN, JERSEY, JORDAN, KAZAKHSTAN, KENYA, KIRIBATI, KOREA PEO REP, KOREA REP OF, KOSOVO, KUWAIT, KYRGYZSTAN, LAOS, LATVIA, LEBANON, LESOTHO, LIBERIA, LIBYA, LIECHTENSTEIN, LITHUANIA, LUXEMBOURG, MACAU, MADAGASCAR, MALAWI, MALAYSIA, MALDIVES, MALI, MALTA, MAURITANIA, MAURITIUS, MEXICO, MOLDOVA, MONACO, MONGOLIA, MONTENEGRO, MONTSERRAT, MOROCCO, MOZAMBIQUE, MYANMAR, NAMIBIA, NAURU, NEPAL, NETHERLANDS, NEW ZEALAND, NICARAGUA, NIGER, NIGERIA, NORTH MACEDONIA, NORWAY, OMAN, PAKISTAN, PANAMA, PAPUA N GUINEA, PARAGUAY, Patent Office of the Cooperation Council for the Arab States of the Gulf, PERU, PHILIPPINES, POLAND, PORTUGAL, QATAR, ROMANIA, RUSSIA, RWANDA, SAMOA, SAN MARINO, SAO TOME/PRINC, SAUDI ARABIA, SENEGAL, SERBIA, SEYCHELLES, SIERRA LEONE, SINGAPORE, SLOVAKIA, SLOVENIA, SOLOMON ISS, SOMALIA, SOUTH AFRICA, SOUTH SUDAN, SPAIN, SRI LANKA, ST HELENA, ST KITTS/NEVIS, ST LUCIA, ST VINCENT/GRN, SUDAN, SURINAME, SWEDEN, SWITZERLAND, SYRIA, TAIWAN, TAJIKISTAN, TANZANIA U REP, THAILAND, TIMOR-LESTE, TOGO, TONGA, TRINIDAD/TOBA, TUNISIA, TURKEY, TURKMENISTAN, TURKS/CAICOS I, TUVALU, UGANDA, UKRAINE, Unified Patent Court, UNITED ARAB EM, UNITED KINGDOM, UNITED STATES, URUGUAY, UZBEKISTAN, VANUATU, VENEZUELA, VIETNAM, WEST BANK, YEMEN, YUGOSLAVIA, ZAMBIA, ZIMBABWE
-</details>
+| Value | Value | Value | Value |
+|-------|-------|-------|-------|
+| AFGHANISTAN | DJIBOUTI | KUWAIT | SAN MARINO |
+| African Intellectual Property Organization | DOMINICA | KYRGYZSTAN | SAO TOME/PRINC |
+| African Regional Intellectual Property Organization | DOMINICAN REP | LAOS | SAUDI ARABIA |
+| ALBANIA | ECUADOR | LATVIA | SENEGAL |
+| ALGERIA | EGYPT | LEBANON | SERBIA |
+| ANDORRA | EL SALVADOR | LESOTHO | SEYCHELLES |
+| ANGOLA | EQUATOR GUINEA | LIBERIA | SIERRA LEONE |
+| ANGUILLA | ERITREA | LIBYA | SINGAPORE |
+| ANTIGUA/BARBUD | ESTONIA | LIECHTENSTEIN | SLOVAKIA |
+| ARGENTINA | ESWATINI | LITHUANIA | SLOVENIA |
+| ARMENIA | ETHIOPIA | LUXEMBOURG | SOLOMON ISS |
+| ARUBA | Eurasian Patent Organization | MACAU | SOMALIA |
+| AUSTRALIA | FALKLAND ISS | MADAGASCAR | SOUTH AFRICA |
+| AUSTRIA | FIJI | MALAWI | SOUTH SUDAN |
+| AZERBAIJAN | FINLAND | MALAYSIA | SPAIN |
+| BAHAMAS | FRANCE | MALDIVES | SRI LANKA |
+| BAHRAIN | FRENCH POLYNES | MALI | ST HELENA |
+| BANGLADESH | GABON | MALTA | ST KITTS/NEVIS |
+| BARBADOS | GAMBIA | MAURITANIA | ST LUCIA |
+| BELARUS | GAZA STRIP | MAURITIUS | ST VINCENT/GRN |
+| BELGIUM | GEORGIA | MEXICO | SUDAN |
+| BELIZE | GERMANY | MOLDOVA | SURINAME |
+| BENIN | GHANA | MONACO | SWEDEN |
+| BERMUDA | GIBRALTAR | MONGOLIA | SWITZERLAND |
+| BHUTAN | GREECE | MONTENEGRO | SYRIA |
+| BOLIVIA | GREENLAND | MONTSERRAT | TAIWAN |
+| BOSNIA/HERZEG | GRENADA | MOROCCO | TAJIKISTAN |
+| BOTSWANA | GUATEMALA | MOZAMBIQUE | TANZANIA U REP |
+| BRAZIL | GUERNSEY | MYANMAR | THAILAND |
+| BRITISH VI ISS | GUINEA | NAMIBIA | TIMOR-LESTE |
+| BRUNEI | GUINEA-BISSAU | NAURU | TOGO |
+| BULGARIA | GUYANA | NEPAL | TONGA |
+| BURKINA | HAITI | NETHERLANDS | TRINIDAD/TOBA |
+| BURUNDI | HONDURAS | NEW ZEALAND | TUNISIA |
+| CABO VERDE | HONG KONG | NICARAGUA | TURKEY |
+| CAMBODIA | HUNGARY | NIGER | TURKMENISTAN |
+| CAMEROON | ICELAND | NIGERIA | TURKS/CAICOS I |
+| CANADA | INDIA | NORTH MACEDONIA | TUVALU |
+| CAYMAN ISLANDS | INDONESIA | NORWAY | UGANDA |
+| CENTRAL AFR R | IRAN | OMAN | UKRAINE |
+| CHAD | IRAQ | PAKISTAN | Unified Patent Court |
+| CHILE | IRELAND | PANAMA | UNITED ARAB EM |
+| CHINA | ISRAEL | PAPUA N GUINEA | UNITED KINGDOM |
+| COLOMBIA | ITALY | PARAGUAY | UNITED STATES |
+| COMOROS | JAMAICA | Patent Office of the Cooperation Council for the Arab States of the Gulf | URUGUAY |
+| CONGO | JAPAN | PERU | UZBEKISTAN |
+| CONGO DEM REP | JERSEY | PHILIPPINES | VANUATU |
+| COSTA RICA | JORDAN | POLAND | VENEZUELA |
+| COTE D'IVOIRE | KAZAKHSTAN | PORTUGAL | VIETNAM |
+| CROATIA | KENYA | QATAR | WEST BANK |
+| CUBA | KIRIBATI | ROMANIA | YEMEN |
+| CYPRUS | KOREA PEO REP | RUSSIA | YUGOSLAVIA |
+| CZECH REPUBLIC | KOREA REP OF | RWANDA | ZAMBIA |
+| DENMARK | KOSOVO | SAMOA | ZIMBABWE |
 
 ## 6.7 Patent Status
 
@@ -1104,4 +1056,3 @@ Use the digit value in the "Value" column in the Bulk Upload data element.
 | 4 | Developing and/or preparing this invention with intent to commercialize ourselves |
 | 5 | Making available for distribution and/or licensing for research purposes only |
 | 6 | No current commercialization plan |
-
