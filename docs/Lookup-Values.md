@@ -455,17 +455,17 @@ The 2-letter code for U.S. states and territories. For use contractorState and U
 
 The decision of the institution regarding the election of title for this Invention.
 
-The 'Draft' 'Voided', and 'Transferred' status values shall not be used when submitting Invention Create or Update API requests.
+The 'Draft' 'Voided', and 'Transferred' status values shall not be used when submitting Invention Create or Update API requests.  Void an invention and transfer an invention must using Invention Request feature.
 
-'Only Elect to Retain Title' and 'Does Not Retain Title' status will be allowed when submitting Invention Create Requests.
+Only 'Under Evaluation' and 'Elect to Retain Title' status will be allowed when submitting Invention Create Requests.
 
-'Designated as Unpatented Biological Material or Research Tool' status is not available for DOE
+'Does Not Retain Title' and 'Designated as Unpatented Biological Material or Research Tool' status are not allowed when submitting Update API requests.  These two statuses change must be performed with Web UI. 
 
 | Value | Notes |
 |-------|-------|
 | Elect to Retain Title | This can be used for both organization and agency clients in the create or update request. |
-| Does Not Retain Title | This can be used for both organization and agency clients in the create or update Invention request. Once the Invention is saved with this status, organization client will no longer allow to modify the Invention metadata. |
-| Designated as Unpatented Biological Material or Research Tool | This can be used for both organization and agency clients in the update request. |
+| Does Not Retain Title | This status is used in response data only.  This status must be changed with Web UI.  Once the Invention has this status, organization client will no longer allow to modify the Invention metadata. |
+| Designated as Unpatented Biological Material or Research Tool | This status is used in response data only.  This status must be changed with Web UI. |
 | Under Evaluation | Allow both organization and agency clients to use in the update request. |
 | Draft | This status is used in response data only. This status value shall not be used in API create or update request. |
 | Voided | This status is used in response data only. This status value shall not be used in API request. The organization is required to use the UI to submit an Invention Void Request. |
