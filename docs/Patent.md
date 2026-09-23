@@ -268,6 +268,7 @@ The create, update, and search Patent API shares the same patentResponse data ob
 | expireDate | The estimated date the Patent will expire. | String | v1+ |
 | patentTitle | The exact title of the U.S. Patent or Patent application as submitted by the Institution to iEdison or to the USPTO. | String | v1+ |
 | patentStatus | Indicates the status of the Patent. Refer to Section 12.13 for a list of valid values. | String | v1+ |
+| abandonedDate | Date when patent entered an abandoned state. | String | v1+ |
 | confLicenseAcceptDate | The date the Confirmatory License was accepted. | String | v2+ |
 | confLicenseRejectDate | The date the Confirmatory License was rejected by the Government Agency. | String | v1+ |
 | confLicenseRejectComment | The reason the Confirmatory License was rejected. | String | v1+ |
