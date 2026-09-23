@@ -5,7 +5,7 @@ mirror-to-github:
   stage: deploy
   image: alpine:latest
   rules:
-    - if: '$CI_COMMIT_BRANCH == "nist-pages"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
       when: manual        # manual "play" button, only available on main
   variables:
     GIT_STRATEGY: clone
@@ -33,5 +33,5 @@ mirror-to-github:
     - cd gh_repo
     - git add -A
     # Git commits only the files that actually differ; skips if nothing changed
-    - git commit -m "Sync changes from GitLab nist-pages (${CI_COMMIT_SHORT_SHA})" || echo "No changes to commit"
+    - git commit -m "Sync changes from GitLab main (${CI_COMMIT_SHORT_SHA})" || echo "No changes to commit"
     - git push origin "$GITHUB_BRANCH"
