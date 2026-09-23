@@ -5,7 +5,7 @@ mirror-to-github:
   stage: deploy
   image: alpine:latest
   rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_COMMIT_BRANCH == "nist-pages"'
       when: manual        # manual "play" button, only available on main
   variables:
     GIT_STRATEGY: clone
