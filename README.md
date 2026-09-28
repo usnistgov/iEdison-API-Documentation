@@ -15,6 +15,7 @@ This documentation provides comprehensive technical specifications and implement
 - **Notification API** - Retrieve pending notifications
 - **Code Samples** - Working examples in multiple languages
 - **Lookup Values** - Reference data and enumeration values
+- **Bulk Upload**
 
 ## Viewing the Documentation
 
