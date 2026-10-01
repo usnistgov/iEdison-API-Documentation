@@ -1,6 +1,6 @@
 # Invention, Patent and Utilization (IPU) — Bulk Upload Specifications
 
-**Version 2.9 · Report Year 2023 and Beyond** iEdison Invention, Patent, and Utilization (IPU) — Bulk Upload v2.9 Specifications and Examples National Institute of Standards and Technology (NIST) · 7/14/26
+**Version 2.10 · Report Year 2023 and Beyond** iEdison Invention, Patent, and Utilization (IPU) — Bulk Upload v2.10 Specifications and Examples National Institute of Standards and Technology (NIST) · 10/08/26
 
 ---
 
@@ -44,7 +44,13 @@
 | 2.1 | 06/10/2024 | Fixed accessibility issues |
 | 2.2 | 09/24/2024 | Updated for Utilization, Version 3 |
 | 2.3 | 11/07/2024 | Added note that users must use the UI to update Foreign Filings from the same country on the same date. |
-| 2.4 | 04/14/2026 | Removed references for creating inventions |
+| 2.4 | 03/06/2025 | Updated Disposition Status fields |
+| 2.5 | 04/07/2025 | Updated Does Not Retain Title fields |
+| 2.6 | 05/20/2025 | Added clarification to Disposition status fields for Organization users |
+| 2.7 | 07/18/2025 | Added Agency Government decision status |
+| 2.8 | 05/06/2026 | Added parent patent support |
+| 2.9 | 04/14/2026 | Removed references for creating inventions |
+| 2.10 | 10/08/2026 | Added firstPublicationDate | 
 
 </details>
 
@@ -128,6 +134,7 @@ This section contains the data elements and details for an Invention record. Ref
 | EIR.DispositionStatus | Text/255 | No | No | The decision of the primary agency on how to proceed with the technology. See the [iEdison field definitions](https://www.nist.gov/iedison/iedison-organization-user-guide/getting-started/iedison-field-definitions#invention-disposition) for valid values. If an organization user provides a value, the system will ignore it. |
 | EIR.VoidDispositionStatus | Text/500 | No | No | The reason from the primary agency for voiding the Invention report. Added to the system as an Explanatory Note. If the organization user provides a value, the system will ignore it. |
 | EIR.GovtRetainsRightsReason | Text/500 | No | No | The reason from the primary agency for changing Disposition Status to "Government Retains Rights" when the Title Election Status is "Under Evaluation", "Elect to Retain Title", "Government Takes Title (Award Terms)", or "Designated as Unpatented Biological Material or Research Tool". Added as an Explanatory Note. If the organization user provides a value, the system will ignore it. |
+| EIR.FirstPublicationDate | Date |  |  | The date of first publication, on sale, or public use initiating the one-year statutory period wherein valid Patent protection can still be obtained in the United States. Format: MM/DD/YYYY.  **NOTE:** Organizations are prohibited from modifying this value after initial entry.  Contact the primary agency to request changes for this field after initial entry. |
 
 _Table 41: Invention Data Elements_
 
