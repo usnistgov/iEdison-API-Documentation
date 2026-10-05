@@ -87,9 +87,6 @@ The table below lists the attributes that will be included in the patentRequest 
 | **governmentNotes** | **Notes written by the agency regarding the report. If organization client provides value(s) for this list field, the system will ignore them.** | **No** | **JSON Object** | | **v1+** |
 | note | Government Notes are used to note information about an Invention Report or Patent Report by federal users who have access to view the record. | Yes | String | 500 | v1+ |
 | conPatentReason | When submitting a continuation of a patent application, if the parent patent is absent, clarify why the parent application is not considered a subject invention. | No | String | 4000 | v1+ |
-
-
-
 ### Response Parameters
 
 When the request is processed and the patent report is successfully created, the Create Patent API endpoint returns a patentResponse data object. The attributes of this object are described in Section 8.4.
@@ -271,6 +268,7 @@ The create, update, and search Patent API shares the same patentResponse data ob
 | expireDate | The estimated date the Patent will expire. | String | v1+ |
 | patentTitle | The exact title of the U.S. Patent or Patent application as submitted by the Institution to iEdison or to the USPTO. | String | v1+ |
 | patentStatus | Indicates the status of the Patent. Refer to Section 12.13 for a list of valid values. | String | v1+ |
+| abandonedDate | Date when patent entered an abandoned state. | String | v1+ |
 | confLicenseAcceptDate | The date the Confirmatory License was accepted. | String | v2+ |
 | confLicenseRejectDate | The date the Confirmatory License was rejected by the Government Agency. | String | v1+ |
 | confLicenseRejectComment | The reason the Confirmatory License was rejected. | String | v1+ |
