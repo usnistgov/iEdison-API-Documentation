@@ -1,37 +1,37 @@
-stages:
-  - deploy
+# stages:
+#   - deploy
 
-mirror-to-github:
-  stage: deploy
-  image: alpine:latest
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "nist-pages"'
-      when: manual        # manual "play" button, only available on main
-  variables:
-    GIT_STRATEGY: clone
-    GITHUB_OWNER: "usnistgov"
-    GITHUB_REPO: "iEdison-API-Documentation"   # exact case matters
-    GITHUB_BRANCH: "nist-pages"
-  before_script:
-    - apk add --no-cache git rsync
-    - git config --global user.email "ci@nist.gov"
-    - git config --global user.name "GitLab CI"
-  script:
-    # Clone target branch if it exists; otherwise clone default and create it
-    - |
-      if git clone --branch "$GITHUB_BRANCH" \
-          "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git" gh_repo; then
-        echo "Cloned existing branch $GITHUB_BRANCH"
-      else
-        git clone "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git" gh_repo
-        cd gh_repo
-        git checkout -B "$GITHUB_BRANCH"
-        cd ..
-      fi
-    # Copy only changed/new files into the GitHub checkout (no --delete = nothing removed)
-    - rsync -a --exclude='.git' --exclude='gh_repo' ./ gh_repo/
-    - cd gh_repo
-    - git add -A
-    # Git commits only the files that actually differ; skips if nothing changed
-    - git commit -m "Sync changes from GitLab main (${CI_COMMIT_SHORT_SHA})" || echo "No changes to commit"
-    - git push origin "$GITHUB_BRANCH"
+# mirror-to-github:
+#   stage: deploy
+#   image: alpine:latest
+#   rules:
+#     - if: '$CI_COMMIT_BRANCH == "nist-pages"'
+#       when: manual        # manual "play" button, only available on main
+#   variables:
+#     GIT_STRATEGY: clone
+#     GITHUB_OWNER: "usnistgov"
+#     GITHUB_REPO: "iEdison-API-Documentation"   # exact case matters
+#     GITHUB_BRANCH: "nist-pages"
+#   before_script:
+#     - apk add --no-cache git rsync
+#     - git config --global user.email "ci@nist.gov"
+#     - git config --global user.name "GitLab CI"
+#   script:
+#     # Clone target branch if it exists; otherwise clone default and create it
+#     - |
+#       if git clone --branch "$GITHUB_BRANCH" \
+#           "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git" gh_repo; then
+#         echo "Cloned existing branch $GITHUB_BRANCH"
+#       else
+#         git clone "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git" gh_repo
+#         cd gh_repo
+#         git checkout -B "$GITHUB_BRANCH"
+#         cd ..
+#       fi
+#     # Copy only changed/new files into the GitHub checkout (no --delete = nothing removed)
+#     - rsync -a --exclude='.git' --exclude='gh_repo' ./ gh_repo/
+#     - cd gh_repo
+#     - git add -A
+#     # Git commits only the files that actually differ; skips if nothing changed
+#     - git commit -m "Sync changes from GitLab main (${CI_COMMIT_SHORT_SHA})" || echo "No changes to commit"
+#     - git push origin "$GITHUB_BRANCH"
